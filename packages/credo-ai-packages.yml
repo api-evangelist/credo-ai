@@ -1,0 +1,100 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org/pypi/<pkg>/json, github.com/credo-ai,
+  https://docs.sdk.credo.ai/docs/getting-started
+packages:
+- language: python
+  name: pycredoai
+  official: true
+  registry: pypi
+  url: https://pypi.org/project/pycredoai/
+  install: pip install pycredoai
+  version: 1.2.1
+  published: '2026-08-10'
+  summary: Credo AI SDK
+  docs: https://docs.sdk.credo.ai/docs/intro/
+  source_code: https://github.com/credo-ai/credoai-integration-service
+  note: >-
+    Current first-party Python SDK. Auto-generated from the Credo AI OpenAPI
+    specification; Pydantic v2 models, httpx transport, sync + async clients,
+    Python 3.8-3.12. Client is constructed with base_url + api_key
+    (CREDOAI_BASE_URL / CREDOAI_API_KEY), with timeout, max_retries and
+    verify_ssl options. Published the day before this probe.
+- language: javascript
+  name: '@credo-ai/sdk'
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@credo-ai/sdk
+  install: npm install @credo-ai/sdk
+  version: 1.2.1
+  published: '2026-08-10'
+  note: >-
+    TypeScript/JavaScript sibling of pycredoai, version-locked to it (both at
+    1.2.1, both published 2026-08-10). Only three versions exist on the registry,
+    so the package is new rather than abandoned. The npm manifest carries no
+    repository or homepage field, so the source repo cannot be confirmed from
+    registry metadata.
+- language: python
+  name: credoai-connect
+  official: true
+  registry: pypi
+  url: https://pypi.org/project/credoai-connect/
+  install: pip install credoai-connect
+  version: 0.1.3
+  published: '2023-07-10'
+  summary: 'Credo AI Connect: Integration point for Credo AI Governance Platform'
+  source_code: https://github.com/credo-ai/credoai_connect
+  status: stale
+  note: >-
+    Last release 2023-07-10 — more than three years before this probe, and
+    superseded by pycredoai. The GitHub repo credo-ai/credoai_connect is still
+    updated (2026-07-29) but has been repurposed ("Credo AI playbooks"), so the
+    published artifact and the repository no longer describe the same thing.
+- language: python
+  name: credoai-lens
+  official: true
+  registry: pypi
+  url: https://pypi.org/project/credoai-lens/
+  install: pip install credoai-lens
+  version: 1.1.8
+  published: '2023-05-03'
+  summary: 'Lens: comprehensive assessment framework for AI systems'
+  source_code: https://github.com/credo-ai/credoai_lens
+  status: stale
+  note: >-
+    Open-source model/dataset assessment framework. Last release 2023-05-03; the
+    repo saw commits as recently as 2026-05-23 but nothing has shipped to PyPI in
+    three years. Treat as legacy relative to pycredoai.
+- language: javascript
+  name: '@credoai/governance-hub-mcp'
+  official: true
+  registry: npm
+  url: https://www.npmjs.com/package/@credoai/governance-hub-mcp
+  install: npx -y @credoai/governance-hub-mcp
+  version: null
+  published: null
+  status: gated
+  note: >-
+    The MCP server Credo AI's own Claude Code plugin instructs users to run via
+    npx. registry.npmjs.org/@credoai/governance-hub-mcp returned 404 on
+    2026-08-11, so the package is either private, scoped-restricted or
+    unpublished. version and published are null because they were checked and
+    nothing was there — not because they were skipped. The plugin README directs
+    users to engineering@credo.ai for access credentials, which is consistent
+    with a gated distribution.
+counts:
+  total: 5
+  official: 5
+  with_version: 4
+  stale_over_2_years: 2
+  unresolvable: 1
+excluded:
+- name: '@credo-ts/*'
+  reason: >-
+    The @credo-ts scope on npm (core, didcomm, askar, openid4vc, anoncreds, ...)
+    is the OpenWallet Foundation "Credo" decentralized-identity framework, an
+    unrelated project that shares the name. Excluded deliberately so a name
+    collision does not get credited to Credo AI.
+- name: credo-python (BdVade/credo-python)
+  reason: Third-party, unrelated Credo API; not first-party to Credo AI.

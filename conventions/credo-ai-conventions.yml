@@ -1,0 +1,148 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  openapi/credo-ai-governance-platform-swagger.json,
+  openapi/credo-ai-audit-logs-shadow-ai-openapi.json, live response headers from
+  https://api.credo.ai/, https://docs.sdk.credo.ai/docs/getting-started
+api: Credo AI Governance Platform API (v2)
+media_type:
+  request: application/vnd.api+json
+  response: application/vnd.api+json
+  note: >-
+    Declared in the Swagger document's top-level consumes/produces. The OpenAPI
+    3.0.0 audit-log/Shadow-AI document uses application/json instead, and its
+    /shadow_ai/ai_events/bulk operation explicitly accepts EITHER "JSONAPI format
+    with a 'data' array or simple format with an 'events' array" — the two
+    contracts do not agree on a single wire format.
+standard:
+  name: JSON:API
+  version: '1.0'
+  conformance: partial
+  evidence:
+  - application/vnd.api+json media type
+  - 'top-level {data, included, meta} envelope'
+  - 'resource objects with {id, type, attributes, relationships}'
+  - 'errors[] array with {code, title, detail}'
+  - filter[...] / sort / include query parameters
+  - explicit /relationships/ sub-resources (teams, use case models, policy controls)
+authentication:
+  style: bearer-token
+  header: 'Authorization: Bearer <token>'
+  token_source: >-
+    POST /auth/exchange — exchange a tenant API token for a JWT access token
+    (CredoAIWeb.Auth.TokenController.exchange).
+  scheme_names:
+  - BearerAuth (OpenAPI 3.0.0, http/bearer/JWT)
+  - Bearer (Swagger 2.0, apiKey in header named Authorization)
+  multi_tenant: true
+  tenant_placement: path segment — /api/v2/{tenant}
+  detail: authentication/credo-ai-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  evidence: >-
+    Zero occurrences of "idempoten" or "Idempotency-Key" across both published
+    contracts (882KB Swagger + OpenAPI 3.0.0). No idempotency parameter, header or
+    scope is declared on any of the 311 operations, including the 60 POST
+    operations that create resources and POST /shadow_ai/ai_events/bulk. A client
+    that retries a bulk AI-event ingest after a timeout has no published way to
+    avoid duplicates.
+  note: >-
+    This is why NO type:Idempotency pointer is wired in apis.yml. Recording the
+    absence is the finding.
+pagination:
+  style: cursor
+  request_params:
+  - name: page[after]
+    description: Cursor for the page after this one
+    operations_declaring: 10
+  - name: page[before]
+    description: Cursor for the page before this one
+    operations_declaring: 10
+  - name: page[limit]
+    description: Page size
+    operations_declaring: 10
+  response_fields:
+    location: meta
+    fields:
+    - after
+    - before
+    - limit
+  coverage_gap: >-
+    Only 10 of the 300 Swagger operations declare page[after]/page[before]/
+    page[limit] as parameters, yet many more return a *sResponse schema carrying
+    the meta {after, before, limit} block. The convention is real; the contract
+    under-declares it, so a generated client will not expose paging on most list
+    endpoints.
+filtering:
+  style: 'JSON:API bracket filters'
+  examples:
+  - filter[status]
+  - filter[type]
+  - 'filter[name] / filter[name][type] / filter[name][value]'
+  note: >-
+    The OpenAPI 3.0.0 audit-log document additionally documents per-field filter
+    semantics in prose — resource_name and sub_object_name are case-insensitive
+    partial matches while other string filters are exact.
+sorting:
+  param: sort
+  operations_declaring: 13
+sparse_fields_and_expansion:
+  param: include
+  operations_declaring: 5
+  style: 'JSON:API compound documents — related resources returned under included[]'
+  sparse_fieldsets: not-declared
+error_envelope:
+  shape: '{"errors": [{"code": <integer>, "title": <string>, "detail": <string>}]}'
+  rfc9457: false
+  content_type: application/vnd.api+json
+  note: >-
+    JSON:API error objects, not RFC 9457 problem+json. `code` is documented as "an
+    application-specific error code, expressed as a string value" but typed as
+    integer — a contract self-contradiction present in every error definition.
+  catalog: errors/credo-ai-problem-types.yml
+request_tracing:
+  header: x-request-id
+  direction: response
+  observed: '2026-08-11'
+  example_probe: https://api.credo.ai/api/v2/credoai/industries
+  note: >-
+    Returned on every response including 401s. Not declared in either contract, so
+    a client reading the spec would not know to log it.
+rate_limit_signaling:
+  headers_published: none
+  observed_headers: none
+  detail: rate-limits/credo-ai-rate-limits.yml
+versioning:
+  style: path
+  current: v2
+  path_prefix: /api/v2/
+  spec_versions:
+    swagger_document: no version field in info
+    openapi_document: 2.0.0
+  detail: lifecycle/credo-ai-lifecycle.yml
+security_headers_observed:
+  strict-transport-security: max-age=63072000; includeSubDomains; preload
+  x-content-type-options: nosniff
+  x-frame-options: DENY
+  content-security-policy: "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval'"
+  referrer-policy: strict-origin-when-cross-origin
+  access-control-allow-origin: '*'
+client_defaults:
+  source: https://docs.sdk.credo.ai/docs/getting-started
+  timeout_seconds: 30.0
+  max_retries: 3
+  verify_ssl: true
+  env_vars:
+  - CREDOAI_BASE_URL
+  - CREDOAI_API_KEY
+  note: >-
+    Retry behaviour is an SDK-side default (max_retries=3). No server-side retry,
+    backoff or Retry-After contract is published, and with no idempotency key a
+    blind retry of a POST is unsafe.
+cross_links:
+  authentication: authentication/credo-ai-authentication.yml
+  errors: errors/credo-ai-problem-types.yml
+  lifecycle: lifecycle/credo-ai-lifecycle.yml
+  rate_limits: rate-limits/credo-ai-rate-limits.yml
+  data_model: data-model/credo-ai-data-model.yml

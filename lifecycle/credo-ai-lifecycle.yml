@@ -1,0 +1,104 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  openapi/credo-ai-governance-platform-swagger.json,
+  openapi/credo-ai-audit-logs-shadow-ai-openapi.json, plus probes of
+  www.credo.ai, knowledge.credo.ai and status.credo.ai on 2026-08-11
+versioning:
+  style: path
+  current_major: v2
+  path_prefix: /api/v2/
+  tenant_segment: /api/v2/{tenant}
+  spec_version_field:
+    swagger_document: absent — info has title + description only, no version
+    openapi_document: 2.0.0
+  policy_published: false
+  note: >-
+    The 300-operation Swagger document carries no info.version at all, so a
+    consumer cannot tell one harvest of it from another. The 11-operation OpenAPI
+    3.0.0 document does declare version 2.0.0.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations:
+  - method: POST
+    path: /use_cases/{use_case_id}/custom_fields
+    operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.create
+  - method: PATCH
+    path: /use_cases/{use_case_id}/custom_fields/{name}
+    operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.update
+  - method: DELETE
+    path: /use_cases/{use_case_id}/custom_fields/{name}
+    operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.delete
+  deprecated_count: 3
+  note: >-
+    Three operations carry `deprecated: true` in the Swagger document — the
+    name-keyed use-case custom-field operations, superseded by the id-keyed
+    /custom_fields/{id} operations. No sunset date, no replacement pointer, and no
+    written deprecation policy anywhere on the public site. The word "Sunset" does
+    not appear in either contract.
+status_page:
+  published: false
+  probed:
+  - url: https://status.credo.ai/
+    status: 0
+    note: host does not resolve (NXDOMAIN)
+  - url: https://www.credo.ai/status
+    status: 404
+  - url: https://api.credo.ai/healthz
+    status: 200
+    body: OK
+    note: >-
+      An unauthenticated liveness endpoint exists and answers, but it is a health
+      probe, not a status page — no incident history, no component breakdown, no
+      subscribe. Not wired as a StatusPage pointer.
+  note: >-
+    No StatusPage pointer is emitted. Credo AI publishes no public status or
+    incident page for an enterprise governance platform its customers depend on
+    for audit evidence.
+sla:
+  published: false
+  note: >-
+    No public SLA. Terms at https://www.credo.ai/legal/terms-conditions; uptime and
+    support commitments are contracted per enterprise agreement.
+changelog:
+  published: partial
+  url: https://knowledge.credo.ai/release-notes
+  status: 200
+  readable: false
+  note: >-
+    The route exists and returns 200 (a sibling path /whats-new returns 404, so
+    routing is real), but knowledge.credo.ai is a HubSpot knowledge base that
+    renders client-side behind a customer session — every path returns the same
+    ~92KB shell whose only body text is "Knowledge Center" and a copyright line.
+    No dated entry could be read, so NO ChangeLog pointer is emitted and no
+    changelog/ artifact is written rather than inventing entries.
+  package_release_history_available:
+  - https://pypi.org/project/pycredoai/
+  - https://www.npmjs.com/package/@credo-ai/sdk
+  - https://github.com/credo-ai/credoai-plugins/releases.atom
+support:
+  contact_page: https://www.credo.ai/contact
+  api_support_email: support@credo.ai
+  api_support_source: 'info.contact in openapi/credo-ai-audit-logs-shadow-ai-openapi.json'
+  security_email: security@credo.ai
+  engineering_email: engineering@credo.ai
+environments_source: 'servers[] in openapi/credo-ai-audit-logs-shadow-ai-openapi.json'
+environments:
+- id: production
+  url: https://api.credo.ai/api/v2/{tenant}
+  note: 'tenant default is empty — "contact support@credo.ai to get yours"'
+- id: qa
+  url: https://api.credo-qa.com/api/v2/{tenant}
+  note: >-
+    A Quality Assurance server is shipped in the PUBLIC contract with a
+    preconfigured tenant of 'credoai'. It is Credo AI's own QA environment, not a
+    customer sandbox, and publishing it in a public spec is worth a provider note.
+- id: local
+  url: http://localhost:4000/api/v2/{tenant}
+  note: developer loopback, left in the published contract
+- id: on-premise
+  url: '{custom_base_url}/api/v2/{tenant}'
+  note: self-hosted deployments supply their own base

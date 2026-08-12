@@ -1,0 +1,189 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  mcp/credo-ai-mcp.yml (tools transcribed from
+  github.com/credo-ai/credoai-plugins) bound against
+  openapi/credo-ai-governance-platform-swagger.json and
+  openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+surfaces:
+  openapi:
+  - file: openapi/credo-ai-governance-platform-swagger.json
+    spec: Swagger 2.0
+    base: https://api.credo.ai/api/v2/{tenant}
+    operations: 300
+    gated: true
+    note: >-
+      The document itself is public and unauthenticated at
+      https://api.credo.ai/swagger.json; every operation it describes returns 401
+      without a tenant Bearer token.
+  - file: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+    spec: OpenAPI 3.0.0
+    base: https://api.credo.ai/api/v2/{tenant}
+    operations: 11
+    gated: true
+  graphql: null
+  mcp:
+    name: governance-hub
+    transport: stdio
+    package: '@credoai/governance-hub-mcp'
+    gated: true
+    note: >-
+      npm returned 404 on 2026-08-11; tools/list could not be introspected, so no
+      tool inputSchema is available and every binding below is by name and
+      documented semantics, not by observed schema.
+headline_finding: >-
+  The MCP server and the REST API are NOT two projections of one core. The
+  governance-hub MCP reads the CANONICAL, cross-tenant Credo AI Governance
+  Intelligence catalog — the risk/control/policy-requirement taxonomy and the
+  maturity framework Credo AI authors — while the v2 REST API operates on a
+  SINGLE CUSTOMER TENANT's instantiation of that taxonomy. Every MCP tool is
+  therefore mcp_only, and 300 of 311 REST operations are rest_only. An agent
+  cannot reach the catalog over REST, and cannot write a use case over MCP.
+crosswalk:
+- tool: governance_query
+  category: catalog-search
+  rest: []
+  binding: none
+  confidence: high
+  note: >-
+    Nearest REST neighbours are CredoAIWeb.API.V2.PolicyControlController.index,
+    CredoAIWeb.API.V2.RiskScenarioController.index and
+    CredoAIWeb.API.V2.RiskTypeController.index, but those list the controls and
+    risk scenarios already attached to the caller's tenant. They are not a
+    semantic search over the master catalog and cannot substitute.
+- tool: get_entities
+  category: catalog-read
+  rest: []
+  binding: none
+  confidence: high
+  note: >-
+    Tenant-scoped analogues exist
+    (CredoAIWeb.API.V2.PolicyControlController.show,
+    CredoAIWeb.API.V2.RiskScenarioController.show,
+    CredoAIWeb.API.V2.PolicyPackController.show) but they resolve tenant IDs, not
+    catalog result_ids returned by governance_query.
+- tool: get_catalog_overview
+  category: capability-probe
+  rest: []
+  binding: none
+  confidence: high
+  note: >-
+    A connection/feature probe with no REST equivalent. The closest REST call is
+    CredoAIWeb.API.V2.TenantInfoController.show, which describes the tenant rather
+    than the catalog.
+- tool: get_maturity_framework
+  category: framework
+  rest: []
+  binding: none
+  confidence: high
+  note: >-
+    Pro-entitled and metered. The maturity framework is not exposed anywhere in
+    either OpenAPI document.
+- tool: get_benchmarks
+  category: benchmarks
+  rest: []
+  binding: none
+  confidence: high
+  note: Pro-entitled and metered. No REST equivalent in either OpenAPI document.
+mcp_only:
+- tool: governance_query
+  reason: >-
+    Semantic/vector search over the cross-tenant Governance Intelligence catalog.
+    No public REST operation exposes the catalog.
+- tool: get_entities
+  reason: Resolves catalog record IDs, which the tenant REST API does not address.
+- tool: get_catalog_overview
+  reason: MCP-session capability probe with no REST analogue.
+- tool: get_maturity_framework
+  reason: Entitlement-gated framework document; absent from both OpenAPI contracts.
+- tool: get_benchmarks
+  reason: Entitlement-gated benchmark corpus; absent from both OpenAPI contracts.
+rest_only_summary:
+  total_rest_operations: 311
+  reachable_via_mcp: 0
+  note: >-
+    Listed by tag rather than by 311 rows. Not one write path in the platform is
+    agent-reachable through the published MCP server.
+  by_tag:
+  - tag: use_cases
+    operations: 24
+  - tag: vendors
+    operations: 23
+  - tag: models
+    operations: 27
+  - tag: use_case_controls
+    operations: 14
+  - tag: policy_packs
+    operations: 13
+  - tag: questionnaires
+    operations: 13
+  - tag: risks
+    operations: 12
+  - tag: fields
+    operations: 12
+  - tag: triggers_and_actions
+    operations: 12
+  - tag: use_case_questionnaires
+    operations: 12
+  - tag: use_case_reviews
+    operations: 12
+  - tag: policy_controls
+    operations: 11
+  - tag: entity_controls
+    operations: 10
+  - tag: use_case_reports
+    operations: 8
+  - tag: tasks
+    operations: 7
+  - tag: teams
+    operations: 7
+  - tag: comment_threads
+    operations: 7
+  - tag: integrations
+    operations: 7
+  - tag: user
+    operations: 11
+  - tag: users
+    operations: 4
+  - tag: alerts
+    operations: 5
+  - tag: workflow_stages
+    operations: 5
+  - tag: use_case_scheduled_reviews
+    operations: 5
+  - tag: use_case_policy_packs
+    operations: 5
+  - tag: use_case_custom_fields
+    operations: 5
+  - tag: use_case_risk_scenarios
+    operations: 5
+  - tag: entity_risk_scenarios
+    operations: 5
+  - tag: sources
+    operations: 4
+  - tag: entity_policy_packs
+    operations: 4
+  - tag: entity_risk_scenario_controls
+    operations: 4
+  - tag: other
+    operations: 3
+  - tag: 'Shadow AI (OpenAPI 3.0)'
+    operations: 7
+  - tag: 'Audit Logs (OpenAPI 3.0)'
+    operations: 4
+  - tag: remaining single-operation tags
+    operations: 6
+  - tag: webhooks
+    operations: 0
+    note: >-
+      Declared as a tag in the Swagger document with a description ("Operations
+      related to webhooks") but carrying ZERO operations. A declared-but-empty
+      tag, not an event surface.
+coverage:
+  mcp_tools: 5
+  mcp_tools_bound_to_rest: 0
+  mcp_only: 5
+  rest_operations: 311
+  rest_only: 311
+  overlap: 0
+  overlap_percent: 0.0

@@ -1,0 +1,144 @@
+generated: '2026-08-11'
+method: probed
+source: live GET probes on 2026-08-11
+summary:
+  hosts_probed: 5
+  paths_probed_per_host: 7
+  documents_found_on_provider_hosts: 0
+  pointer_emitted: false
+  note: >-
+    Every /.well-known/* path 404s on every credo.ai host. No WellKnown and no
+    SecurityTxt pointer is wired into apis.yml, because a recorded absence is not
+    a presence. This file exists to record that the probe RAN and came back empty,
+    which is different from not having been checked.
+hosts:
+- host: www.credo.ai
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 200
+    file: ../llms/credo-ai-llms.txt
+    content_type: text/plain; charset=utf-8
+    bytes: 5635
+    note: >-
+      Real llms.txt — 31 linked pages with descriptions. Marketing/solution pages
+      only; it names no developer, API, SDK or documentation surface.
+- host: api.credo.ai
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  note: >-
+    All 404s here are genuine JSON API 404s
+    ({"errors":[{"code":404,"title":"Not found"}]}), not an SPA catch-all.
+- host: app.credo.ai
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: knowledge.credo.ai
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: docs.sdk.credo.ai
+  paths:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+third_party_identity_host:
+- host: credoai-cs.us.auth0.com
+  first_party: false
+  paths:
+  - path: /.well-known/openid-configuration
+    status: 200
+    bytes: 2705
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    bytes: 2705
+  issuer: https://credoai-cs.us.auth0.com/
+  authorization_endpoint: https://credoai-cs.us.auth0.com/authorize
+  token_endpoint: https://credoai-cs.us.auth0.com/oauth/token
+  scopes_supported:
+  - openid
+  - profile
+  - offline_access
+  - name
+  - given_name
+  - family_name
+  - nickname
+  - email
+  - email_verified
+  - picture
+  - created_at
+  - identities
+  - phone
+  - address
+  discovered_via: >-
+    Auth0 logout link embedded in the Credo AI Knowledge Center
+    (client_id wXZAjiUGFuX2BntlxYeJwLz0Enkplsp5).
+  note: >-
+    This IS a real OIDC discovery document for a tenant Credo AI controls, but it
+    is served by Auth0, not by a credo.ai host, and the scopes are the stock Auth0
+    OIDC profile scopes rather than an API permission model. It governs the
+    Knowledge Center / app login, NOT the api.credo.ai v2 contract, which
+    authenticates with a Bearer JWT exchanged from a tenant API token via
+    POST /auth/exchange. Recorded as evidence; deliberately NOT counted as Credo
+    AI publishing a well-known surface, and no WellKnown pointer is emitted.

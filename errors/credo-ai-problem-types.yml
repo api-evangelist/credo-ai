@@ -1,0 +1,133 @@
+generated: '2026-08-11'
+method: derived
+source: >-
+  openapi/credo-ai-governance-platform-swagger.json,
+  openapi/credo-ai-audit-logs-shadow-ai-openapi.json, plus live unauthenticated
+  probes of https://api.credo.ai/ on 2026-08-11
+format: json-api
+rfc9457: false
+content_type: application/vnd.api+json
+envelope:
+  shape: '{"errors": [{"code": <integer>, "title": <string>, "detail": <string>}]}'
+  required:
+  - code
+  - title
+  - detail
+  array: true
+  note: >-
+    JSON:API error objects. The Swagger document types `code` as integer while
+    describing it as "expressed as a string value" — the description is inherited
+    JSON:API boilerplate and the integer type is what the API actually returns.
+code_ranges:
+  source: >-
+    components.schemas.Error in
+    openapi/credo-ai-audit-logs-shadow-ai-openapi.json — "Domain-specific error
+    code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation),
+    9000-9999 (internal)"
+  ranges:
+  - range: '404'
+    class: not-found
+  - range: 1000-1999
+    class: authentication / authorization
+  - range: 2000-2999
+    class: validation / business rule
+  - range: 9000-9999
+    class: internal
+observed_codes:
+- code: 404
+  http_status: 404
+  title: Not found
+  detail: not found
+  observed_at: https://api.credo.ai/openapi.json
+  method: probed
+- code: 1000
+  http_status: 401
+  title: Unauthenticated
+  detail: User is not authenticated, maybe invalid or expired token.
+  observed_at: https://api.credo.ai/api/v2/credoai/industries
+  method: probed
+  remediation: >-
+    Exchange a tenant API token for a JWT via POST /auth/exchange and send it as
+    Authorization: Bearer <token>.
+- code: 2217
+  http_status: 400
+  title: Model in use
+  detail: This model cannot be deleted because it is part of an Use Case.
+  source: 'components.schemas.Error example (published, not observed)'
+  method: derived
+  remediation: >-
+    Detach the model from every use case (DELETE
+    /use_cases/{use_case_id}/relationships/models) before deleting it.
+problem_types:
+- http_status: 400
+  schema: BadRequestError
+  title: Bad Request
+  operations: 4
+  code_range: 2000-2999
+- http_status: 400
+  schema: DatabaseError
+  title: Bad Request (database)
+  operations: 2
+  note: A persistence failure surfaced to the caller as a 400 rather than a 5xx.
+- http_status: 400
+  schema: UseCaseStakeholderAlreadyExistError
+  title: Use case stakeholder already exists
+  operations: 1
+- http_status: 400
+  schema: UseCaseRiskAlreadyExistError
+  title: Use case risk already exists
+  operations: 1
+- http_status: 401
+  schema: AuthError
+  title: Unauthorized
+  operations: 300
+  code_range: 1000-1999
+  note: >-
+    Declared on all 300 Swagger operations — the most consistently documented
+    response in the contract.
+- http_status: 403
+  schema: ForbiddenError
+  title: Forbidden
+  operations: 170
+- http_status: 404
+  schema: NotFoundError
+  title: Not Found
+  operations: 196
+- http_status: 422
+  schema: UnprocessableEntityError
+  title: Unprocessable entity
+  operations: 4
+- http_status: 207
+  schema: UseCaseImportResponse
+  title: Partial success in importing use cases
+  operations: 1
+  note: >-
+    Multi-status partial-failure envelope on POST /use_cases/import. The only
+    partial-success contract in the API.
+coverage_gaps:
+- finding: no-5xx-declared
+  detail: >-
+    Neither contract declares a single 5xx response on any of the 311 operations,
+    despite documenting a 9000-9999 "internal" error-code range. A generated client
+    has no typed server-error path.
+- finding: 401-missing-from-openapi3
+  detail: >-
+    The OpenAPI 3.0.0 audit-log/Shadow-AI document declares 403 on all 11
+    operations but never 401, while the live API returns 401 with code 1000 to an
+    unauthenticated caller. The 3.0 contract does not describe the response the
+    server actually sends.
+- finding: 400-under-declared
+  detail: >-
+    Only 8 of 300 Swagger operations declare a 400, and only 4 declare a 422, yet
+    60 operations accept request bodies. Validation failures are largely
+    undocumented per-operation.
+- finding: no-error-code-registry
+  detail: >-
+    The numeric code ranges are published but no enumerated registry of codes
+    exists on any public page. Codes 404, 1000 and 2217 below are the only three
+    that can be evidenced.
+counts:
+  distinct_error_schemas: 8
+  operations_with_4xx: 300
+  operations_with_5xx: 0
+  evidenced_numeric_codes: 3

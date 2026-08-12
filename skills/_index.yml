@@ -1,0 +1,116 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://github.com/credo-ai/credoai-plugins —
+  plugins/governance-intelligence-pro/skills/*/SKILL.md, fetched verbatim from
+  raw.githubusercontent.com/credo-ai/credoai-plugins/main on 2026-08-11
+provenance: >-
+  PROVIDER-PUBLISHED. These eleven Agent Skills are Credo AI's own, shipped in its
+  public Claude Code plugin marketplace (marketplace.json owner "Credo AI",
+  engineering@credo.ai; plugin governance-intelligence-pro v2.5.0). Nothing here
+  was generated or derived by API Evangelist — every file is a verbatim copy.
+marketplace:
+  name: credoai-plugins
+  install: /plugin marketplace add credo-ai/credoai-plugins
+  plugin: governance-intelligence-pro
+  plugin_version: 2.5.0
+  owner: Credo AI <engineering@credo.ai>
+  repository: https://github.com/credo-ai/credoai-plugins
+  license: per-plugin LICENSE file
+grounding:
+  api: mcp/credo-ai-mcp.yml
+  note: >-
+    These skills are grounded in the governance-hub MCP server, NOT in the
+    api.credo.ai v2 REST contract. Eight of eleven run standalone; aigov-plan and
+    aigov-audit are richer with the MCP connected; aigov-maturity hard-gates on it
+    and refuses to run without it. No skill calls a documented REST operationId,
+    which is why the tool crosswalk records zero overlap.
+skills:
+- name: aigov-onboarding
+  file: credo-ai-aigov-onboarding.md
+  requires_mcp: false
+  summary: >-
+    One-time setup capturing org identity, tool inventory plus interaction
+    protocol, and governance posture into ~/.claude/credoai/ or ./docs/credoai/.
+    Resumable.
+- name: aigov-intake
+  file: credo-ai-aigov-intake.md
+  requires_mcp: false
+  summary: >-
+    Guided interview for a specific AI system, producing a structured Governance
+    Context Brief that feeds aigov-plan.
+- name: aigov-plan
+  file: credo-ai-aigov-plan.md
+  requires_mcp: partial
+  summary: >-
+    Risk-scored governance plan with a prioritized control roadmap and compliance
+    obligations. Severity x Likelihood (1-5 each); Critical 20-25, High 12-19,
+    Medium 6-11, Low 1-5. Catalog-grounded when the MCP is connected.
+- name: aigov-plan-viz
+  file: credo-ai-aigov-plan-viz.md
+  requires_mcp: false
+  summary: >-
+    Self-contained branded HTML dashboard for a plan — risk matrix, control swim
+    lanes, compliance checklist.
+- name: aigov-evidence
+  file: credo-ai-aigov-evidence.md
+  requires_mcp: false
+  summary: >-
+    Two-pass evidence collection categorizing each control Adequate / Partial /
+    Missing along sufficiency, recency, scope and verifiability, at Lenient /
+    Standard / Audit-ready rigor.
+- name: aigov-audit
+  file: credo-ai-aigov-audit.md
+  requires_mcp: partial
+  summary: >-
+    Formal audit report — per-control effectiveness, residual risk, compliance
+    posture, and catalog drift against the plan.
+- name: aigov-audit-viz
+  file: credo-ai-aigov-audit-viz.md
+  requires_mcp: false
+  summary: >-
+    Executive/regulator-ready HTML dashboard for an audit — initial vs residual
+    risk matrices and a compliance scoreboard.
+- name: aigov-maturity
+  file: credo-ai-aigov-maturity.md
+  requires_mcp: true
+  summary: >-
+    Rapid Maturity Assessment of the organization's governance PROGRAM against the
+    Credo AI maturity framework — five bands, six domains, four-criteria ladders.
+    Hard-gated on get_maturity_framework; no degraded fallback.
+- name: aigov-maturity-viz
+  file: credo-ai-aigov-maturity-viz.md
+  requires_mcp: false
+  summary: >-
+    Board/workshop-grade HTML deliverable for a maturity assessment in the Credo AI
+    marketing design register.
+- name: aigov-registry
+  file: credo-ai-aigov-registry.md
+  requires_mcp: false
+  summary: >-
+    Roster of AI systems under governance with derived lifecycle state;
+    pre-registers unassessed systems and syncs per-system to the Governance Hub.
+- name: aigov-share
+  file: credo-ai-aigov-share.md
+  requires_mcp: false
+  summary: >-
+    Publishes a plan, audit or maturity dashboard to the Governance Insights Hub
+    and returns a permanent shareable URL plus a delete key.
+  allowed_tools:
+  - Read
+  - Bash
+  - Glob
+  - Write
+counts:
+  total: 11
+  provider_published: 11
+  generated_by_api_evangelist: 0
+  requires_mcp_hard: 1
+  requires_mcp_partial: 2
+evidence:
+- url: https://api.github.com/repos/credo-ai/credoai-plugins/git/trees/HEAD?recursive=1
+  status: 200
+- url: https://raw.githubusercontent.com/credo-ai/credoai-plugins/main/.claude-plugin/marketplace.json
+  status: 200
+- url: https://raw.githubusercontent.com/credo-ai/credoai-plugins/main/plugins/governance-intelligence-pro/skills/aigov-plan/SKILL.md
+  status: 200

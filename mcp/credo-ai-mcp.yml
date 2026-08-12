@@ -1,0 +1,110 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://github.com/credo-ai/credoai-plugins —
+  plugins/governance-intelligence-pro/CLAUDE.md and README.md
+server:
+  name: governance-hub
+  product_name: Governance Intelligence Pro MCP
+  status: published-gated
+  transport: stdio
+  hosted_remote_endpoint: null
+  distribution: npm
+  package: '@credoai/governance-hub-mcp'
+  launch: npx -y @credoai/governance-hub-mcp
+  config_example: |
+    {
+      "mcpServers": {
+        "governance-hub": {
+          "command": "npx",
+          "args": ["-y", "@credoai/governance-hub-mcp"]
+        }
+      }
+    }
+  access: >-
+    "Contact engineering@credo.ai for access credentials." The npm registry
+    returned 404 for @credoai/governance-hub-mcp on 2026-08-11, so the package is
+    not publicly resolvable and tools/list could not be introspected live. The
+    tool set below is transcribed from Credo AI's own published plugin
+    documentation, not invented.
+  entitlement: >-
+    get_maturity_framework and get_benchmarks are described as Pro-entitled and
+    metered, behind the backend's enableMaturityAssessment flag; the aigov-maturity
+    skill hard-gates on them and refuses to run with no degraded fallback
+    (feature_disabled / entitlement_required are named error conditions).
+tools:
+- name: get_catalog_overview
+  description: >-
+    Confirm MCP connection and check whether vector search over the Credo AI
+    Governance Intelligence catalog is available.
+  input_schema: unavailable-auth-gated
+  used_by:
+  - aigov-plan
+- name: governance_query
+  description: >-
+    Semantic/keyword search across the Governance Intelligence catalog for risks,
+    controls and policy requirements.
+  parameters_documented:
+  - query_text
+  input_schema: unavailable-auth-gated
+  used_by:
+  - aigov-plan
+  - aigov-audit
+- name: get_entities
+  description: >-
+    Fetch full catalog records for the top matches returned by governance_query.
+    Required before scoring — the plugin documentation warns that truncated
+    descriptions produce wrong risk scores.
+  parameters_documented:
+  - result_ids
+  input_schema: unavailable-auth-gated
+  used_by:
+  - aigov-plan
+  - aigov-audit
+- name: get_maturity_framework
+  description: >-
+    The versioned Credo AI maturity framework — five bands (Exploring through
+    Speed & Scale), six domains (Risk & Governance, Use Case Inventory, Policy &
+    Compliance, Executive Sponsorship, Technical Controls, Vendor & Third-Party
+    AI), four-criteria ladders per domain, scoring rules and the canonical report
+    structure. Returns framework.version, which assessments must record.
+  input_schema: unavailable-auth-gated
+  entitlement: pro-metered
+  used_by:
+  - aigov-maturity
+- name: get_benchmarks
+  description: >-
+    Vetted, sourced benchmark claims by industry segment. An empty response means
+    the benchmarks section is omitted — the skill is explicitly instructed never
+    to invent statistics.
+  parameters_documented:
+  - industry
+  input_schema: unavailable-auth-gated
+  entitlement: pro-metered
+  used_by:
+  - aigov-maturity
+tool_count: 5
+probes:
+- url: https://registry.npmjs.org/@credoai/governance-hub-mcp
+  status: 404
+  method: GET
+- url: https://api.credo.ai/mcp
+  status: 404
+  method: POST tools/list
+- url: https://api.credo.ai/api/v2/credoai/mcp
+  status: 404
+  method: POST tools/list
+- url: https://mcp.credo.ai/
+  status: 0
+  note: host does not resolve (NXDOMAIN)
+related_surfaces:
+  agent_skills: skills/_index.yml
+  publishing_backend: https://backend-development-736b.up.railway.app/api/published-plans
+  publishing_frontend: https://frontend-development-3133.up.railway.app/view/{id}
+  signup_portal: https://govportal.lab.credoai.net
+  note: >-
+    The aigov-share skill publishes governance dashboards to a Railway-hosted
+    "Governance Insights Hub" whose backend and frontend hostnames still carry
+    -development- and .up.railway.app, and whose signup portal sits on
+    credoai.net/lab rather than credo.ai. Recorded verbatim from Credo AI's own
+    CLAUDE.md; these are not production-shaped hostnames for a shipped feature.

@@ -1,0 +1,1380 @@
+generated: '2026-08-11'
+method: derived
+source: openapi/credo-ai-governance-platform-swagger.json (definitions ending in *Resource) + openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+notation: JSON:API resource graph. relationships[] merges the declared relationships block with *_id /
+  *_ids reference fields found in attributes.
+id_format:
+  style: opaque string
+  example: 64YUaLWSviHgibJaRWr3ZE
+  note: 22-character base62-looking identifiers; no type prefix, so an id alone does not say what it points
+    at.
+core_entities:
+- UseCase
+- Model
+- Vendor
+- PolicyPack
+- PolicyControl
+- RiskScenario
+- RiskType
+- Questionnaire
+- Evidence
+- Task
+- Report
+- Team
+- User
+- Trigger
+- Action
+- AuditLog
+- AIEvent
+- AITool
+hubs:
+- entity: UseCase
+  relationship_count: 20
+  note: The spine of the model. Everything — models, vendors, policy packs, questionnaires, risk scenarios,
+    reviews, reports, stakeholders, alerts, domains, custom fields, workflow stage — hangs off a use case.
+- entity: Task
+  relationship_count: 9
+  note: Cross-cuts use cases, models, vendors, controls, reviews, questionnaire sections, users and teams.
+link_entities:
+- entity: ModelVendorLink
+  joins:
+  - Model
+  - Vendor
+- entity: UseCaseVendorLink
+  joins:
+  - UseCase
+  - Vendor
+- entity: UseCaseRiskControlLink
+  joins:
+  - UseCase
+  - Risk
+  - Control
+versioned_entities:
+  note: Three governance artifacts use an explicit base/version split — a *Base holds identity and a *Version
+    holds published content, linked by base_id, with latest_published on the base.
+  entities:
+  - PolicyControlBase / PolicyControlVersion
+  - PolicyPackBase / PolicyPackVersion
+  - QuestionnaireBase / QuestionnaireVersion
+  - Model / ModelVersion
+polymorphism:
+  entity_id: Many resources carry both a specific parent id (use_case_id / model_id / vendor_id) AND a
+    generic entity_id, and a parallel /entities/{entity_id}/... path family exists. UseCase, Model and
+    Vendor are three concrete faces of one polymorphic Entity, and entity_type_ids appears on CustomField,
+    PolicyControl, PolicyControlBase, CustomPolicyPackBase and RiskScenario to say which faces a definition
+    applies to.
+  entity_type_endpoint: GET /entity_types
+undocumented_surface_hint:
+  field: TenantInfoResource.webhook_app_id
+  note: Tenant info exposes a webhook_app_id, and the Swagger document declares a `webhooks` tag — but
+    the tag carries ZERO operations and no webhook resource, subscription or event schema exists anywhere
+    in either contract. A webhook capability is implied by the data model and unreachable through the
+    published API.
+counts:
+  resource_schemas: 84
+  total_definitions: 346
+  entities_with_relationships: 64
+entities:
+- name: Action
+  schema: ActionResource
+  json_api_type_example: action
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 7
+  relationships:
+  - name: trigger
+    kind: belongs_to
+    via: trigger_id
+- name: Alert
+  schema: AlertResource
+  json_api_type_example: alerts
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: evidence
+    kind: has_one
+    via: relationships
+  - name: governance_bound
+    kind: has_one
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: evidence
+    kind: belongs_to
+    via: evidence_id
+  - name: governance_bound
+    kind: belongs_to
+    via: governance_bound_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: ApiTokenCreated
+  schema: ApiTokenCreatedResource
+  json_api_type_example: api_tokens
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 4
+- name: ApiToken
+  schema: ApiTokenResource
+  json_api_type_example: api_tokens
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+- name: AuditLog
+  schema: AuditLogResource
+  json_api_type_example: audit_logs
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 16
+  relationships:
+  - name: action
+    kind: belongs_to
+    via: action_id
+  - name: resource
+    kind: belongs_to
+    via: resource_id
+  - name: sub_object
+    kind: belongs_to
+    via: sub_object_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: Comment
+  schema: CommentResource
+  json_api_type_example: comments
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 5
+  relationships:
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: comment_thread
+    kind: belongs_to
+    via: comment_thread_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: CommentThread
+  schema: CommentThreadResource
+  json_api_type_example: comment_threads
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 13
+  relationships:
+  - name: comments
+    kind: has_many
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: parent_entity_control
+    kind: belongs_to
+    via: parent_entity_control_id
+  - name: parent_q_section
+    kind: belongs_to
+    via: parent_q_section_id
+  - name: parent_use_case_review
+    kind: belongs_to
+    via: parent_use_case_review_id
+  - name: resource
+    kind: belongs_to
+    via: resource_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: ControlFile
+  schema: ControlFileResource
+  json_api_type_example: use_case_control_files
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 9
+  relationships:
+  - name: control
+    kind: belongs_to
+    via: control_id
+- name: ControlsAssignment
+  schema: ControlsAssignmentResource
+  json_api_type_example: control_assignments
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: control
+    kind: has_many
+    via: control_ids
+  - name: team
+    kind: belongs_to
+    via: team_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: CustomField
+  schema: CustomFieldResource
+  json_api_type_example: custom_fields
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: entity_type
+    kind: has_many
+    via: entity_type_ids
+- name: CustomPolicyPackBase
+  schema: CustomPolicyPackBaseResource
+  json_api_type_example: policy_pack_bases
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: latest_published
+    kind: has_one
+    via: relationships
+  - name: versions
+    kind: has_many
+    via: relationships
+  - name: entity_type
+    kind: has_many
+    via: entity_type_ids
+- name: Domain
+  schema: DomainResource
+  json_api_type_example: domains
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 6
+- name: EntityControlCookbook
+  schema: EntityControlCookbookResource
+  json_api_type_example: use_case_control_cookbooks
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 1
+- name: EntityControlFile
+  schema: EntityControlFileResource
+  json_api_type_example: entity_control_files
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 9
+  relationships:
+  - name: control
+    kind: belongs_to
+    via: control_id
+- name: EntityControl
+  schema: EntityControlResource
+  json_api_type_example: entity_controls
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+  relationships:
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: EntityControlsAssignment
+  schema: EntityControlsAssignmentResource
+  json_api_type_example: control_assignments
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: control
+    kind: has_many
+    via: control_ids
+  - name: team
+    kind: belongs_to
+    via: team_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: EntityPolicyPack
+  schema: EntityPolicyPackResource
+  json_api_type_example: entity_policy_packs
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 7
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+- name: EntityRiskClassification
+  schema: EntityRiskClassificationResource
+  json_api_type_example: entities
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 9
+  relationships:
+  - name: risk_classification
+    kind: belongs_to
+    via: risk_classification_id
+  - name: risk_classification_set_by_user
+    kind: belongs_to
+    via: risk_classification_set_by_user_id
+- name: EntityRiskScenarioControl
+  schema: EntityRiskScenarioControlResource
+  json_api_type_example: entity_risk_scenario_controls
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+- name: EntityRiskScenario
+  schema: EntityRiskScenarioResource
+  json_api_type_example: entity_risk_scenarios
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 13
+  relationships:
+  - name: risk_control_links
+    kind: has_many
+    via: relationships
+  - name: risk_scenario
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: risk_scenario
+    kind: belongs_to
+    via: risk_scenario_id
+  - name: risk_type
+    kind: has_many
+    via: risk_type_ids
+- name: EntitySectionsAssignment
+  schema: EntitySectionsAssignmentResource
+  json_api_type_example: section_assignments
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: section
+    kind: has_many
+    via: section_ids
+  - name: team
+    kind: belongs_to
+    via: team_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: EntityType
+  schema: EntityTypeResource
+  json_api_type_example: entity_types
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 7
+- name: Evidence
+  schema: EvidenceResource
+  json_api_type_example: evidences
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 13
+  relationships:
+  - name: asset_links
+    kind: has_many
+    via: relationships
+  - name: model
+    kind: has_one
+    via: relationships
+  - name: policy_pack_links
+    kind: has_many
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: EvidenceType
+  schema: EvidenceTypeResource
+  json_api_type_example: evidence_types
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 2
+- name: Industry
+  schema: IndustryResource
+  json_api_type_example: industries
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 2
+- name: Integration
+  schema: IntegrationResource
+  json_api_type_example: integrations
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 4
+  relationships:
+  - name: use_case_sync_issues
+    kind: has_many
+    via: relationships
+- name: Me
+  schema: MeResource
+  json_api_type_example: me
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 14
+  relationships:
+  - name: favorite_use_cases
+    kind: has_many
+    via: relationships
+  - name: recently_visited_use_cases
+    kind: has_many
+    via: relationships
+  - name: setting
+    kind: has_one
+    via: relationships
+- name: ModelCustomField
+  schema: ModelCustomFieldResource
+  json_api_type_example: model_custom_fields
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 5
+  relationships:
+  - name: custom_field
+    kind: has_one
+    via: relationships
+  - name: custom_field
+    kind: belongs_to
+    via: custom_field_id
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: ModelEvidence
+  schema: ModelEvidenceResource
+  json_api_type_example: model_evidences
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: asset_links
+    kind: has_many
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: ModelFile
+  schema: ModelFileResource
+  json_api_type_example: model_files
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: ModelQuestionnaire
+  schema: ModelQuestionnaireResource
+  json_api_type_example: model_questionnaires
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 6
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: ModelQuestionnaireSection
+  schema: ModelQuestionnaireSectionResource
+  json_api_type_example: model_questionnaire_sections
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+  - name: questionnaire
+    kind: belongs_to
+    via: questionnaire_id
+  - name: section
+    kind: belongs_to
+    via: section_id
+- name: Model
+  schema: ModelResource
+  json_api_type_example: models
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 20
+  relationships:
+  - name: use_cases
+    kind: has_many
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: vendors
+    kind: has_many
+    via: relationships
+  - name: versions
+    kind: has_many
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: questionnaire
+    kind: has_many
+    via: questionnaire_ids
+  - name: risk_classification
+    kind: belongs_to
+    via: risk_classification_id
+  - name: risk_classification_set_by_user
+    kind: belongs_to
+    via: risk_classification_set_by_user_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+  - name: workflow_stage
+    kind: belongs_to
+    via: workflow_stage_id
+- name: ModelVendorLink
+  schema: ModelVendorLinkResource
+  json_api_type_example: model_vendor_links
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 4
+  relationships:
+  - name: model
+    kind: has_one
+    via: relationships
+  - name: vendor
+    kind: has_one
+    via: relationships
+  - name: model
+    kind: belongs_to
+    via: model_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: ModelVersion
+  schema: ModelVersionResource
+  json_api_type_example: model_versions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: model
+    kind: belongs_to
+    via: model_id
+- name: ModifyPolicyPack
+  schema: ModifyPolicyPackResource
+  json_api_type_example: null
+  id_example: null
+  attribute_count: 0
+- name: PolicyControlBase
+  schema: PolicyControlBaseResource
+  json_api_type_example: policy_control_bases
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 7
+  relationships:
+  - name: versions
+    kind: has_many
+    via: relationships
+  - name: entity_type
+    kind: has_many
+    via: entity_type_ids
+- name: PolicyControl
+  schema: PolicyControlResource
+  json_api_type_example: policy_controls
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+  relationships:
+  - name: entity_type
+    kind: has_many
+    via: entity_type_ids
+  - name: risk_type
+    kind: has_many
+    via: risk_type_ids
+- name: PolicyControlVersion
+  schema: PolicyControlVersionResource
+  json_api_type_example: policy_control_versions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 12
+  relationships:
+  - name: base
+    kind: belongs_to
+    via: base_id
+  - name: risk_type
+    kind: has_many
+    via: risk_type_ids
+- name: PolicyPack
+  schema: PolicyPackResource
+  json_api_type_example: policy_packs
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 9
+- name: PolicyPackVersion
+  schema: PolicyPackVersionResource
+  json_api_type_example: custom_policy_pack_versions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 12
+  relationships:
+  - name: base
+    kind: belongs_to
+    via: base_id
+- name: QuestionnaireBase
+  schema: QuestionnaireBaseResource
+  json_api_type_example: questionnaire_bases
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: latest_published
+    kind: has_one
+    via: relationships
+  - name: versions
+    kind: has_many
+    via: relationships
+- name: Questionnaire
+  schema: QuestionnaireResource
+  json_api_type_example: questionnaires
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+- name: QuestionnaireVersion
+  schema: QuestionnaireVersionResource
+  json_api_type_example: questionnaire_versions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: base
+    kind: belongs_to
+    via: base_id
+  - name: published_by_user
+    kind: belongs_to
+    via: published_by_user_id
+- name: Region
+  schema: RegionResource
+  json_api_type_example: regions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 2
+- name: Relationship
+  schema: RelationshipResource
+  json_api_type_example: null
+  id_example: null
+  attribute_count: 0
+- name: ReportAttestationRequest
+  schema: ReportAttestationRequestResource
+  json_api_type_example: report_attestation_requests
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+  relationships:
+  - name: attester
+    kind: has_one
+    via: relationships
+  - name: requested_team
+    kind: has_one
+    via: relationships
+  - name: requested_user
+    kind: has_one
+    via: relationships
+  - name: requester
+    kind: has_one
+    via: relationships
+  - name: attester
+    kind: belongs_to
+    via: attester_id
+  - name: report
+    kind: belongs_to
+    via: report_id
+  - name: requested_team
+    kind: belongs_to
+    via: requested_team_id
+  - name: requested_user
+    kind: belongs_to
+    via: requested_user_id
+  - name: requester
+    kind: belongs_to
+    via: requester_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: Report
+  schema: ReportResource
+  json_api_type_example: use_case_reports
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 12
+  relationships:
+  - name: attestation_requests
+    kind: has_many
+    via: relationships
+  - name: snapshot
+    kind: has_one
+    via: relationships
+  - name: template
+    kind: has_one
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: widgets
+    kind: has_many
+    via: relationships
+  - name: snapshot
+    kind: belongs_to
+    via: snapshot_id
+  - name: template
+    kind: belongs_to
+    via: template_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: RiskClassification
+  schema: RiskClassificationResource
+  json_api_type_example: risk_classifications
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 1
+- name: RiskScenario
+  schema: RiskScenarioResource
+  json_api_type_example: risk_scenarios
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 14
+  relationships:
+  - name: entity_type
+    kind: has_many
+    via: entity_type_ids
+  - name: risk_type
+    kind: has_many
+    via: risk_type_ids
+- name: RiskType
+  schema: RiskTypeResource
+  json_api_type_example: risk_types
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 6
+- name: SectionAssignment
+  schema: SectionAssignmentResource
+  json_api_type_example: section_assignments
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: section
+    kind: has_many
+    via: section_ids
+  - name: team
+    kind: belongs_to
+    via: team_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: SectionFile
+  schema: SectionFileResource
+  json_api_type_example: use_case_questionnaire_section_files
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 9
+  relationships:
+  - name: question
+    kind: belongs_to
+    via: question_id
+  - name: section
+    kind: belongs_to
+    via: section_id
+- name: Source
+  schema: SourceResource
+  json_api_type_example: sources
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 4
+- name: Task
+  schema: TaskResource
+  json_api_type_example: tasks
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 17
+  relationships:
+  - name: assigner
+    kind: has_one
+    via: relationships
+  - name: entity_questionnaire_section
+    kind: has_one
+    via: relationships
+  - name: model
+    kind: has_one
+    via: relationships
+  - name: teams
+    kind: has_many
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: use_case_control
+    kind: has_one
+    via: relationships
+  - name: use_case_review
+    kind: has_one
+    via: relationships
+  - name: users
+    kind: has_many
+    via: relationships
+  - name: vendor
+    kind: has_one
+    via: relationships
+  - name: assigner
+    kind: belongs_to
+    via: assigner_id
+  - name: entity_questionnaire_section
+    kind: belongs_to
+    via: entity_questionnaire_section_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+  - name: team
+    kind: has_many
+    via: team_ids
+  - name: use_case_control
+    kind: belongs_to
+    via: use_case_control_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: use_case_review
+    kind: belongs_to
+    via: use_case_review_id
+  - name: user
+    kind: has_many
+    via: user_ids
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: TeamMembersRemove
+  schema: TeamMembersRemoveResource
+  json_api_type_example: null
+  id_example: null
+  attribute_count: 0
+- name: TeamMembersUpsert
+  schema: TeamMembersUpsertResource
+  json_api_type_example: null
+  id_example: null
+  attribute_count: 0
+- name: Team
+  schema: TeamResource
+  json_api_type_example: teams
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 2
+  relationships:
+  - name: members
+    kind: has_many
+    via: relationships
+  - name: memberships
+    kind: has_many
+    via: relationships
+- name: TenantInfo
+  schema: TenantInfoResource
+  json_api_type_example: tenant_infos
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 7
+  relationships:
+  - name: webhook_app
+    kind: belongs_to
+    via: webhook_app_id
+- name: Trigger
+  schema: TriggerResource
+  json_api_type_example: trigger
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+- name: UseCaseControlCookbook
+  schema: UseCaseControlCookbookResource
+  json_api_type_example: use_case_control_cookbooks
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 1
+- name: UseCaseControl
+  schema: UseCaseControlResource
+  json_api_type_example: use_case_controls
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+  relationships:
+  - name: model
+    kind: has_one
+    via: relationships
+  - name: reviewer
+    kind: has_one
+    via: relationships
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: model
+    kind: belongs_to
+    via: model_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseCustomField
+  schema: UseCaseCustomFieldResource
+  json_api_type_example: use_case_custom_fields
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 5
+  relationships:
+  - name: custom_field
+    kind: has_one
+    via: relationships
+  - name: custom_field
+    kind: belongs_to
+    via: custom_field_id
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCasePolicyPack
+  schema: UseCasePolicyPackResource
+  json_api_type_example: use_case_policy_packs
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseQuestionnaire
+  schema: UseCaseQuestionnaireResource
+  json_api_type_example: use_case_questionnaires
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseQuestionnaireSection
+  schema: UseCaseQuestionnaireSectionResource
+  json_api_type_example: use_case_questionnaire_sections
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: questionnaire
+    kind: belongs_to
+    via: questionnaire_id
+  - name: section
+    kind: belongs_to
+    via: section_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCase
+  schema: UseCaseResource
+  json_api_type_example: use_cases
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 37
+  relationships:
+  - name: alerts
+    kind: has_many
+    via: relationships
+  - name: creator
+    kind: has_one
+    via: relationships
+  - name: custom_fields
+    kind: has_many
+    via: relationships
+  - name: desired_state
+    kind: has_one
+    via: relationships
+  - name: domain_links
+    kind: has_many
+    via: relationships
+  - name: domains
+    kind: has_many
+    via: relationships
+  - name: governance_ai_contexts
+    kind: has_many
+    via: relationships
+  - name: governance_ai_suggestions
+    kind: has_many
+    via: relationships
+  - name: model_links
+    kind: has_many
+    via: relationships
+  - name: models
+    kind: has_many
+    via: relationships
+  - name: policy_packs
+    kind: has_many
+    via: relationships
+  - name: questionnaires
+    kind: has_many
+    via: relationships
+  - name: reviews
+    kind: has_many
+    via: relationships
+  - name: risk_scenarios
+    kind: has_many
+    via: relationships
+  - name: scheduled_reviews
+    kind: has_many
+    via: relationships
+  - name: stakeholders
+    kind: has_many
+    via: relationships
+  - name: use_case_sync_issues
+    kind: has_many
+    via: relationships
+  - name: vendor_links
+    kind: has_many
+    via: relationships
+  - name: vendors
+    kind: has_many
+    via: relationships
+  - name: workflow_stage
+    kind: has_one
+    via: relationships
+  - name: creator
+    kind: belongs_to
+    via: creator_id
+  - name: domain
+    kind: has_many
+    via: domain_ids
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: questionnaire
+    kind: has_many
+    via: questionnaire_ids
+  - name: risk_classification
+    kind: belongs_to
+    via: risk_classification_id
+  - name: risk_classification_set_by_user
+    kind: belongs_to
+    via: risk_classification_set_by_user_id
+  - name: workflow_stage
+    kind: belongs_to
+    via: workflow_stage_id
+- name: UseCaseReviewAction
+  schema: UseCaseReviewActionResource
+  json_api_type_example: use_case_review_actions
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 12
+  relationships:
+  - name: reply_thread
+    kind: has_one
+    via: relationships
+  - name: review
+    kind: has_one
+    via: relationships
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: reply_thread
+    kind: belongs_to
+    via: reply_thread_id
+  - name: review
+    kind: belongs_to
+    via: review_id
+  - name: task
+    kind: belongs_to
+    via: task_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: UseCaseReview
+  schema: UseCaseReviewResource
+  json_api_type_example: use_case_reviews
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: actions
+    kind: has_many
+    via: relationships
+  - name: snapshot
+    kind: has_one
+    via: relationships
+  - name: tasks
+    kind: has_many
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: snapshot
+    kind: belongs_to
+    via: snapshot_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: UseCaseRiskControlLink
+  schema: UseCaseRiskControlLinkResource
+  json_api_type_example: use_case_risk_control_links
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 5
+  relationships:
+  - name: risk
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: risk
+    kind: belongs_to
+    via: risk_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseRiskScenario
+  schema: UseCaseRiskScenarioResource
+  json_api_type_example: use_case_risk_scenarios
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 14
+  relationships:
+  - name: risk_control_links
+    kind: has_many
+    via: relationships
+  - name: risk_scenario
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: risk_scenario
+    kind: belongs_to
+    via: risk_scenario_id
+  - name: risk_type
+    kind: has_many
+    via: risk_type_ids
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseScheduledReview
+  schema: UseCaseScheduledReviewResource
+  json_api_type_example: use_case_scheduled_reviews
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 11
+  relationships:
+  - name: teams
+    kind: has_many
+    via: relationships
+  - name: use_case
+    kind: has_one
+    via: relationships
+  - name: users
+    kind: has_many
+    via: relationships
+  - name: created_by
+    kind: belongs_to
+    via: created_by_id
+  - name: team
+    kind: has_many
+    via: team_ids
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: has_many
+    via: user_ids
+  - name: workflow_stage
+    kind: belongs_to
+    via: workflow_stage_id
+- name: UseCaseSnapshot
+  schema: UseCaseSnapshotResource
+  json_api_type_example: use_case_snapshots
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 19
+  relationships:
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+- name: UseCaseStakeholder
+  schema: UseCaseStakeholderResource
+  json_api_type_example: use_case_stakeholders
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 6
+  relationships:
+  - name: team
+    kind: has_one
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: team
+    kind: belongs_to
+    via: team_id
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+- name: UseCaseVendorLink
+  schema: UseCaseVendorLinkResource
+  json_api_type_example: use_case_vendor_links
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 3
+  relationships:
+  - name: vendor
+    kind: has_one
+    via: relationships
+  - name: use_case
+    kind: belongs_to
+    via: use_case_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: User
+  schema: UserResource
+  json_api_type_example: users
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 20
+  relationships:
+  - name: setting
+    kind: has_one
+    via: relationships
+- name: UserSetting
+  schema: UserSettingResource
+  json_api_type_example: user_settings
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 1
+- name: VendorCustomField
+  schema: VendorCustomFieldResource
+  json_api_type_example: vendor_custom_fields
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 5
+  relationships:
+  - name: custom_field
+    kind: has_one
+    via: relationships
+  - name: custom_field
+    kind: belongs_to
+    via: custom_field_id
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: VendorEvidence
+  schema: VendorEvidenceResource
+  json_api_type_example: vendor_evidences
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: asset_links
+    kind: has_many
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: VendorFile
+  schema: VendorFileResource
+  json_api_type_example: vendor_files
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: VendorQuestionnaire
+  schema: VendorQuestionnaireResource
+  json_api_type_example: vendor_questionnaires
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 6
+  relationships:
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: VendorQuestionnaireSection
+  schema: VendorQuestionnaireSectionResource
+  json_api_type_example: vendor_questionnaire_sections
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 8
+  relationships:
+  - name: task
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: questionnaire
+    kind: belongs_to
+    via: questionnaire_id
+  - name: section
+    kind: belongs_to
+    via: section_id
+  - name: vendor
+    kind: belongs_to
+    via: vendor_id
+- name: Vendor
+  schema: VendorResource
+  json_api_type_example: vendors
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 18
+  relationships:
+  - name: models
+    kind: has_many
+    via: relationships
+  - name: questionnaires
+    kind: has_many
+    via: relationships
+  - name: use_case_links
+    kind: has_many
+    via: relationships
+  - name: use_cases
+    kind: has_many
+    via: relationships
+  - name: user
+    kind: has_one
+    via: relationships
+  - name: entity
+    kind: belongs_to
+    via: entity_id
+  - name: questionnaire
+    kind: has_many
+    via: questionnaire_ids
+  - name: risk_classification
+    kind: belongs_to
+    via: risk_classification_id
+  - name: risk_classification_set_by_user
+    kind: belongs_to
+    via: risk_classification_set_by_user_id
+  - name: user
+    kind: belongs_to
+    via: user_id
+  - name: workflow_stage
+    kind: belongs_to
+    via: workflow_stage_id
+- name: WorkflowStage
+  schema: WorkflowStageResource
+  json_api_type_example: workflow_stages
+  id_example: 64YUaLWSviHgibJaRWr3ZE
+  attribute_count: 10
+  relationships:
+  - name: child
+    kind: belongs_to
+    via: child_id
+  - name: parent
+    kind: belongs_to
+    via: parent_id

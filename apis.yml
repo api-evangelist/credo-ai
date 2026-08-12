@@ -1,23 +1,182 @@
 aid: credo-ai
 name: Credo AI
-description: 'Credo AI is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+description: >-
+  Credo AI is an enterprise AI governance, risk, and compliance platform used to discover, register,
+  risk-classify, and continuously govern every AI model, application, agent, and third-party AI vendor
+  an organization runs. The platform pairs an AI Registry (use cases, models, vendors, agents, shadow-AI
+  discovery) with a policy engine that turns regulatory frameworks — the EU AI Act, NIST AI RMF, ISO/IEC
+  42001, NYC Local Law 144, Colorado SB21-169, OMB M-25 — into machine-enforced policy packs, controls,
+  questionnaires, risk scenarios, and audit-ready evidence artifacts. Programmatic access is delivered
+  through a multi-tenant JSON:API REST surface at api.credo.ai (300 operations across use cases, models,
+  vendors, questionnaires, policy packs, policy controls, risks, tasks, teams, users, triggers, and
+  Shadow AI), a first-party Python SDK (pycredoai) and TypeScript SDK (@credo-ai/sdk), and a published
+  Claude Code plugin marketplace of eleven AI-governance Agent Skills backed by a gated Governance
+  Intelligence Pro MCP server.
+image: https://cdn.prod.website-files.com/649d808ba8385965c74d94df/6a27d15ec3da571348386f01_OPENGRAPGH-light.png
 url: https://raw.githubusercontent.com/api-evangelist/credo-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-11'
 modified: '2026-08-11'
 tags:
 - Company
-apis: []
+- ai-governance
+- ai-risk-management
+- responsible-ai
+- compliance
+- regulatory-technology
+- model-registry
+- vendor-risk
+- eu-ai-act
+- nist-ai-rmf
+- iso-42001
+- shadow-ai
+- agent-governance
+- audit
+- json-api
+- agent-skills
+apis:
+- name: Credo AI Governance Platform API (v2)
+  description: >-
+    Multi-tenant JSON:API REST interface to the Credo AI Governance Platform. 300 operations across 26
+    tags cover use cases, use case questionnaires, risk scenarios, controls, policy packs, reports,
+    reviews, comments and custom fields, plus models and model versions, vendors, questionnaires,
+    policy controls, risk classifications, tasks, fields, users, teams, triggers and trigger actions,
+    and Shadow AI tools and events. Media type is application/vnd.api+json throughout, with cursor
+    pagination (page[after]/page[before]/page[limit]), filter[...]/sort/include query conventions, and
+    a JSON:API errors[] envelope. Authenticated with a Bearer token exchanged from a tenant API token.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - ai-governance
+  - ai-risk-management
+  - compliance
+  - model-registry
+  - vendor-risk
+  - json-api
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-governance-platform-swagger.json
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Overlay
+    url: overlays/credo-ai-governance-platform-overlay.yaml
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+- name: Credo AI Audit Logs & Shadow AI API
+  description: >-
+    OpenAPI 3.0.0 contract covering the audit-log and Shadow AI slice of the Credo AI v2 API — listing,
+    filtering, exporting and retrieving audit log entries, and ingesting, listing, bulk-loading and
+    deleting Shadow AI events plus registering and unregistering discovered AI tools. Declares four
+    servers (local, QA, production, on-premise), each templated on the customer tenant identifier, and
+    a BearerAuth JWT security scheme obtained from POST /auth/exchange.
+  humanURL: https://api.credo.ai/openapi
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - audit
+  - shadow-ai
+  - ai-governance
+  - compliance
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+  - type: Overlay
+    url: overlays/credo-ai-audit-logs-shadow-ai-overlay.yaml
+- name: Credo AI Governance Intelligence Pro MCP Server
+  description: >-
+    Provider-published Model Context Protocol server ("governance-hub") distributed as the npm package
+    @credoai/governance-hub-mcp and run over stdio via npx. Grounds the Credo AI Claude Code Agent
+    Skills in the live Credo AI Governance Intelligence catalog with five documented tools —
+    get_catalog_overview, governance_query, get_entities, get_maturity_framework, get_benchmarks.
+    Access credentials are gated; the npm package is not resolvable on the public registry.
+  humanURL: https://github.com/credo-ai/credoai-plugins
+  baseURL: npx -y @credoai/governance-hub-mcp
+  tags:
+  - mcp
+  - ai-governance
+  - agent-skills
+  properties:
+  - type: MCPServer
+    url: mcp/credo-ai-mcp.yml
+  - type: ToolCrosswalk
+    url: mcp/credo-ai-tool-crosswalk.yml
+  - type: Documentation
+    url: https://github.com/credo-ai/credoai-plugins
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/credo-ai-domain-security.yml
 - type: Website
-  url: https://forgeglobal.com/credo-ai_stock/
+  url: https://www.credo.ai/
+- type: DeveloperPortal
+  url: https://docs.sdk.credo.ai/
+- type: Documentation
+  url: https://docs.sdk.credo.ai/docs/intro/
+- type: APIReference
+  url: https://docs.sdk.credo.ai/docs/api-reference
+- type: GettingStarted
+  url: https://docs.sdk.credo.ai/docs/getting-started
+- type: Support
+  url: https://www.credo.ai/contact
+- type: Blog
+  url: https://www.credo.ai/resources
+- type: GitHubOrganization
+  url: https://github.com/credo-ai
+- type: SignUp
+  url: https://www.credo.ai/get-started
+- type: Login
+  url: https://app.credo.ai/
+- type: Pricing
+  url: plans/credo-ai-plans-pricing.yml
+- type: TermsOfService
+  url: https://www.credo.ai/legal/terms-conditions
+- type: PrivacyPolicy
+  url: https://www.credo.ai/legal/privacy-policy
+- type: Security
+  url: https://www.credo.ai/legal/vulnerability-disclosure-policy
+- type: VulnerabilityDisclosure
+  url: security/credo-ai-vulnerability-disclosure.yml
+- type: TrustCenter
+  url: security/credo-ai-trust-center.yml
+- type: Compliance
+  url: conformance/credo-ai-conformance.yml
+- type: Conformance
+  url: conformance/credo-ai-conformance.yml
+- type: Packages
+  url: packages/credo-ai-packages.yml
+- type: SDKs
+  url: packages/credo-ai-packages.yml
+- type: LLMsTxt
+  url: llms/credo-ai-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Lifecycle
+  url: lifecycle/credo-ai-lifecycle.yml
+- type: Plans
+  url: plans/credo-ai-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/credo-ai-rate-limits.yml
+x-enrichment:
+  date: '2026-08-11'
+  status: enriched
+  artifacts_added: 34
+  pass: local-v1

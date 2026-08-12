@@ -1,0 +1,105 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://docs.sdk.credo.ai/docs/getting-started, https://api.credo.ai/openapi,
+  openapi/credo-ai-governance-platform-swagger.json, live 401 probe of
+  https://api.credo.ai/api/v2/credoai/industries on 2026-08-11
+docs: https://docs.sdk.credo.ai/docs/getting-started
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - header
+  model: >-
+    Two-step: a long-lived tenant API token is exchanged for a short-lived JWT
+    access token, which is then sent as an Authorization: Bearer header. Every
+    request is additionally scoped by a {tenant} path segment. There are no OAuth
+    scopes and no per-token permission model in either published contract.
+  oauth2: false
+  scopes: false
+  self_serve: false
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: |-
+    JWT access token obtained from POST /auth/exchange
+    (CredoAIWeb.Auth.TokenController.exchange).
+
+    Include in the Authorization header: Authorization: Bearer <token>
+  sources:
+  - openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+  applied: 'globally — top-level security: [{BearerAuth: []}]'
+- name: Bearer
+  type: apiKey
+  in: header
+  parameter: Authorization
+  sources:
+  - openapi/credo-ai-governance-platform-swagger.json
+  applied: >-
+    Declared in securityDefinitions but NEVER applied — the Swagger document has
+    no top-level `security` block and no operation-level security. All 300
+    operations nevertheless declare a 401 AuthError response, so the requirement
+    is real and the contract simply fails to express it.
+token_exchange:
+  operation: POST /auth/exchange
+  operationId: CredoAIWeb.Auth.TokenController.exchange
+  input:
+  - tenant API token
+  - tenant identifier
+  output: JWT access token
+  documented_in: 'info.description and securitySchemes.BearerAuth description of the OpenAPI 3.0.0 document'
+  gap: >-
+    The /auth/exchange path is described in prose and deep-linked by anchor from
+    the security scheme, but it is NOT a path in EITHER published contract. Neither
+    document describes the request body, the response shape, or the token
+    lifetime. A developer working from the specs alone cannot authenticate.
+tenancy:
+  required: true
+  placement: path segment
+  pattern: /api/v2/{tenant}
+  obtaining: >-
+    "Your tenant identifier (contact support@credo.ai to get yours)" — servers[]
+    variable description in the OpenAPI 3.0.0 document.
+  note: >-
+    The tenant default in the published production server is an EMPTY string, so
+    the spec cannot be used to make a call as written. The Swagger document
+    hard-codes basePath /api/v2/credoai, Credo AI's own tenant.
+sdk_configuration:
+  source: https://docs.sdk.credo.ai/docs/getting-started
+  constructor: 'Credoai(base_url="https://api.credo.ai", api_key="your-api-key")'
+  env_vars:
+  - CREDOAI_BASE_URL
+  - CREDOAI_API_KEY
+  key_source: >-
+    "You can obtain an API key from your account dashboard." No self-serve signup
+    exists; a tenant must be provisioned first.
+  sdk_auth_method: client.authentication.token()
+  note: >-
+    The SDK exposes the exchange as client.authentication.token() ("Exchange API
+    Key for Access Token"), confirming the two-step flow.
+web_application_identity:
+  provider: Auth0
+  tenant: credoai-cs.us.auth0.com
+  discovery: https://credoai-cs.us.auth0.com/.well-known/openid-configuration
+  status: 200
+  note: >-
+    Governs the Credo AI web app and Knowledge Center login, NOT the v2 API. Its
+    scopes_supported are the stock Auth0 OIDC profile claims, not API permissions.
+    Recorded so the two identity systems are not conflated. See
+    well-known/credo-ai-well-known.yml.
+observed:
+  url: https://api.credo.ai/api/v2/credoai/industries
+  status: 401
+  body: >-
+    {"errors":[{"code":1000,"title":"Unauthenticated","detail":"User is not
+    authenticated, maybe invalid or expired token."}]}
+  fetched: '2026-08-11'
+gaps:
+- 'No /auth/exchange path in either published contract.'
+- 'No scopes, roles or permission model published for API tokens.'
+- 'Swagger securityDefinitions declared but never applied to any operation.'
+- 'No token lifetime, refresh or revocation documented.'
+- 'No self-serve key issuance — tenant provisioning goes through support@credo.ai.'

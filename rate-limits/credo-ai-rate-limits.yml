@@ -1,0 +1,57 @@
+generated: '2026-08-11'
+method: searched
+source: >-
+  https://api.credo.ai/openapi (info.description), live response-header
+  inspection of https://api.credo.ai/ on 2026-08-11
+limit_count: 0
+published: false
+limits: []
+response_headers:
+  ratelimit_standard: none
+  x_ratelimit: none
+  retry_after: none
+  observed_on:
+  - url: https://api.credo.ai/
+    status: 404
+  - url: https://api.credo.ai/api/v2/credoai/industries
+    status: 401
+  headers_actually_returned:
+  - date
+  - content-type
+  - content-length
+  - vary
+  - cache-control
+  - x-request-id
+  - access-control-allow-credentials
+  - access-control-allow-origin
+  - access-control-expose-headers
+  - server
+  - x-content-type-options
+  - x-xss-protection
+  - content-security-policy
+  - x-frame-options
+  - strict-transport-security
+  - referrer-policy
+  note: >-
+    access-control-expose-headers lists only content-type, cache-control and
+    pragma — so even if a rate-limit header were added server-side, a browser
+    client could not read it without that list changing.
+exhaustion_status_code: undocumented
+policy_statement:
+  quote: >-
+    "API requests are limited based on your subscription plan. Contact support for
+    specific limits."
+  source: 'info.description, https://api.credo.ai/openapi'
+note: >-
+  Rate limiting exists as a stated policy but is fully undisclosed: no numbers, no
+  window, no scope, no headers, no documented 429, and no Retry-After. limit_count
+  is 0 because nothing quantified is published — an honest zero, not an unchecked
+  field. An agent integrating this API has no runtime signal to back off on and
+  must discover the ceiling by hitting it. This is the single highest-leverage
+  runtime-semantics gap in the Credo AI surface: the SDK ships max_retries=3 by
+  default while the API publishes neither an idempotency key nor a retry signal,
+  so a retried POST is unsafe by construction.
+sdk_client_side_behavior:
+  max_retries_default: 3
+  timeout_seconds_default: 30.0
+  source: https://docs.sdk.credo.ai/docs/getting-started

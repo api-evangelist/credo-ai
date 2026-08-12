@@ -1,0 +1,107 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Credo AI Audit Logs & Shadow AI API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-11'
+  method: generated
+  source: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+  extends: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+  note: >-
+    Non-destructive enhancement layer over the OpenAPI 3.0.0 document served at
+    https://api.credo.ai/openapi. The harvested original is never mutated.
+actions:
+- target: $.info
+  description: Record provenance of the harvest.
+  update:
+    x-source-url: https://api.credo.ai/openapi
+    x-harvested: '2026-08-11'
+    x-scope-note: >-
+      This document covers only the Audit Logs and Shadow AI slice — 10 paths, 11
+      operations. The other 300 operations of the same /api/v2/{tenant} API are
+      described in a separate Swagger 2.0 document at
+      https://api.credo.ai/swagger.json. Two contracts, one API, no cross-reference
+      between them in either document.
+- target: $.servers
+  description: >-
+    Flag which declared servers are actually usable by a third party, without
+    removing any (the templated production server is correct as written).
+  update:
+    x-server-notes:
+    - url: https://api.credo.ai/api/v2/{tenant}
+      usable: true
+      note: 'Production. {tenant} must be issued by support@credo.ai.'
+    - url: https://api.credo-qa.com/api/v2/{tenant}
+      usable: false
+      note: >-
+        Credo AI's own QA environment, published in a public contract with a
+        preconfigured tenant of 'credoai'. Not a customer sandbox.
+    - url: http://localhost:4000/api/v2/{tenant}
+      usable: false
+      note: Developer loopback left in the published contract.
+    - url: '{custom_base_url}/api/v2/{tenant}'
+      usable: conditional
+      note: Self-hosted / on-premise deployments only.
+- target: $.paths[*][*].responses
+  description: >-
+    The contract declares 403 on every operation but never 401, while the live API
+    returns HTTP 401 with body {"errors":[{"code":1000,"title":"Unauthenticated"}]}
+    to an unauthenticated caller. Recording the observed response so generated
+    clients can type it.
+  update:
+    x-observed-401:
+      status: 401
+      content_type: application/json; charset=utf-8
+      body: >-
+        {"errors":[{"code":1000,"title":"Unauthenticated","detail":"User is not
+        authenticated, maybe invalid or expired token."}]}
+      observed_at: https://api.credo.ai/api/v2/credoai/industries
+      observed_on: '2026-08-11'
+- target: $.components.securitySchemes.BearerAuth
+  description: Make the token-exchange flow explicit and machine-readable.
+  update:
+    x-token-exchange:
+      operation: POST /auth/exchange
+      operationId: CredoAIWeb.Auth.TokenController.exchange
+      input: tenant API token + tenant identifier
+      output: JWT access token
+      note: >-
+        The referenced operation is NOT present in this document — the
+        description links to an anchor for an Auth tag that this contract does not
+        define. A reader of this spec alone cannot obtain a token.
+- target: $
+  description: Runtime semantics and cross-links to the rest of this profile.
+  update:
+    x-conventions:
+      media_type: application/json
+      json_api_hybrid: >-
+        POST /shadow_ai/ai_events/bulk accepts EITHER a JSON:API 'data' array or a
+        plain 'events' array, while the sibling Swagger contract for the same API
+        mandates application/vnd.api+json throughout.
+      idempotency:
+        supported: false
+        note: >-
+          /shadow_ai/ai_events/bulk is a bulk ingest endpoint with no idempotency
+          key — the operation most likely to be retried is the one least safe to
+          retry.
+      rate_limits:
+        published: false
+        headers: none
+      request_tracing:
+        header: x-request-id
+        observed: '2026-08-11'
+      errors:
+        schema: '#/components/schemas/Error'
+        code_ranges:
+          '404': not-found
+          1000-1999: auth
+          2000-2999: validation
+          9000-9999: internal
+      responses:
+        five_xx_declared: 0
+    x-artifacts:
+      authentication: authentication/credo-ai-authentication.yml
+      conventions: conventions/credo-ai-conventions.yml
+      errors: errors/credo-ai-problem-types.yml
+      lifecycle: lifecycle/credo-ai-lifecycle.yml
+      rate_limits: rate-limits/credo-ai-rate-limits.yml

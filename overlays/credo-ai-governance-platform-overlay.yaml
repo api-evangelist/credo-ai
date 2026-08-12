@@ -1,0 +1,124 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements — Credo AI Governance Platform API (v2)
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-11'
+  method: generated
+  source: openapi/credo-ai-governance-platform-swagger.json
+  extends: openapi/credo-ai-governance-platform-swagger.json
+  note: >-
+    Non-destructive enhancement layer. The harvested Swagger 2.0 document at
+    openapi/_original/credo-ai-swagger.json is never mutated. Every action below
+    adds information Credo AI's own contract omits but which is evidenced
+    elsewhere in this repo (live probes, the OpenAPI 3.0.0 sibling contract, or
+    the SDK documentation).
+actions:
+- target: $.info
+  description: >-
+    The published document declares no version and no contact. Both are evidenced
+    in the sibling OpenAPI 3.0.0 document served at https://api.credo.ai/openapi.
+  update:
+    version: '2.0.0'
+    contact:
+      name: Credo AI Support
+      email: support@credo.ai
+      url: https://credo.ai/contact
+    x-source-url: https://api.credo.ai/swagger.json
+    x-harvested: '2026-08-11'
+- target: $
+  description: >-
+    The document declares basePath but no host, so it names no callable server.
+    The production host is evidenced by the sibling OpenAPI 3.0.0 servers[] block
+    and by live 401 responses from https://api.credo.ai/api/v2/credoai/.
+  update:
+    host: api.credo.ai
+    schemes:
+    - https
+    x-servers:
+    - url: https://api.credo.ai/api/v2/{tenant}
+      description: >-
+        Production. {tenant} is issued per customer by support@credo.ai; the
+        published basePath hard-codes Credo AI's own 'credoai' tenant.
+- target: $.securityDefinitions.Bearer
+  description: >-
+    Records how the Authorization value is obtained. The published definition says
+    only "apiKey in header named Authorization".
+  update:
+    x-token-exchange:
+      operation: POST /auth/exchange
+      operationId: CredoAIWeb.Auth.TokenController.exchange
+      input: tenant API token + tenant identifier
+      output: JWT access token
+      format: 'Authorization: Bearer <jwt>'
+      source: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
+- target: $.tags[?(@.name=='webhooks')]
+  description: >-
+    The webhooks tag is declared with a description but carries zero operations in
+    the published document. Flagged so downstream tooling does not present a
+    webhook capability that cannot be reached.
+  update:
+    x-operation-count: 0
+    x-status: declared-empty
+    x-evidence: >-
+      No path in the 183-path document is tagged `webhooks`, and no webhook,
+      subscription or event schema exists among the 346 definitions. The only
+      related artifact is TenantInfoResource.webhook_app_id.
+- target: $
+  description: >-
+    Runtime semantics an agent needs that the contract does not state. Every value
+    is evidenced in this repo, not assumed.
+  update:
+    x-conventions:
+      standard: 'JSON:API 1.0'
+      media_type: application/vnd.api+json
+      pagination:
+        style: cursor
+        request:
+        - 'page[after]'
+        - 'page[before]'
+        - 'page[limit]'
+        response: meta.{after,before,limit}
+        note: >-
+          Declared on only 10 of 300 operations although many more return a paged
+          response schema.
+      filtering: 'filter[...] bracket syntax'
+      sorting: sort
+      inclusion: include
+      idempotency:
+        supported: false
+        note: >-
+          No idempotency key on any of the 60 POST operations. Retries are unsafe.
+      rate_limits:
+        published: false
+        headers: none
+        note: 'Policy stated ("limited based on your subscription plan"), values undisclosed.'
+      request_tracing:
+        header: x-request-id
+        observed: '2026-08-11'
+        note: Returned on every response including 401s; not declared in the contract.
+      errors:
+        envelope: '{"errors":[{"code","title","detail"}]}'
+        rfc9457: false
+        code_ranges:
+          '404': not-found
+          1000-1999: auth
+          2000-2999: validation
+          9000-9999: internal
+      deprecation:
+        deprecated_operations: 3
+        sunset_header: false
+        policy_published: false
+      responses:
+        five_xx_declared: 0
+        note: >-
+          No 5xx is declared on any operation despite a documented 9000-9999
+          internal error-code range.
+    x-artifacts:
+      authentication: authentication/credo-ai-authentication.yml
+      conventions: conventions/credo-ai-conventions.yml
+      errors: errors/credo-ai-problem-types.yml
+      lifecycle: lifecycle/credo-ai-lifecycle.yml
+      rate_limits: rate-limits/credo-ai-rate-limits.yml
+      data_model: data-model/credo-ai-data-model.yml
+      conformance: conformance/credo-ai-conformance.yml

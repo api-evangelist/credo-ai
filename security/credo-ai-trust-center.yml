@@ -1,0 +1,41 @@
+generated: '2026-08-11'
+method: searched
+source: https://trust.credo.ai/
+url: https://trust.credo.ai/
+platform: Vanta Trust Center
+certifications:
+- name: SOC 2 Type II
+  status: maintained
+  evidence_quote: >-
+    "We maintain a SOC 2 Type II examination and invest continuously in our
+    security program so that the platform our customers rely on meets the same
+    governance..."
+  source: https://trust.credo.ai/
+frameworks_sold_not_certified:
+  note: >-
+    Credo AI SELLS readiness for ISO/IEC 42001, the EU AI Act, NIST AI RMF, NYC
+    Local Law 144, Colorado SB21-169 and OMB M-25 as product capability. Those are
+    the frameworks its customers are governed against, not certifications Credo AI
+    itself is asserted to hold. Only SOC 2 Type II is named on its own trust
+    center, so only SOC 2 Type II is recorded here as held.
+  frameworks:
+  - ISO/IEC 42001
+  - EU AI Act
+  - NIST AI RMF
+  - NYC Local Law 144
+  - Colorado SB21-169
+  - OMB M-25
+security_contact: security@credo.ai
+disclosure_policy: https://www.credo.ai/legal/vulnerability-disclosure-policy
+evidence:
+- url: https://trust.credo.ai/
+  status: 200
+  fetched: '2026-08-11'
+  content_type: text/html
+  note: >-
+    Vanta-hosted trust center (assets.vanta.com signature manifest in the page
+    head). The certification list beyond SOC 2 Type II is rendered client-side and
+    document downloads sit behind an access request, so nothing further is claimed.
+- url: https://www.credo.ai/legal/vulnerability-disclosure-policy
+  status: 200
+  fetched: '2026-08-11'

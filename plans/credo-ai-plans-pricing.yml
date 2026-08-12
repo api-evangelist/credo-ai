@@ -1,0 +1,44 @@
+generated: '2026-08-11'
+method: searched
+source: https://www.credo.ai/
+model: enterprise-contact-sales
+plan_count: 0
+currency: null
+free_tier: false
+self_serve_signup: false
+plans: []
+note: >-
+  Credo AI publishes no pricing page and no plan tiers. https://www.credo.ai/pricing
+  returns 404, and no pricing link appears in the site header, footer or in the 31
+  pages enumerated by its own llms.txt. Every commercial path routes to a sales
+  motion — "Talk to an Expert" / https://www.credo.ai/get-started — and the API
+  contract itself defers the question: the OpenAPI 3.0.0 document states "API
+  requests are limited based on your subscription plan. Contact support for
+  specific limits." A tenant identifier must be issued by
+  support@credo.ai before the API can be called at all, so there is no
+  self-serve path to a key. plan_count is 0 because that is the fact, not because
+  the page was not found.
+tiers_referenced_without_price:
+- name: Governance Intelligence Pro
+  evidence: >-
+    The Credo AI Claude Code plugin describes get_maturity_framework and
+    get_benchmarks as "Pro-entitled, metered, behind the backend's
+    enableMaturityAssessment flag", and names entitlement_required /
+    feature_disabled as error conditions.
+  source: https://github.com/credo-ai/credoai-plugins
+  price: null
+  note: >-
+    A named, metered entitlement tier exists in shipped product documentation but
+    carries no published price and no way to buy it — access is via
+    engineering@credo.ai.
+evidence:
+- url: https://www.credo.ai/pricing
+  status: 404
+- url: https://www.credo.ai/get-started
+  status: 200
+- url: https://www.credo.ai/llms.txt
+  status: 200
+  note: 31 pages enumerated; none is a pricing page.
+- url: https://api.credo.ai/openapi
+  status: 200
+  note: 'info.description — "API requests are limited based on your subscription plan."'
