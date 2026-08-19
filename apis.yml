@@ -16,7 +16,7 @@ image: https://cdn.prod.website-files.com/649d808ba8385965c74d94df/6a27d15ec3da5
 url: https://raw.githubusercontent.com/api-evangelist/credo-ai/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 created: '2026-08-11'
 modified: '2026-08-11'
 tags:
