@@ -1,0 +1,3034 @@
+{
+  "item": [
+    {
+      "id": "99a2faa6-498c-4653-b0b5-6b9183cd9a57",
+      "name": "Audit Logs",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "f6e94922-80d9-4a9a-83b9-0ee4b063980e",
+          "name": "List audit logs",
+          "request": {
+            "name": "List audit logs",
+            "description": {
+              "content": "Retrieve a paginated list of all audit logs for the tenant.\n\nString filters behave differently per field:\n- `resource_name` and `sub_object_name` perform case-insensitive partial matching\n  (SQL `ILIKE '%value%'`) when given a plain string. To force an exact match,\n  use the object form `filter[<field>][type]=match&filter[<field>][value]=<value>`.\n- All other string filters (IDs, enums) remain exact match.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "Filter by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[user_id]",
+                  "value": "<string>",
+                  "description": "Filter by user id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[use_case_id]",
+                  "value": "<string>",
+                  "description": "Filter by use case id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_type]",
+                  "value": "<string>",
+                  "description": "Filter by resource type"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_id]",
+                  "value": "<string>",
+                  "description": "Filter by resource id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_name]",
+                  "value": "<string>",
+                  "description": "Filter by resource name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_id]",
+                  "value": "<string>",
+                  "description": "Filter by sub object id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_type]",
+                  "value": "<string>",
+                  "description": "Filter by sub object type"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_name]",
+                  "value": "<string>",
+                  "description": "Filter by sub object name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[start_time]",
+                  "value": "<string>",
+                  "description": "Filter by start time"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[end_time]",
+                  "value": "<string>",
+                  "description": "Filter by end time"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>",
+                  "description": "Sort results by one or more fields. Use ascending order by default, or prefix with '-' for descending order.\\\nMultiple fields can be specified as comma-separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[limit]",
+                  "value": "<integer>",
+                  "description": "Number of items per page"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[after]",
+                  "value": "<string>",
+                  "description": "Cursor for pagination - get items after this cursor"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[before]",
+                  "value": "<string>",
+                  "description": "Cursor for pagination - get items before this cursor"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "cf93553b-396a-46a1-9c3b-ec69444a1d1f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"49744e44-65e8-1cc1-f3e4-916646ae8225\",\n      \"type\": \"audit_logs\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"inserted_at\": \"1997-07-01T15:03:14.834Z\",\n        \"action\": {},\n        \"action_id\": \"82cfcf78-3f41-7cab-f89c-dfa22eda716c\",\n        \"message\": \"string\",\n        \"metadata\": {},\n        \"resource_id\": \"string\",\n        \"resource_name\": \"string\",\n        \"resource_type\": \"string\",\n        \"source\": \"string\",\n        \"sub_object_id\": \"string\",\n        \"sub_object_name\": \"string\",\n        \"sub_object_type\": \"string\",\n        \"team_id\": \"c6e3992f-d1ba-087a-3ab9-ee850a6003df\",\n        \"use_case_id\": \"9bf71745-06cf-58bb-d24c-0c49537da602\",\n        \"user\": {},\n        \"user_id\": \"292d9fbf-94ee-aea1-9003-845cc68ba081\"\n      }\n    },\n    {\n      \"id\": \"2837f952-06a9-4de4-19bf-8a67c3fa58e8\",\n      \"type\": \"audit_logs\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"inserted_at\": \"1979-08-23T04:26:27.159Z\",\n        \"action\": {},\n        \"action_id\": \"6341ea1c-c523-ea06-57f4-fea6cfeb8d29\",\n        \"message\": \"string\",\n        \"metadata\": {},\n        \"resource_id\": \"string\",\n        \"resource_name\": \"string\",\n        \"resource_type\": \"string\",\n        \"source\": \"string\",\n        \"sub_object_id\": \"string\",\n        \"sub_object_name\": \"string\",\n        \"sub_object_type\": \"string\",\n        \"team_id\": \"74cebd3e-b40c-5deb-a040-734552e00f89\",\n        \"use_case_id\": \"93e1b9ae-f023-0626-8f23-8993f934face\",\n        \"user\": {},\n        \"user_id\": \"5305314d-305f-3856-14b2-b78a7b958443\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"page\": 7050,\n    \"per_page\": 1719,\n    \"total_count\": 859,\n    \"total_pages\": 3212\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "87d89ee8-aa5f-4123-8a6a-4ff49b2c209b",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "page[limit]",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page[after]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "page[before]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3272d6ac-26ee-40ef-95aa-79a6fa5cf66a",
+          "name": "Export audit logs to CSV",
+          "request": {
+            "name": "Export audit logs to CSV",
+            "description": {
+              "content": "Export all audit logs for the tenant as a CSV file.\n\nThe CSV includes all audit log fields (see the AuditLog schema for field definitions):\n- name, user_id, action_id, use_case_id, team_id\n- resource_type, resource_id, resource_name\n- sub_object_type, sub_object_id, sub_object_name\n- user (object with id, email, name, role)\n- action (object with id, type, data)\n- metadata (event-specific data)\n- inserted_at, message\n\nYou can optionally filter which columns to include using the `columns` parameter.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "export"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "columns",
+                  "value": "<string>",
+                  "description": "Comma-separated list of column names to include in the export (e.g., 'name,user_id,resource_type,inserted_at')"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "Filter by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[user_id]",
+                  "value": "<string>",
+                  "description": "Filter by user id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[use_case_id]",
+                  "value": "<string>",
+                  "description": "Filter by use case id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_type]",
+                  "value": "<string>",
+                  "description": "Filter by resource type"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_id]",
+                  "value": "<string>",
+                  "description": "Filter by resource id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[resource_name]",
+                  "value": "<string>",
+                  "description": "Filter by resource name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_id]",
+                  "value": "<string>",
+                  "description": "Filter by sub object id"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_type]",
+                  "value": "<string>",
+                  "description": "Filter by sub object type"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[sub_object_name]",
+                  "value": "<string>",
+                  "description": "Filter by sub object name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[start_time]",
+                  "value": "<string>",
+                  "description": "Filter by start time"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[end_time]",
+                  "value": "<string>",
+                  "description": "Filter by end time"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/csv"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "096487cb-0110-49c2-bf44-ebe29738e2e9",
+              "name": "CSV file with audit logs (fields match AuditLog schema)",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_time]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/csv"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/csv"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6da31f41-ae9e-4386-a119-d4a7c4f0070d",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "export"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "columns",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[resource_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_id]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_type]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[sub_object_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[start_time]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[end_time]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9e272e83-82f9-488b-afa8-22e414a15020",
+          "name": "List valid audit log filter values",
+          "request": {
+            "name": "List valid audit log filter values",
+            "description": {
+              "content": "Returns the canonical lists of event names and resource types accepted by\nthe audit log filters. Intended to drive client-side filter dropdowns so\nthey stay in sync with the server's enum without requiring a frontend\ndeploy each time a new event is added.\n\n`resource_types` applies to both the `resource_type` and `sub_object_type`\nfilter parameters.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                "filter_options"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "81a3efb4-ebdb-4c05-b7b7-00891afad013",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "filter_options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"events\": [\n    \"string\",\n    \"string\"\n  ],\n  \"resource_types\": [\n    \"string\",\n    \"string\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf1716da-1992-4ec6-b15d-da940353b297",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    "filter_options"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a65a3077-2965-493e-83d1-dd2b19ce9ad2",
+          "name": "Get audit log details",
+          "request": {
+            "name": "Get audit log details",
+            "description": {
+              "content": "Retrieve detailed information about a specific audit log entry",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "audit_logs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Audit log ID"
+                },
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c036d322-c28e-4d24-bfc3-5ca89965b1ff",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Audit log ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"ec64a20d-89e8-b46f-28a6-3984bbc75ef2\",\n    \"type\": \"audit_logs\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"inserted_at\": \"1976-09-29T18:26:27.417Z\",\n      \"action\": {},\n      \"action_id\": \"6313ad0c-0d5e-68a8-eac9-6e7b022df74f\",\n      \"message\": \"string\",\n      \"metadata\": {},\n      \"resource_id\": \"string\",\n      \"resource_name\": \"string\",\n      \"resource_type\": \"string\",\n      \"source\": \"string\",\n      \"sub_object_id\": \"string\",\n      \"sub_object_name\": \"string\",\n      \"sub_object_type\": \"string\",\n      \"team_id\": \"21306ccf-db68-2e52-5e69-0fc29418eedf\",\n      \"use_case_id\": \"cbbc368a-124e-e27b-c7e2-ff4748d3449f\",\n      \"user\": {},\n      \"user_id\": \"d8a35dcf-0b49-f276-1425-a21de482eb19\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "784834d5-b97d-45bf-b7ed-56e1ec43c507",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Audit log ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0b94951d-176b-4fd7-9333-3f7130240156",
+              "name": "Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "audit_logs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Audit log ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "49b0e6ad-0a78-4971-a626-cd8dd0ee6c35",
+      "name": "Shadow AI",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "6272d5d8-b7ba-4b3d-b5c8-685312b7e884",
+          "name": "List AI events",
+          "request": {
+            "name": "List AI events",
+            "description": {
+              "content": "Retrieve a list of all AI events in the system",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filter[action]",
+                  "value": "<string>",
+                  "description": "Filter by action"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[app_name]",
+                  "value": "<string>",
+                  "description": "Filter by app name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[category]",
+                  "value": "<string>",
+                  "description": "Filter by category"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[department]",
+                  "value": "<string>",
+                  "description": "Filter by department"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[device_hostname]",
+                  "value": "<string>",
+                  "description": "Filter by device hostname"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[referrer_url]",
+                  "value": "<string>",
+                  "description": "Filter by referrer url"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[risk_score]",
+                  "value": "<number>",
+                  "description": "Filter by risk score"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[timestamp]",
+                  "value": "<string>",
+                  "description": "Filter by timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[url]",
+                  "value": "<string>",
+                  "description": "Filter by url"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[user_email]",
+                  "value": "<string>",
+                  "description": "Filter by user email"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c4ec9748-a969-4105-879f-83061c804fa5",
+              "name": "List of AI events",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[action]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[app_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[category]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[department]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[device_hostname]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[referrer_url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[risk_score]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[timestamp]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_email]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"2020-05-21T19:54:28.690Z\",\n        \"inserted_at\": \"1982-07-12T20:12:01.840Z\",\n        \"updated_at\": \"2016-05-01T07:28:38.924Z\",\n        \"action\": \"string\",\n        \"app_name\": \"string\",\n        \"category\": \"string\",\n        \"department\": \"string\",\n        \"device_hostname\": \"string\",\n        \"referrer_url\": \"string\",\n        \"risk_score\": 54,\n        \"url\": \"string\",\n        \"user_email\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"1975-09-21T04:48:53.166Z\",\n        \"inserted_at\": \"1973-04-23T01:53:53.762Z\",\n        \"updated_at\": \"1953-05-30T04:43:11.732Z\",\n        \"action\": \"string\",\n        \"app_name\": \"string\",\n        \"category\": \"string\",\n        \"department\": \"string\",\n        \"device_hostname\": \"string\",\n        \"referrer_url\": \"string\",\n        \"risk_score\": 94,\n        \"url\": \"string\",\n        \"user_email\": \"string\"\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "302897b4-f687-4b10-bd90-a9ed2430e649",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[action]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[app_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[category]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[department]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[device_hostname]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[referrer_url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[risk_score]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[timestamp]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_email]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\",\n      \"title\": \"Model in use\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "70ce4edd-dc09-4d59-80fa-3ec2e07da52a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filter[action]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[app_name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[category]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[department]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[device_hostname]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[referrer_url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[risk_score]",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "filter[timestamp]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[url]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[user_email]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f95fd135-4407-4978-9843-343a6fdd082b",
+          "name": "Create AI event",
+          "request": {
+            "name": "Create AI event",
+            "description": {
+              "content": "Create a new AI event with the provided attributes",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_events"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": {\n    \"type\": \"<string>\",\n    \"attributes\": {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2a5b7db1-7c4b-4c28-bec3-c546df9a59a3",
+              "name": "AI event created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"ai_event\",\n    \"attributes\": {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"ai_event\",\n    \"attributes\": {\n      \"timestamp\": \"2004-12-07T05:45:53.070Z\",\n      \"inserted_at\": \"1994-10-25T14:18:58.270Z\",\n      \"updated_at\": \"1989-11-26T08:14:48.097Z\",\n      \"action\": \"string\",\n      \"app_name\": \"string\",\n      \"category\": \"string\",\n      \"department\": \"string\",\n      \"device_hostname\": \"string\",\n      \"referrer_url\": \"string\",\n      \"risk_score\": 95,\n      \"url\": \"string\",\n      \"user_email\": \"string\"\n    }\n  },\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4f979d13-4df0-4a5f-8216-477eb2beb722",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"ai_event\",\n    \"attributes\": {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0cebfb61-885d-4fe5-b8ef-ec7d3ef86857",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"ai_event\",\n    \"attributes\": {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ea45cc7-f982-474e-83c7-583c1d936808",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": {\n    \"type\": \"ai_event\",\n    \"attributes\": {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb1c078f-323b-4f77-a33c-015259935977",
+          "name": "Create AI events in bulk",
+          "request": {
+            "name": "Create AI events in bulk",
+            "description": {
+              "content": "Create multiple AI events in bulk. Accepts either JSONAPI format with a 'data' array or simple format with an 'events' array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_events",
+                "bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/vnd.api+json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"data\": [\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"<string>\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    }\n  ],\n  \"events\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5c66eed0-3aaa-4114-b994-cb2087136ff7",
+              "name": "AI events created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    }\n  ],\n  \"events\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"2013-01-26T06:31:03.879Z\",\n        \"inserted_at\": \"1949-12-13T10:44:17.938Z\",\n        \"updated_at\": \"1966-03-22T16:27:56.947Z\",\n        \"action\": \"string\",\n        \"app_name\": \"string\",\n        \"category\": \"string\",\n        \"department\": \"string\",\n        \"device_hostname\": \"string\",\n        \"referrer_url\": \"string\",\n        \"risk_score\": 86,\n        \"url\": \"string\",\n        \"user_email\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"1988-04-09T12:22:42.233Z\",\n        \"inserted_at\": \"1971-10-01T11:32:38.915Z\",\n        \"updated_at\": \"2023-01-08T20:24:29.786Z\",\n        \"action\": \"string\",\n        \"app_name\": \"string\",\n        \"category\": \"string\",\n        \"department\": \"string\",\n        \"device_hostname\": \"string\",\n        \"referrer_url\": \"string\",\n        \"risk_score\": 90,\n        \"url\": \"string\",\n        \"user_email\": \"string\"\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1c024100-0408-4277-945d-9e1a08a374e0",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    }\n  ],\n  \"events\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5ead1abc-e8c6-437c-9a29-7749c7c79cdd",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    }\n  ],\n  \"events\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6f6973bd-f25a-4669-8e9e-c7571164b2bd",
+              "name": "Validation error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    "bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"data\": [\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    },\n    {\n      \"type\": \"ai_event\",\n      \"attributes\": {\n        \"timestamp\": \"<dateTime>\",\n        \"action\": \"<string>\",\n        \"app_name\": \"<string>\",\n        \"category\": \"<string>\",\n        \"department\": \"<string>\",\n        \"device_hostname\": \"<string>\",\n        \"referrer_url\": \"<string>\",\n        \"risk_score\": \"<integer>\",\n        \"url\": \"<string>\",\n        \"user_email\": \"<string>\"\n      }\n    }\n  ],\n  \"events\": [\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    },\n    {\n      \"timestamp\": \"<dateTime>\",\n      \"action\": \"<string>\",\n      \"app_name\": \"<string>\",\n      \"category\": \"<string>\",\n      \"department\": \"<string>\",\n      \"device_hostname\": \"<string>\",\n      \"referrer_url\": \"<string>\",\n      \"risk_score\": \"<integer>\",\n      \"url\": \"<string>\",\n      \"user_email\": \"<string>\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16e930a7-a71a-49ce-af7e-7a4578c605cd",
+          "name": "Delete AI event",
+          "request": {
+            "name": "Delete AI event",
+            "description": {
+              "content": "Delete an AI event by ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_events",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) AI event ID"
+                },
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": ""
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "98c24a65-5494-4d32-99ac-9ea7f3108d09",
+              "name": "AI event deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) AI event ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": ""
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": ""
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4569bcb-e3f0-401d-8eec-17c72dad7dc5",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) AI event ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3ac2b67c-63a4-46ca-a691-c646abab8b5e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_events",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) AI event ID"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0fc7c1f-cfad-4c3c-ac4e-91ecf1c15f7d",
+          "name": "List AI tools",
+          "request": {
+            "name": "List AI tools",
+            "description": {
+              "content": "Retrieve a list of all AI tools available in the system",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_tools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "include",
+                  "value": "<string>,<string>",
+                  "description": "Include related resources in the response\\\nMultiple fields can be specified as comma-separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>,<string>",
+                  "description": "Sort results by one or more fields. Use ascending order by default, or prefix with '-' for descending order.\\\nMultiple fields can be specified as comma-separated values."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[name]",
+                  "value": "<string>",
+                  "description": "Filter by name"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter[use_case_id]",
+                  "value": "<string>",
+                  "description": "Filter by use case id"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "27a33ce4-2592-407c-8434-7aabce9b992d",
+              "name": "List of AI tools",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_tool\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"inserted_at\": \"1992-06-12T07:47:59.900Z\",\n        \"updated_at\": \"1978-06-23T12:59:26.344Z\",\n        \"use_case_id\": \"string\"\n      }\n    },\n    {\n      \"id\": \"string\",\n      \"type\": \"ai_tool\",\n      \"attributes\": {\n        \"name\": \"string\",\n        \"inserted_at\": \"2007-01-29T08:43:07.510Z\",\n        \"updated_at\": \"2018-02-20T10:27:54.491Z\",\n        \"use_case_id\": \"string\"\n      }\n    }\n  ],\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5a3521c-59cf-4f60-b843-f11d1bc37841",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "36d29eeb-aebb-4476-b121-6943c0afd8d1",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "include",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "<string>,<string>"
+                    },
+                    {
+                      "key": "filter[name]",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter[use_case_id]",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a38d98b8-9fc3-44c1-9f88-40f53f709b14",
+          "name": "Register AI tool",
+          "request": {
+            "name": "Register AI tool",
+            "description": {
+              "content": "Register an AI tool with a use case. This associates the AI tool with a specific use case in the system.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_tools",
+                ":id",
+                "register"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the AI tool to register"
+                },
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "0b000191-1fb5-410d-b6a8-14f8f5974a5b",
+              "name": "AI tool registered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to register"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"ai_tool\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"inserted_at\": \"1992-10-08T23:55:30.127Z\",\n      \"updated_at\": \"1952-01-27T18:34:29.787Z\",\n      \"use_case_id\": \"string\"\n    }\n  },\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11470bfa-ff3e-4e35-aff1-5fc3956b9f95",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to register"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5210777-3f8d-4a09-bf64-4633855a7e5c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "register"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to register"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "58cd5a8a-9021-47a7-a189-c4d80e7f78f3",
+          "name": "Unregister AI tool",
+          "request": {
+            "name": "Unregister AI tool",
+            "description": {
+              "content": "Unregister an AI tool from its associated use case. This removes the association between the AI tool and the use case.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shadow_ai",
+                "ai_tools",
+                ":id",
+                "unregister"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) The unique ID of the AI tool to unregister"
+                },
+                {
+                  "description": "The tenant identifier",
+                  "type": "any",
+                  "value": "{{tenant}}",
+                  "key": "tenant"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/vnd.api+json"
+              }
+            ],
+            "method": "POST",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "64f9a3f6-5228-4ebf-a212-6f7f9baf7658",
+              "name": "AI tool unregistered",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "unregister"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to unregister"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/vnd.api+json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/vnd.api+json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"type\": \"ai_tool\",\n    \"attributes\": {\n      \"name\": \"string\",\n      \"inserted_at\": \"1972-11-15T17:26:53.942Z\",\n      \"updated_at\": \"2010-04-22T09:19:02.197Z\",\n      \"use_case_id\": \"string\"\n    }\n  },\n  \"included\": [\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    },\n    {\n      \"attributes\": {},\n      \"id\": \"string\",\n      \"type\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6d6b8b7a-1a0e-40cd-982f-7b8df99ad4a8",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "unregister"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to unregister"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4c81178e-1e89-4bbd-b5c3-0613a2667702",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shadow_ai",
+                    "ai_tools",
+                    ":id",
+                    "unregister"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) The unique ID of the AI tool to unregister"
+                    },
+                    {
+                      "description": "The tenant identifier",
+                      "type": "any",
+                      "value": "{{tenant}}",
+                      "key": "tenant"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    },\n    {\n      \"code\": 2217,\n      \"title\": \"Model in use\",\n      \"detail\": \"This model cannot be deleted because it is part of an Use Case.\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The tenant identifier",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "credoai",
+      "key": "tenant"
+    },
+    {
+      "type": "string",
+      "value": "http://localhost:4000/api/v2/{{tenant}}",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "7afb813e-732e-4196-945c-5014eef73e4e",
+    "name": "Credo AI API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Credo AI API provides endpoints for managing AI models, use cases, and policy controls.\n\n## Authentication\nAll API requests must include a valid Bearer token in the Authorization header.\nTo obtain a token, use the [`POST /auth/exchange`](#tag/Auth/operation/CredoAIWeb.Auth.TokenController.exchange) endpoint with your API token and tenant.\n\n## Rate Limiting\nAPI requests are limited based on your subscription plan. Contact support for specific limits.\n\n## Versioning\nThis is version 2.0 of the API. All endpoints are prefixed with `/api/v2/`.\n\n\nContact Support:\n Name: Credo AI Support\n Email: support@credo.ai",
+      "type": "text/plain"
+    }
+  }
+}

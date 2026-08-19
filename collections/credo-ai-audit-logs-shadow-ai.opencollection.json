@@ -1,0 +1,447 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Credo AI API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audit Logs",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List audit logs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/audit_logs",
+            "params": [
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "filter[user_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user id"
+              },
+              {
+                "name": "filter[use_case_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by use case id"
+              },
+              {
+                "name": "filter[resource_type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource type"
+              },
+              {
+                "name": "filter[resource_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource id"
+              },
+              {
+                "name": "filter[resource_name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource name"
+              },
+              {
+                "name": "filter[sub_object_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object id"
+              },
+              {
+                "name": "filter[sub_object_type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object type"
+              },
+              {
+                "name": "filter[sub_object_name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object name"
+              },
+              {
+                "name": "filter[start_time]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start time"
+              },
+              {
+                "name": "filter[end_time]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end time"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one or more fields. Use ascending order by default, or prefix with '-' for descending order.\\\nMultiple fields can be specified as comma-separated values."
+              },
+              {
+                "name": "page[limit]",
+                "value": "",
+                "type": "query",
+                "description": "Number of items per page"
+              },
+              {
+                "name": "page[after]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination - get items after this cursor"
+              },
+              {
+                "name": "page[before]",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for pagination - get items before this cursor"
+              }
+            ]
+          },
+          "docs": "Retrieve a paginated list of all audit logs for the tenant.\n\nString filters behave differently per field:\n- `resource_name` and `sub_object_name` perform case-insensitive partial matching\n  (SQL `ILIKE '%value%'`) when given a plain string. To force an exact match,\n  use the object form `filter[<field>][type]=match&filter[<field>][value]=<value>`.\n- All other string filters (IDs, enums) remain exact match.\n"
+        },
+        {
+          "info": {
+            "name": "Export audit logs to CSV",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/audit_logs/export",
+            "params": [
+              {
+                "name": "columns",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of column names to include in the export (e.g., 'name,user_id,resource_type,inserted_at')"
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "filter[user_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user id"
+              },
+              {
+                "name": "filter[use_case_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by use case id"
+              },
+              {
+                "name": "filter[resource_type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource type"
+              },
+              {
+                "name": "filter[resource_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource id"
+              },
+              {
+                "name": "filter[resource_name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by resource name"
+              },
+              {
+                "name": "filter[sub_object_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object id"
+              },
+              {
+                "name": "filter[sub_object_type]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object type"
+              },
+              {
+                "name": "filter[sub_object_name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by sub object name"
+              },
+              {
+                "name": "filter[start_time]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by start time"
+              },
+              {
+                "name": "filter[end_time]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by end time"
+              }
+            ]
+          },
+          "docs": "Export all audit logs for the tenant as a CSV file.\n\nThe CSV includes all audit log fields (see the AuditLog schema for field definitions):\n- name, user_id, action_id, use_case_id, team_id\n- resource_type, resource_id, resource_name\n- sub_object_type, sub_object_id, sub_object_name\n- user (object with id, email, name, role)\n- action (object with id, type, data)\n- metadata (event-specific data)\n- inserted_at, message\n\nYou can optionally filter which columns to include using the `columns` paramete"
+        },
+        {
+          "info": {
+            "name": "List valid audit log filter values",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/audit_logs/filter_options"
+          },
+          "docs": "Returns the canonical lists of event names and resource types accepted by\nthe audit log filters. Intended to drive client-side filter dropdowns so\nthey stay in sync with the server's enum without requiring a frontend\ndeploy each time a new event is added.\n\n`resource_types` applies to both the `resource_type` and `sub_object_type`\nfilter parameters.\n"
+        },
+        {
+          "info": {
+            "name": "Get audit log details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/audit_logs/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Audit log ID"
+              }
+            ]
+          },
+          "docs": "Retrieve detailed information about a specific audit log entry"
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Shadow AI",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List AI events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_events",
+            "params": [
+              {
+                "name": "filter[action]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by action"
+              },
+              {
+                "name": "filter[app_name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by app name"
+              },
+              {
+                "name": "filter[category]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by category"
+              },
+              {
+                "name": "filter[department]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by department"
+              },
+              {
+                "name": "filter[device_hostname]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by device hostname"
+              },
+              {
+                "name": "filter[referrer_url]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by referrer url"
+              },
+              {
+                "name": "filter[risk_score]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by risk score"
+              },
+              {
+                "name": "filter[timestamp]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by timestamp"
+              },
+              {
+                "name": "filter[url]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by url"
+              },
+              {
+                "name": "filter[user_email]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by user email"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all AI events in the system"
+        },
+        {
+          "info": {
+            "name": "Create AI event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_events",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new AI event with the provided attributes"
+        },
+        {
+          "info": {
+            "name": "Create AI events in bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_events/bulk",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create multiple AI events in bulk. Accepts either JSONAPI format with a 'data' array or simple format with an 'events' array."
+        },
+        {
+          "info": {
+            "name": "Delete AI event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_events/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "AI event ID"
+              }
+            ]
+          },
+          "docs": "Delete an AI event by ID"
+        },
+        {
+          "info": {
+            "name": "List AI tools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_tools",
+            "params": [
+              {
+                "name": "include",
+                "value": "",
+                "type": "query",
+                "description": "Include related resources in the response\\\nMultiple fields can be specified as comma-separated values."
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Sort results by one or more fields. Use ascending order by default, or prefix with '-' for descending order.\\\nMultiple fields can be specified as comma-separated values."
+              },
+              {
+                "name": "filter[name]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by name"
+              },
+              {
+                "name": "filter[use_case_id]",
+                "value": "",
+                "type": "query",
+                "description": "Filter by use case id"
+              }
+            ]
+          },
+          "docs": "Retrieve a list of all AI tools available in the system"
+        },
+        {
+          "info": {
+            "name": "Register AI tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_tools/:id/register",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the AI tool to register"
+              }
+            ]
+          },
+          "docs": "Register an AI tool with a use case. This associates the AI tool with a specific use case in the system."
+        },
+        {
+          "info": {
+            "name": "Unregister AI tool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "http://localhost:4000/api/v2/{tenant}/shadow_ai/ai_tools/:id/unregister",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The unique ID of the AI tool to unregister"
+              }
+            ]
+          },
+          "docs": "Unregister an AI tool from its associated use case. This removes the association between the AI tool and the use case."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
