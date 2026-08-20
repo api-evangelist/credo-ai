@@ -21,6 +21,23 @@ created: '2026-08-11'
 modified: '2026-08-11'
 tags:
 - Company
+- AI Governance
+- ai-risk-management
+- Responsible AI
+- Compliance
+- Regulatory Technology
+- Model Registry
+- Vendor Risk
+- EU AI Act
+- NIST AI RMF
+- ISO 42001
+- Shadow AI
+- Agent Governance
+- Audit
+- JSON:API
+- Agent Skills
+tags_raw:
+- Company
 - ai-governance
 - ai-risk-management
 - responsible-ai
@@ -49,6 +66,13 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - AI Governance
+  - ai-risk-management
+  - Compliance
+  - Model Registry
+  - Vendor Risk
+  - JSON:API
+  tags_raw:
   - ai-governance
   - ai-risk-management
   - compliance
@@ -86,6 +110,11 @@ apis:
   humanURL: https://api.credo.ai/openapi
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Audit
+  - Shadow AI
+  - AI Governance
+  - Compliance
+  tags_raw:
   - audit
   - shadow-ai
   - ai-governance
@@ -107,6 +136,10 @@ apis:
   humanURL: https://github.com/credo-ai/credoai-plugins
   baseURL: npx -y @credoai/governance-hub-mcp
   tags:
+  - MCP
+  - AI Governance
+  - Agent Skills
+  tags_raw:
   - mcp
   - ai-governance
   - agent-skills
