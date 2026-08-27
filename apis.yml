@@ -54,85 +54,13 @@ tags_raw:
 - json-api
 - agent-skills
 apis:
-- name: Credo AI Governance Platform API (v2)
-  description: >-
-    Multi-tenant JSON:API REST interface to the Credo AI Governance Platform. 300 operations across 26
-    tags cover use cases, use case questionnaires, risk scenarios, controls, policy packs, reports,
-    reviews, comments and custom fields, plus models and model versions, vendors, questionnaires,
-    policy controls, risk classifications, tasks, fields, users, teams, triggers and trigger actions,
-    and Shadow AI tools and events. Media type is application/vnd.api+json throughout, with cursor
-    pagination (page[after]/page[before]/page[limit]), filter[...]/sort/include query conventions, and
-    a JSON:API errors[] envelope. Authenticated with a Bearer token exchanged from a tenant API token.
-  humanURL: https://docs.sdk.credo.ai/docs/intro/
-  baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
-  - AI Governance
-  - ai-risk-management
-  - Compliance
-  - Model Registry
-  - Vendor Risk
-  - JSON:API
-  tags_raw:
-  - ai-governance
-  - ai-risk-management
-  - compliance
-  - model-registry
-  - vendor-risk
-  - json-api
-  properties:
-  - type: OpenAPI
-    url: openapi/credo-ai-governance-platform-swagger.json
-  - type: Swagger
-    url: https://api.credo.ai/swagger.json
-  - type: Documentation
-    url: https://docs.sdk.credo.ai/docs/intro/
-  - type: APIReference
-    url: https://docs.sdk.credo.ai/docs/api-reference
-  - type: GettingStarted
-    url: https://docs.sdk.credo.ai/docs/getting-started
-  - type: Overlay
-    url: overlays/credo-ai-governance-platform-overlay.yaml
-  - type: Authentication
-    url: authentication/credo-ai-authentication.yml
-  - type: Conventions
-    url: conventions/credo-ai-conventions.yml
-  - type: ErrorCatalog
-    url: errors/credo-ai-problem-types.yml
-  - type: DataModel
-    url: data-model/credo-ai-data-model.yml
-- name: Credo AI Audit Logs & Shadow AI API
-  description: >-
-    OpenAPI 3.0.0 contract covering the audit-log and Shadow AI slice of the Credo AI v2 API — listing,
-    filtering, exporting and retrieving audit log entries, and ingesting, listing, bulk-loading and
-    deleting Shadow AI events plus registering and unregistering discovered AI tools. Declares four
-    servers (local, QA, production, on-premise), each templated on the customer tenant identifier, and
-    a BearerAuth JWT security scheme obtained from POST /auth/exchange.
-  humanURL: https://api.credo.ai/openapi
-  baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
-  - Audit
-  - Shadow AI
-  - AI Governance
-  - Compliance
-  tags_raw:
-  - audit
-  - shadow-ai
-  - ai-governance
-  - compliance
-  properties:
-  - type: OpenAPI
-    url: openapi/credo-ai-audit-logs-shadow-ai-openapi.json
-  - type: Documentation
-    url: https://api.credo.ai/openapi
-  - type: Overlay
-    url: overlays/credo-ai-audit-logs-shadow-ai-overlay.yaml
 - name: Credo AI Governance Intelligence Pro MCP Server
   description: >-
     Provider-published Model Context Protocol server ("governance-hub") distributed as the npm package
-    @credoai/governance-hub-mcp and run over stdio via npx. Grounds the Credo AI Claude Code Agent
-    Skills in the live Credo AI Governance Intelligence catalog with five documented tools —
-    get_catalog_overview, governance_query, get_entities, get_maturity_framework, get_benchmarks.
-    Access credentials are gated; the npm package is not resolvable on the public registry.
+    @credoai/governance-hub-mcp and run over stdio via npx. Grounds the Credo AI Claude Code Agent Skills
+    in the live Credo AI Governance Intelligence catalog with five documented tools — get_catalog_overview,
+    governance_query, get_entities, get_maturity_framework, get_benchmarks. Access credentials are gated;
+    the npm package is not resolvable on the public registry.
   humanURL: https://github.com/credo-ai/credoai-plugins
   baseURL: npx -y @credoai/governance-hub-mcp
   tags:
@@ -150,12 +78,1116 @@ apis:
     url: mcp/credo-ai-tool-crosswalk.yml
   - type: Documentation
     url: https://github.com/credo-ai/credoai-plugins
+- aid: credo-ai:credo-ai-alerts-api
+  name: Credo AI Alerts API
+  description: The alerts API from Credo AI — 4 operation(s) for alerts.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - alerts
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-alerts-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-audit-logs-api
+  name: Credo AI Audit Logs API
+  description: The Audit Logs API from Credo AI — 4 operation(s) for audit logs.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - Audit Logs
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-audit-logs-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-comment-threads-api
+  name: Credo AI Comment Threads API
+  description: The comment_threads API from Credo AI — 4 operation(s) for comment_threads.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - comment_threads
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-comment-threads-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entities-api
+  name: Credo AI Entities API
+  description: The entities API from Credo AI — 1 operation(s) for entities.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entities
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entities-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-control-assignments-api
+  name: Credo AI Entity Control Assignments API
+  description: >-
+    The entity_control_assignments API from Credo AI — 1 operation(s) for entity_control_assignments.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_control_assignments
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-control-assignments-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-controls-api
+  name: Credo AI Entity Controls API
+  description: The entity_controls API from Credo AI — 7 operation(s) for entity_controls.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_controls
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-controls-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-evidences-api
+  name: Credo AI Entity Evidences API
+  description: The entity_evidences API from Credo AI — 1 operation(s) for entity_evidences.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_evidences
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-evidences-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-policy-packs-api
+  name: Credo AI Entity Policy Packs API
+  description: The entity_policy_packs API from Credo AI — 2 operation(s) for entity_policy_packs.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_policy_packs
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-policy-packs-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-risk-scenario-controls-api
+  name: Credo AI Entity Risk Scenario Controls API
+  description: >-
+    The entity_risk_scenario_controls API from Credo AI — 3 operation(s) for entity_risk_scenario_controls.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_risk_scenario_controls
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-risk-scenario-controls-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-risk-scenarios-api
+  name: Credo AI Entity Risk Scenarios API
+  description: The entity_risk_scenarios API from Credo AI — 2 operation(s) for entity_risk_scenarios.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_risk_scenarios
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-risk-scenarios-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-section-assignments-api
+  name: Credo AI Entity Section Assignments API
+  description: >-
+    The entity_section_assignments API from Credo AI — 1 operation(s) for entity_section_assignments.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_section_assignments
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-section-assignments-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-entity-types-api
+  name: Credo AI Entity Types API
+  description: The entity_types API from Credo AI — 1 operation(s) for entity_types.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - entity_types
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-entity-types-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-fields-api
+  name: Credo AI Fields API
+  description: Operations related to custom fields management
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - fields
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-fields-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-integrations-api
+  name: Credo AI Integrations API
+  description: The integrations API from Credo AI — 4 operation(s) for integrations.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - integrations
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-integrations-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-models-api
+  name: Credo AI Models API
+  description: Operations related to models and model versions
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - models
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-models-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-other-api
+  name: Credo AI Other API
+  description: Utility endpoints including tenant information and evidence types
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - other
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-other-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-policy-controls-api
+  name: Credo AI Policy Controls API
+  description: Endpoints for policy controls management
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - policy_controls
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-policy-controls-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-policy-packs-api
+  name: Credo AI Policy Packs API
+  description: Endpoints for policy packs management
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - policy_packs
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-policy-packs-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-questionnaires-api
+  name: Credo AI Questionnaires API
+  description: Operations related to questionnaires and their versions
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - questionnaires
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-questionnaires-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-risks-api
+  name: Credo AI Risks API
+  description: Endpoints for management of risk classifications, risk types, and risk scenarios
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - risks
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-risks-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-shadow-ai-api
+  name: Credo AI Shadow AI API
+  description: The Shadow AI API from Credo AI — 6 operation(s) for shadow ai.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - Shadow AI
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-shadow-ai-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-sources-api
+  name: Credo AI Sources API
+  description: The sources API from Credo AI — 3 operation(s) for sources.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - sources
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-sources-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-tasks-api
+  name: Credo AI Tasks API
+  description: Operations related to task management
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - tasks
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-tasks-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-teams-api
+  name: Credo AI Teams API
+  description: Operations related to team management and memberships
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - teams
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-teams-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-triggers-and-actions-api
+  name: Credo AI Triggers And Actions API
+  description: Endpoints for managing triggers and actions
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - triggers_and_actions
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-triggers-and-actions-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-api
+  name: Credo AI Use Case API
+  description: The use_case API from Credo AI — 1 operation(s) for use_case.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-controls-api
+  name: Credo AI Use Case Controls API
+  description: Operations related to controls for a specific use case
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_controls
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-controls-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-custom-fields-api
+  name: Credo AI Use Case Custom Fields API
+  description: Operations related to use case custom fields
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_custom_fields
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-custom-fields-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-policy-packs-api
+  name: Credo AI Use Case Policy Packs API
+  description: Operations related to policy packs for a specific use case
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_policy_packs
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-policy-packs-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-questionnaires-api
+  name: Credo AI Use Case Questionnaires API
+  description: >-
+    Operations related to questionnaires, questionnaire sections, and questionnaire evidence for a specific
+    use case
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_questionnaires
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-questionnaires-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-reports-api
+  name: Credo AI Use Case Reports API
+  description: >-
+    Operations related to reports for a specific use case, including creation, retrieval, and management
+    of attestation requests
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_reports
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-reports-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-reviews-api
+  name: Credo AI Use Case Reviews API
+  description: Operations related to use case reviews, review actions, tasks and attestations
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-reviews-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-risk-scenarios-api
+  name: Credo AI Use Case Risk Scenarios API
+  description: Operations related to risk scenarios for a specific use case
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_risk_scenarios
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-risk-scenarios-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-case-scheduled-reviews-api
+  name: Credo AI Use Case Scheduled Reviews API
+  description: >-
+    The use_case_scheduled_reviews API from Credo AI — 2 operation(s) for use_case_scheduled_reviews.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_case_scheduled_reviews
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-case-scheduled-reviews-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-use-cases-api
+  name: Credo AI Use Cases API
+  description: Operations related to use cases
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - use_cases
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-use-cases-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-user-api
+  name: Credo AI User API
+  description: Endpoints related to user preferences and settings
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - user
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-user-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-users-api
+  name: Credo AI Users API
+  description: Endpoints for user management, roles, and profiles
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - users
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-users-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-vendors-api
+  name: Credo AI Vendors API
+  description: Operations related to vendors and their questionnaires
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - vendors
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-vendors-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-workflow-stages-api
+  name: Credo AI Workflow Stages API
+  description: The workflow_stages API from Credo AI — 2 operation(s) for workflow_stages.
+  humanURL: https://docs.sdk.credo.ai/docs/intro/
+  baseURL: https://api.credo.ai/api/v2/{tenant}
+  tags:
+  - workflow_stages
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-workflow-stages-api-openapi.yml
+  - type: Swagger
+    url: https://api.credo.ai/swagger.json
+  - type: Documentation
+    url: https://docs.sdk.credo.ai/docs/intro/
+  - type: APIReference
+    url: https://docs.sdk.credo.ai/docs/api-reference
+  - type: GettingStarted
+    url: https://docs.sdk.credo.ai/docs/getting-started
+  - type: Authentication
+    url: authentication/credo-ai-authentication.yml
+  - type: Conventions
+    url: conventions/credo-ai-conventions.yml
+  - type: ErrorCatalog
+    url: errors/credo-ai-problem-types.yml
+  - type: DataModel
+    url: data-model/credo-ai-data-model.yml
+  - type: Documentation
+    url: https://api.credo.ai/openapi
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/credo-ai-governance-platform-overlay.yaml
+- type: Overlay
+  url: overlays/credo-ai-audit-logs-shadow-ai-overlay.yaml
 - type: DomainSecurity
   url: security/credo-ai-domain-security.yml
 - type: Website
