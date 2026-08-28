@@ -12,6 +12,17 @@ description: >-
   Shadow AI), a first-party Python SDK (pycredoai) and TypeScript SDK (@credo-ai/sdk), and a published
   Claude Code plugin marketplace of eleven AI-governance Agent Skills backed by a gated Governance
   Intelligence Pro MCP server.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://cdn.prod.website-files.com/649d808ba8385965c74d94df/6a27d15ec3da571348386f01_OPENGRAPGH-light.png
 url: https://raw.githubusercontent.com/api-evangelist/credo-ai/refs/heads/main/apis.yml
 x-type: company
