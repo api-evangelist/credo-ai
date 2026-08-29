@@ -1195,6 +1195,9 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: CapabilityMap
+  url: capabilities/credo-ai-capability-edges.yml
+  name: Credo AI Business Capability Map
 - type: Overlay
   url: overlays/credo-ai-governance-platform-overlay.yaml
 - type: Overlay

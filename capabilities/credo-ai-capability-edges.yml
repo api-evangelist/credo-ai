@@ -1,0 +1,111 @@
+slug: credo-ai
+provider: Credo AI
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 9
+edges:
+- tag: use_cases
+  spec_file: credo-ai-use-cases-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.82
+  evidence: UpdateRiskClassificationRequest, UseCaseVendorLinkResource, POST /use_cases/import, PATCH
+    /use_cases/{use_case_id}/step
+  reason: 'This is the vendor''s AI Registry: registering AI use cases with risk classification, stakeholders,
+    evidence and vendor/model links — squarely AI/ML lifecycle and responsible-AI governance.'
+- tag: Shadow AI
+  spec_file: credo-ai-shadow-ai-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: GET /shadow_ai/ai_tools  List AI tools; POST /shadow_ai/ai_tools/{id}/register  Register AI
+    tool
+  reason: Discovery of unsanctioned AI tool usage events and registration/unregistration of AI tools into
+    the governed registry. This is squarely AI/ML lifecycle and responsible-AI governance (BC-610.60),
+    matching the vendor's stated 'shadow-AI discovery' and AI Registry.
+- tag: models
+  spec_file: credo-ai-models-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: DELETE/GET/PATCH /models/{model_id}/versions/{id}, /models/{model_id}/questionnaires/{id},
+    /models/{model_id}/vendor_links; ModelVersionCreateRequest, ModelEvidenceResource
+  reason: Registration and versioning of AI models with governance questionnaires and evidence is AI/ML
+    model lifecycle and responsible-AI management (BC-610.60).
+- tag: entity_policy_packs
+  spec_file: credo-ai-entity-policy-packs-api-openapi.yml
+  capability_id: BC-130
+  capability_id_l1: BC-130
+  capability_name: Compliance Management
+  confidence: 0.75
+  evidence: 'GET/POST /entities/{entity_id}/policy_packs, schema EntityPolicyPackCreateRequest; vendor:
+    ''a policy engine that turns regulatory frameworks — the EU AI Act, NIST AI RMF'''
+  reason: Assigning and maintaining policy packs (regulatory frameworks) against registered AI entities
+    is compliance management. Ambiguous between regulatory compliance and policy lifecycle sub-capabilities,
+    so L2 left null.
+- tag: entity_controls
+  spec_file: credo-ai-entity-controls-api-openapi.yml
+  capability_id: BC-130.10
+  capability_id_l1: BC-130
+  capability_name: Regulatory Compliance Management
+  confidence: 0.7
+  evidence: GET /entities/{entity_id}/controls/{control_id}/evidences and POST /entities/{entity_id}/controls/{control_id}/tasks
+  reason: Manages controls attached to AI entities together with their evidence, supporting files and
+    remediation tasks — the operational core of demonstrating adherence to frameworks such as the EU AI
+    Act and NIST AI RMF, i.e. Regulatory Compliance Management.
+- tag: entity_risk_scenarios
+  spec_file: credo-ai-entity-risk-scenarios-api-openapi.yml
+  capability_id: BC-120.20
+  capability_id_l1: BC-120
+  capability_name: Risk Identification & Assessment
+  confidence: 0.7
+  evidence: POST /entities/{entity_id}/risk_scenarios, schemas EntityRiskScenarioCreateRequest, EntityRiskScenariosResponse;
+    vendor 'risk-classify, and continuously govern'
+  reason: CRUD over risk scenarios recorded against governed AI entities is risk identification and assessment.
+    Enterprise risk framing fits; AI-specific nuance keeps confidence moderate.
+- tag: policy_packs
+  spec_file: credo-ai-policy-packs-api-openapi.yml
+  capability_id: BC-130.20
+  capability_id_l1: BC-130
+  capability_name: Policy Management
+  confidence: 0.7
+  evidence: POST /policy_pack_bases, POST /policy_pack_bases/{base_id}/versions, POST /policy_packs/{id}/duplicate;
+    CustomPolicyPackBaseCreateRequest
+  reason: Creation, duplication and versioning of policy packs is policy lifecycle management (drafting,
+    approval, retirement) within compliance management.
+- tag: risks
+  spec_file: credo-ai-risks-api-openapi.yml
+  capability_id: BC-120.20
+  capability_id_l1: BC-120
+  capability_name: Risk Identification & Assessment
+  confidence: 0.7
+  evidence: GET /risk_classifications, PUT /risk_classifications, GET /risk_scenarios, POST /custom_risk_scenarios,
+    POST /risk_types
+  reason: Operations create and maintain risk types, risk scenarios and risk classifications — i.e. discovery,
+    scoring and classification of risks (here for AI systems, e.g. EU AI Act risk tiers). Sub-capability
+    split between taxonomy/framework (BC-120.10) and identification/assessment is somewhat ambiguous,
+    so confidence is held at 0.7.
+- tag: use_case_reviews
+  spec_file: credo-ai-use-case-reviews-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: GET /use_cases/{use_case_id}/reviews ... UseCaseReviewCreateRequest, UseCaseControlTaskCreateRequest,
+    show_workflow_stage
+  reason: Reviews here are governance reviews of registered AI use cases (with control tasks and workflow
+    stages) on an AI governance platform, which is responsible-AI lifecycle governance rather than generic
+    project review. Mapped to Artificial Intelligence Management; some ambiguity versus generic compliance
+    management.
