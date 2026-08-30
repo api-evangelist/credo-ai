@@ -32,21 +32,21 @@ created: '2026-08-11'
 modified: '2026-08-11'
 tags:
 - Company
-- AI Governance
+- ai-governance
 - ai-risk-management
-- Responsible AI
+- responsible-ai
 - Compliance
-- Regulatory Technology
-- Model Registry
-- Vendor Risk
-- EU AI Act
-- NIST AI RMF
-- ISO 42001
-- Shadow AI
-- Agent Governance
+- regulatory-technology
+- model-registry
+- vendor-risk
+- eu-ai-act
+- nist-ai-rmf
+- iso-42001
+- shadow-ai
+- agent-governance
 - Audit
-- JSON:API
-- Agent Skills
+- json-api
+- agent-skills
 tags_raw:
 - Company
 - ai-governance
@@ -76,8 +76,8 @@ apis:
   baseURL: npx -y @credoai/governance-hub-mcp
   tags:
   - MCP
-  - AI Governance
-  - Agent Skills
+  - ai-governance
+  - agent-skills
   tags_raw:
   - mcp
   - ai-governance
@@ -95,6 +95,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Alerts
+  tags_raw:
   - alerts
   properties:
   - type: OpenAPI
@@ -151,6 +153,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - CommentThreads
+  tags_raw:
   - comment_threads
   properties:
   - type: OpenAPI
@@ -179,6 +183,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Entities
+  tags_raw:
   - entities
   properties:
   - type: OpenAPI
@@ -207,7 +213,8 @@ apis:
     The entity_control_assignments API from Credo AI — 1 operation(s) for entity_control_assignments.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_control_assignments
   properties:
   - type: OpenAPI
@@ -235,7 +242,8 @@ apis:
   description: The entity_controls API from Credo AI — 7 operation(s) for entity_controls.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_controls
   properties:
   - type: OpenAPI
@@ -263,7 +271,8 @@ apis:
   description: The entity_evidences API from Credo AI — 1 operation(s) for entity_evidences.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_evidences
   properties:
   - type: OpenAPI
@@ -291,7 +300,8 @@ apis:
   description: The entity_policy_packs API from Credo AI — 2 operation(s) for entity_policy_packs.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_policy_packs
   properties:
   - type: OpenAPI
@@ -320,7 +330,8 @@ apis:
     The entity_risk_scenario_controls API from Credo AI — 3 operation(s) for entity_risk_scenario_controls.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_risk_scenario_controls
   properties:
   - type: OpenAPI
@@ -348,7 +359,8 @@ apis:
   description: The entity_risk_scenarios API from Credo AI — 2 operation(s) for entity_risk_scenarios.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_risk_scenarios
   properties:
   - type: OpenAPI
@@ -377,7 +389,8 @@ apis:
     The entity_section_assignments API from Credo AI — 1 operation(s) for entity_section_assignments.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - entity_section_assignments
   properties:
   - type: OpenAPI
@@ -406,6 +419,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Entity Types
+  tags_raw:
   - entity_types
   properties:
   - type: OpenAPI
@@ -434,6 +449,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Fields
+  tags_raw:
   - fields
   properties:
   - type: OpenAPI
@@ -462,6 +479,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Integration
+  tags_raw:
   - integrations
   properties:
   - type: OpenAPI
@@ -490,6 +509,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Models
+  tags_raw:
   - models
   properties:
   - type: OpenAPI
@@ -517,7 +538,8 @@ apis:
   description: Utility endpoints including tenant information and evidence types
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - other
   properties:
   - type: OpenAPI
@@ -545,7 +567,8 @@ apis:
   description: Endpoints for policy controls management
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - policy_controls
   properties:
   - type: OpenAPI
@@ -574,6 +597,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - PolicyPacks
+  tags_raw:
   - policy_packs
   properties:
   - type: OpenAPI
@@ -602,6 +627,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Questionnaires
+  tags_raw:
   - questionnaires
   properties:
   - type: OpenAPI
@@ -630,6 +657,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Risks
+  tags_raw:
   - risks
   properties:
   - type: OpenAPI
@@ -686,6 +715,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Sources
+  tags_raw:
   - sources
   properties:
   - type: OpenAPI
@@ -714,6 +745,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Task
+  tags_raw:
   - tasks
   properties:
   - type: OpenAPI
@@ -742,6 +775,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Team
+  tags_raw:
   - teams
   properties:
   - type: OpenAPI
@@ -770,6 +805,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Triggers and Actions
+  tags_raw:
   - triggers_and_actions
   properties:
   - type: OpenAPI
@@ -797,7 +834,8 @@ apis:
   description: The use_case API from Credo AI — 1 operation(s) for use_case.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case
   properties:
   - type: OpenAPI
@@ -825,7 +863,8 @@ apis:
   description: Operations related to controls for a specific use case
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_controls
   properties:
   - type: OpenAPI
@@ -853,7 +892,8 @@ apis:
   description: Operations related to use case custom fields
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_custom_fields
   properties:
   - type: OpenAPI
@@ -881,7 +921,8 @@ apis:
   description: Operations related to policy packs for a specific use case
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_policy_packs
   properties:
   - type: OpenAPI
@@ -911,7 +952,8 @@ apis:
     use case
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_questionnaires
   properties:
   - type: OpenAPI
@@ -941,7 +983,8 @@ apis:
     of attestation requests
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_reports
   properties:
   - type: OpenAPI
@@ -969,7 +1012,8 @@ apis:
   description: Operations related to use case reviews, review actions, tasks and attestations
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_reviews
   properties:
   - type: OpenAPI
@@ -997,7 +1041,8 @@ apis:
   description: Operations related to risk scenarios for a specific use case
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_risk_scenarios
   properties:
   - type: OpenAPI
@@ -1026,7 +1071,8 @@ apis:
     The use_case_scheduled_reviews API from Credo AI — 2 operation(s) for use_case_scheduled_reviews.
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
-  tags:
+  tags: []
+  tags_raw:
   - use_case_scheduled_reviews
   properties:
   - type: OpenAPI
@@ -1055,6 +1101,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Use Cases
+  tags_raw:
   - use_cases
   properties:
   - type: OpenAPI
@@ -1083,6 +1131,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - User
+  tags_raw:
   - user
   properties:
   - type: OpenAPI
@@ -1111,6 +1161,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - User
+  tags_raw:
   - users
   properties:
   - type: OpenAPI
@@ -1139,6 +1191,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Vendors
+  tags_raw:
   - vendors
   properties:
   - type: OpenAPI
@@ -1167,6 +1221,8 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
+  - Workflow Stages
+  tags_raw:
   - workflow_stages
   properties:
   - type: OpenAPI
