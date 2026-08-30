@@ -1,0 +1,761 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@credo.ai
+    name: Credo AI Support
+    url: https://credo.ai/contact
+  description: 'The Credo AI API provides endpoints for managing AI models, use cases, and policy controls.
+
+
+    ## Authentication
+
+    All API requests must include a valid Bearer token in the Authorization header.
+
+    To obtain a token, use the [`POST /auth/exchange`](#tag/Auth/operation/CredoAIWeb.Auth.TokenController.exchange) endpoint with your API token and tenant.
+
+
+    ## Rate Limiting
+
+    API requests are limited based on your subscription plan. Contact support for specific limits.
+
+
+    ## Versioning
+
+    This is version 2.0 of the API. All endpoints are prefixed with `/api/v2/`.
+
+    '
+  license:
+    name: Proprietary
+    url: https://credo.ai/terms
+  title: Credo AI Audit Logs API
+  version: 2.0.0
+servers:
+- description: Local development server (with preconfigured tenant 'credoai')
+  url: http://localhost:4000/api/v2/{tenant}
+  variables:
+    tenant:
+      default: credoai
+      description: The tenant identifier
+- description: Quality Assurance server (with preconfigured tenant 'credoai')
+  url: https://api.credo-qa.com/api/v2/{tenant}
+  variables:
+    tenant:
+      default: credoai
+      description: The tenant identifier
+- description: Production API - Replace {tenant} with your assigned tenant ID
+  url: https://api.credo.ai/api/v2/{tenant}
+  variables:
+    tenant:
+      default: ''
+      description: Your tenant identifier (contact support@credo.ai to get yours)
+- description: Custom On-Premise Server - Enter your full base URL
+  url: '{custom_base_url}/api/v2/{tenant}'
+  variables:
+    custom_base_url:
+      default: https://api.your-company.com
+      description: Your complete base URL (e.g., https://api.your-company.com, http://192.168.1.100:8080)
+    tenant:
+      default: ''
+      description: Your tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Audit Logs
+paths:
+  /audit_logs:
+    get:
+      callbacks: {}
+      description: "Retrieve a paginated list of all audit logs for the tenant.\n\nString filters behave differently per field:\n- `resource_name` and `sub_object_name` perform case-insensitive partial matching\n  (SQL `ILIKE '%value%'`) when given a plain string. To force an exact match,\n  use the object form `filter[<field>][type]=match&filter[<field>][value]=<value>`.\n- All other string filters (IDs, enums) remain exact match.\n"
+      operationId: CredoAIWeb.API.V2.AuditLogsController.index
+      parameters:
+      - description: Filter by name
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by user id
+        in: query
+        name: filter[user_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by use case id
+        in: query
+        name: filter[use_case_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource type
+        in: query
+        name: filter[resource_type]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource id
+        in: query
+        name: filter[resource_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource name
+        in: query
+        name: filter[resource_name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object id
+        in: query
+        name: filter[sub_object_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object type
+        in: query
+        name: filter[sub_object_type]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object name
+        in: query
+        name: filter[sub_object_name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by start time
+        in: query
+        name: filter[start_time]
+        required: false
+        schema:
+          type: string
+      - description: Filter by end time
+        in: query
+        name: filter[end_time]
+        required: false
+        schema:
+          type: string
+      - description: 'Sort results by one or more fields. Use ascending order by default, or prefix with ''-'' for descending order.\
+
+          Multiple fields can be specified as comma-separated values.'
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            enum:
+            - inserted_at
+            - -inserted_at
+            type: string
+          type: array
+        style: form
+      - description: Number of items per page
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          maximum: 1000
+          minimum: 1
+          type: integer
+      - description: Cursor for pagination - get items after this cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: Cursor for pagination - get items before this cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Audit_Logs_Response'
+          description: Success
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+      summary: List audit logs
+      tags:
+      - Audit Logs
+  /audit_logs/export:
+    get:
+      callbacks: {}
+      description: 'Export all audit logs for the tenant as a CSV file.
+
+
+        The CSV includes all audit log fields (see the AuditLog schema for field definitions):
+
+        - name, user_id, action_id, use_case_id, team_id
+
+        - resource_type, resource_id, resource_name
+
+        - sub_object_type, sub_object_id, sub_object_name
+
+        - user (object with id, email, name, role)
+
+        - action (object with id, type, data)
+
+        - metadata (event-specific data)
+
+        - inserted_at, message
+
+
+        You can optionally filter which columns to include using the `columns` parameter.
+
+        '
+      operationId: CredoAIWeb.API.V2.AuditLogsController.export
+      parameters:
+      - description: Comma-separated list of column names to include in the export (e.g., 'name,user_id,resource_type,inserted_at')
+        in: query
+        name: columns
+        required: false
+        schema:
+          type: string
+      - description: Filter by name
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by user id
+        in: query
+        name: filter[user_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by use case id
+        in: query
+        name: filter[use_case_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource type
+        in: query
+        name: filter[resource_type]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource id
+        in: query
+        name: filter[resource_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by resource name
+        in: query
+        name: filter[resource_name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object id
+        in: query
+        name: filter[sub_object_id]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object type
+        in: query
+        name: filter[sub_object_type]
+        required: false
+        schema:
+          type: string
+      - description: Filter by sub object name
+        in: query
+        name: filter[sub_object_name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by start time
+        in: query
+        name: filter[start_time]
+        required: false
+        schema:
+          type: string
+      - description: Filter by end time
+        in: query
+        name: filter[end_time]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            text/csv:
+              schema:
+                description: CSV file containing audit log data. Column headers correspond to AuditLog schema fields.
+                format: binary
+                type: string
+          description: CSV file with audit logs (fields match AuditLog schema)
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+      summary: Export audit logs to CSV
+      tags:
+      - Audit Logs
+  /audit_logs/filter_options:
+    get:
+      callbacks: {}
+      description: 'Returns the canonical lists of event names and resource types accepted by
+
+        the audit log filters. Intended to drive client-side filter dropdowns so
+
+        they stay in sync with the server''s enum without requiring a frontend
+
+        deploy each time a new event is added.
+
+
+        `resource_types` applies to both the `resource_type` and `sub_object_type`
+
+        filter parameters.
+
+        '
+      operationId: CredoAIWeb.API.V2.AuditLogsController.filter_options
+      parameters: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Audit_Log_Filter_Options_Response'
+          description: Success
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+      summary: List valid audit log filter values
+      tags:
+      - Audit Logs
+  /audit_logs/{id}:
+    get:
+      callbacks: {}
+      description: Retrieve detailed information about a specific audit log entry
+      operationId: CredoAIWeb.API.V2.AuditLogsController.show
+      parameters:
+      - description: Audit log ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/Audit_Log_Response'
+          description: Success
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not found
+      summary: Get audit log details
+      tags:
+      - Audit Logs
+components:
+  schemas:
+    Audit_Log_Filter_Options_Response:
+      description: 'Enumerates the valid values for audit log filters. Use this to populate
+
+        filter dropdowns (event name, resource type) on the client. The values
+
+        mirror what `GET /audit_logs?filter[name]=...` and
+
+        `filter[resource_type]=...` accept.
+
+
+        `resource_types` applies to both the `resource_type` and `sub_object_type`
+
+        filters — they draw from the same enum server-side.
+
+        '
+      properties:
+        events:
+          description: All valid audit log event names (snake_case).
+          items:
+            type: string
+          type: array
+        resource_types:
+          description: All valid resource type names (also valid for sub_object_type).
+          items:
+            type: string
+          type: array
+      required:
+      - events
+      - resource_types
+      title: Audit Log Filter Options Response
+      type: object
+    Error:
+      description: Error response schema
+      example:
+        errors:
+        - code: 2217
+          detail: This model cannot be deleted because it is part of an Use Case.
+          title: Model in use
+      properties:
+        errors:
+          items:
+            properties:
+              code:
+                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
+                example: 2217
+                type: integer
+              detail:
+                description: Detailed error message
+                example: This model cannot be deleted because it is part of an Use Case.
+                type: string
+              title:
+                description: Short error title
+                example: Model in use
+                type: string
+            required:
+            - code
+            - title
+            - detail
+            type: object
+          type: array
+      required:
+      - errors
+      title: Error
+      type: object
+    Audit_Log_Response:
+      description: Response containing a single audit log
+      properties:
+        data:
+          description: An audit log entry in the system
+          example:
+            attributes:
+              action:
+                data: {}
+                id: 22222222-2222-2222-2222-222222222222
+                type: attach
+              action_id: 22222222-2222-2222-2222-222222222222
+              inserted_at: '2024-01-01T12:00:00Z'
+              message: Policy pack GDPR was added to use case
+              metadata:
+                policy_pack_key: gdpr
+                version: '1.0'
+              name: policy_pack_added
+              resource_id: 33333333-3333-3333-3333-333333333333
+              resource_name: Fraud Detection Model
+              resource_type: use_case
+              source: platform
+              sub_object_id: gdpr
+              sub_object_name: GDPR Compliance Pack
+              sub_object_type: policy_pack
+              team_id: null
+              use_case_id: 33333333-3333-3333-3333-333333333333
+              user:
+                email: john@example.com
+                family_name: Doe
+                given_name: John
+                id: 11111111-1111-1111-1111-111111111111
+                role: admin
+              user_id: 11111111-1111-1111-1111-111111111111
+            id: 12345678-1234-5678-9abc-123456789012
+            type: audit_logs
+          properties:
+            attributes:
+              properties:
+                action:
+                  description: Action information
+                  type:
+                  - object
+                  - 'null'
+                action_id:
+                  description: Action ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                inserted_at:
+                  description: Creation timestamp
+                  format: date-time
+                  type: string
+                message:
+                  description: Human-readable audit log message
+                  type:
+                  - string
+                  - 'null'
+                metadata:
+                  description: Additional metadata specific to the event
+                  type:
+                  - object
+                  - 'null'
+                name:
+                  description: Audit log event name
+                  type: string
+                resource_id:
+                  description: ID of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                resource_name:
+                  description: Name of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                resource_type:
+                  description: Type of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                source:
+                  description: Originating client source (e.g. 'platform', 'sdk:pycredoai@0.3.1', 'mcp:provide_ai_suggestion', 'api', 'trigger', 'unknown')
+                  type: string
+                sub_object_id:
+                  description: ID of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                sub_object_name:
+                  description: Name of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                sub_object_type:
+                  description: Type of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                team_id:
+                  description: Team ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                use_case_id:
+                  description: Use case ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                user:
+                  description: User information (id, email, name, role, etc.)
+                  type:
+                  - object
+                  - 'null'
+                user_id:
+                  description: User ID who performed the action
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - name
+              - inserted_at
+              type: object
+            id:
+              description: Audit log ID
+              format: uuid
+              type: string
+            type:
+              description: Resource type
+              enum:
+              - audit_logs
+              type: string
+          required:
+          - id
+          - type
+          - attributes
+          title: AuditLog
+          type: object
+      required:
+      - data
+      title: Audit Log Response
+      type: object
+    Audit_Logs_Response:
+      description: Response containing a collection of audit logs
+      properties:
+        data:
+          items:
+            description: An audit log entry in the system
+            example:
+              attributes:
+                action:
+                  data: {}
+                  id: 22222222-2222-2222-2222-222222222222
+                  type: attach
+                action_id: 22222222-2222-2222-2222-222222222222
+                inserted_at: '2024-01-01T12:00:00Z'
+                message: Policy pack GDPR was added to use case
+                metadata:
+                  policy_pack_key: gdpr
+                  version: '1.0'
+                name: policy_pack_added
+                resource_id: 33333333-3333-3333-3333-333333333333
+                resource_name: Fraud Detection Model
+                resource_type: use_case
+                source: platform
+                sub_object_id: gdpr
+                sub_object_name: GDPR Compliance Pack
+                sub_object_type: policy_pack
+                team_id: null
+                use_case_id: 33333333-3333-3333-3333-333333333333
+                user:
+                  email: john@example.com
+                  family_name: Doe
+                  given_name: John
+                  id: 11111111-1111-1111-1111-111111111111
+                  role: admin
+                user_id: 11111111-1111-1111-1111-111111111111
+              id: 12345678-1234-5678-9abc-123456789012
+              type: audit_logs
+            properties:
+              attributes:
+                properties:
+                  action:
+                    description: Action information
+                    type:
+                    - object
+                    - 'null'
+                  action_id:
+                    description: Action ID
+                    format: uuid
+                    type:
+                    - string
+                    - 'null'
+                  inserted_at:
+                    description: Creation timestamp
+                    format: date-time
+                    type: string
+                  message:
+                    description: Human-readable audit log message
+                    type:
+                    - string
+                    - 'null'
+                  metadata:
+                    description: Additional metadata specific to the event
+                    type:
+                    - object
+                    - 'null'
+                  name:
+                    description: Audit log event name
+                    type: string
+                  resource_id:
+                    description: ID of the primary resource affected
+                    type:
+                    - string
+                    - 'null'
+                  resource_name:
+                    description: Name of the primary resource affected
+                    type:
+                    - string
+                    - 'null'
+                  resource_type:
+                    description: Type of the primary resource affected
+                    type:
+                    - string
+                    - 'null'
+                  source:
+                    description: Originating client source (e.g. 'platform', 'sdk:pycredoai@0.3.1', 'mcp:provide_ai_suggestion', 'api', 'trigger', 'unknown')
+                    type: string
+                  sub_object_id:
+                    description: ID of the sub-object affected
+                    type:
+                    - string
+                    - 'null'
+                  sub_object_name:
+                    description: Name of the sub-object affected
+                    type:
+                    - string
+                    - 'null'
+                  sub_object_type:
+                    description: Type of the sub-object affected
+                    type:
+                    - string
+                    - 'null'
+                  team_id:
+                    description: Team ID
+                    format: uuid
+                    type:
+                    - string
+                    - 'null'
+                  use_case_id:
+                    description: Use case ID
+                    format: uuid
+                    type:
+                    - string
+                    - 'null'
+                  user:
+                    description: User information (id, email, name, role, etc.)
+                    type:
+                    - object
+                    - 'null'
+                  user_id:
+                    description: User ID who performed the action
+                    format: uuid
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - name
+                - inserted_at
+                type: object
+              id:
+                description: Audit log ID
+                format: uuid
+                type: string
+              type:
+                description: Resource type
+                enum:
+                - audit_logs
+                type: string
+            required:
+            - id
+            - type
+            - attributes
+            title: AuditLog
+            type: object
+          type: array
+        meta:
+          description: Pagination metadata
+          properties:
+            page:
+              description: Current page number
+              type: integer
+            per_page:
+              description: Items per page
+              type: integer
+            total_count:
+              description: Total number of items
+              type: integer
+            total_pages:
+              description: Total number of pages
+              type: integer
+          type: object
+      required:
+      - data
+      title: Audit Logs Response
+      type: object
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      description: 'JWT access token obtained from [`POST /auth/exchange`](#tag/Auth/operation/CredoAIWeb.Auth.TokenController.exchange).
+
+
+        Include in the Authorization header: `Authorization: Bearer <token>`
+
+        '
+      scheme: bearer
+      type: http

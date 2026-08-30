@@ -1,0 +1,821 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Policy Controls API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: policy_controls
+  description: Endpoints for policy controls management
+paths:
+  /policy_control_bases/{id}/versions:
+    get:
+      description: Retrieves a list of all versions associated with a specific policy control base.
+      operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.index
+      parameters:
+      - description: The unique ID of the policy control base.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlVersionsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+    post:
+      description: Creates a new version for a specified policy control base.
+      operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.create
+      parameters:
+      - description: The unique ID of the policy control base.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyControlVersionCreateRequest'
+        description: The attributes of the new version to be created.
+  /policy_controls:
+    get:
+      description: List all latest policy controls
+      operationId: CredoAIWeb.API.V2.PolicyControlController.index
+      parameters:
+      - description: risk type IDs
+        in: query
+        name: filter[risk_type_ids][]
+        required: false
+        schema:
+          type: string
+      - description: name ilike search
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+      - description: archived
+        in: query
+        name: filter[archived]
+        required: false
+        schema:
+          type: boolean
+      - description: custom
+        in: query
+        name: filter[custom]
+        required: false
+        schema:
+          type: boolean
+      - description: draft
+        in: query
+        name: filter[draft]
+        required: false
+        schema:
+          type: boolean
+      - description: exclude keys
+        in: query
+        name: filter[exclude_keys][]
+        required: false
+        schema:
+          type: string
+      - description: control type (use_case | model)
+        in: query
+        name: filter[control_type]
+        required: false
+        schema:
+          type: string
+      - description: entity type id
+        in: query
+        name: filter[entity_type_id]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlsCollectionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+  /policy_control_versions/{id}:
+    delete:
+      description: Deletes a specific version of a policy control identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.delete
+      parameters:
+      - description: The unique ID of the version to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+    get:
+      description: Fetches the details of a specific version of a policy control by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.show
+      parameters:
+      - description: The unique ID of the version to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+    patch:
+      description: Updates the attributes of an existing version of a policy control identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.update
+      parameters:
+      - description: The unique ID of the version to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyControlVersionUpdateRequest'
+        description: The updated attributes for the version.
+  /policy_controls/{id}:
+    get:
+      description: Get policy control
+      operationId: CredoAIWeb.API.V2.PolicyControlController.show
+      parameters:
+      - description: policy control id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+  /policy_control_bases:
+    get:
+      description: Retrieves a list of all policy control bases available.
+      operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlBasesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+    post:
+      description: Creates a new custom policy control base with the provided attributes.
+      operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlBaseResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyControlBaseCreateRequest'
+        description: The attributes for the new policy control base.
+  /policy_control_bases/{id}:
+    delete:
+      description: Deletes a specific policy control base identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.delete
+      parameters:
+      - description: The unique ID of the custom policy control base to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+    get:
+      description: Fetches the details of a specific policy control base identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.show
+      parameters:
+      - description: The unique ID of the custom policy control base.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyControlBaseResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_controls
+components:
+  schemas:
+    PolicyControlVersionUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                draft:
+                  description: draft
+                  type: boolean
+                evidence_requirements:
+                  description: policy control evidence requirements
+                  type: array
+                info:
+                  description: policy control info
+                  type: object
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyControlBasesResponse:
+      description: A collection of [PolicyControlBaseResource](#policycontrolbaseresource)
+      properties:
+        data:
+          description: Content with [PolicyControlBaseResource](#policycontrolbaseresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlBaseResource'
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlBaseResponse:
+      description: A JSON-API document with a single [PolicyControlBaseResource](#policycontrolbaseresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlBaseResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            entity_type_ids:
+              description: ''
+              type: string
+            evidence_requirements:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            kind:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            reasoning:
+              description: ''
+              type: string
+            risk_type_ids:
+              description: ''
+              type: string
+            spec:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_controls
+          type: string
+      type: object
+    PolicyControlVersionResponse:
+      description: A JSON-API document with a single [PolicyControlVersionResource](#policycontrolversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlVersionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                evidence_requirements:
+                  description: policy control evidence requirements
+                  type: array
+                info:
+                  description: policy control info
+                  type: object
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyControlBaseCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                entity_type_ids:
+                  description: entity type ids this control targets; omit or [] for all
+                  example: []
+                  type: array
+                id:
+                  description: id
+                  type: string
+              required:
+              - id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyControlVersionsResponse:
+      description: A collection of [PolicyControlVersionResource](#policycontrolversionresource)
+      properties:
+        data:
+          description: Content with [PolicyControlVersionResource](#policycontrolversionresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlResponse:
+      description: A JSON-API document with a single [PolicyControlResource](#policycontrolresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlBaseResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            entity_type_ids:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            versions:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related versions resource id
+                      type: string
+                    type:
+                      description: Type of related versions resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_control_bases
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyControlVersionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            base_id:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            draft:
+              description: ''
+              type: string
+            evidence_requirements:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            risk_type_ids:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_control_versions
+          type: string
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyControlsCollectionResponse:
+      description: A collection of [PolicyControlResource](#policycontrolresource)
+      properties:
+        data:
+          description: Content with [PolicyControlResource](#policycontrolresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlResource'
+          type: array
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

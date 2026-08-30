@@ -1,0 +1,547 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Teams API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: teams
+  description: Operations related to team management and memberships
+paths:
+  /teams/{team_id}/relationships/members:
+    delete:
+      description: 'Remove specified team members from the team.
+
+        The request body should contain an array of user IDs to be removed.
+
+        '
+      operationId: CredoAIWeb.API.V2.TeamController.remove_members
+      parameters:
+      - description: team id
+        in: path
+        name: team_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TeamMembersRemoveRequest'
+        description: attributes
+    patch:
+      description: 'Add or update team members based on the provided user IDs and roles.
+
+        The request body should contain an array of user IDs and their corresponding roles.
+
+        '
+      operationId: CredoAIWeb.API.V2.TeamController.upsert_members
+      parameters:
+      - description: team id
+        in: path
+        name: team_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TeamMembersUpsertRequest'
+        description: attributes
+  /teams:
+    get:
+      description: Retrieve a list of all teams.
+      operationId: CredoAIWeb.API.V2.TeamController.index
+      parameters:
+      - description: page after cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: page before cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      - description: page limit
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          type: integer
+      - description: name filter type
+        in: query
+        name: filter[name][type]
+        required: false
+        schema:
+          type: string
+      - description: name filter value
+        in: query
+        name: filter[name][value]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+    post:
+      description: Create a new team with the provided attributes.
+      operationId: CredoAIWeb.API.V2.TeamController.create
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TeamCreateRequest'
+        description: data
+  /teams/{id}:
+    delete:
+      description: Remove a team from the system using its ID.
+      operationId: CredoAIWeb.API.V2.TeamController.delete
+      parameters:
+      - description: The unique identifier of the team to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+    get:
+      description: Fetch detailed information about a specific team identified by its ID.
+      operationId: CredoAIWeb.API.V2.TeamController.show
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+    patch:
+      description: Update the details of an existing team identified by its ID.
+      operationId: CredoAIWeb.API.V2.TeamController.update
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TeamResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - teams
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TeamUpdateRequest'
+        description: data
+components:
+  schemas:
+    TeamResponse:
+      description: A JSON-API document with a single [TeamResource](#teamresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TeamResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TeamMembersUpsertRequest:
+      description: upsert team members request
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TeamMembersUpsertResource'
+          type: array
+      type: object
+    TeamMembersRemoveRequest:
+      description: team mebers to delete
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TeamMembersRemoveResource'
+          type: array
+      type: object
+    TeamUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    TeamCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              required:
+              - name
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamMembersRemoveResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
+      type: object
+    TeamMembersUpsertResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        role: owner
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        role:
+          description: member type
+          enum:
+          - owner
+          - member
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TeamResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            members:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related members resource id
+                      type: string
+                    type:
+                      description: Type of related members resource
+                      type: string
+                  type: object
+              type: object
+            memberships:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related memberships resource id
+                        type: string
+                      type:
+                        description: Type of related memberships resource
+                        type: string
+                    type: object
+                  type: array
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: teams
+          type: string
+      type: object
+    TeamsResponse:
+      description: A page of [TeamResource](#teamresource) results
+      properties:
+        data:
+          description: Content with [TeamResource](#teamresource) objects
+          items:
+            $ref: '#/components/schemas/TeamResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

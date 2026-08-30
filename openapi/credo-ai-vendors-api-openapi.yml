@@ -1,0 +1,2115 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Vendors API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: vendors
+  description: Operations related to vendors and their questionnaires
+paths:
+  /vendors/{vendor_id}/model_links:
+    get:
+      description: Retrieve a list of model links associated with a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.ModelLinkController.index
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ModelVendorLinksResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    post:
+      description: Create a new model link for a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.ModelLinkController.create
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ModelVendorLinkResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ModelVendorLinkCreateRequest'
+        description: The attributes for the new model link.
+  /vendors/{vendor_id}/files:
+    get:
+      description: Retrieve a list of files associated with a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.FileController.index
+      parameters:
+      - description: The unique ID of the vendor whose files are being retrieved.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorFilesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    post:
+      description: Upload a new file for a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.FileController.create
+      parameters:
+      - description: The unique ID of the vendor for whom the file is being created.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorFileResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorFileCreateRequest'
+        description: The attributes of the file to be created.
+  /vendors:
+    get:
+      description: Retrieve a list of all vendors.
+      operationId: CredoAIWeb.API.V2.VendorController.index
+      parameters:
+      - description: page after cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: page before cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      - description: page limit
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          type: integer
+      - description: name filter type
+        in: query
+        name: filter[name][type]
+        required: false
+        schema:
+          type: string
+      - description: name filter value
+        in: query
+        name: filter[name][value]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    post:
+      description: Create a new vendor with the provided attributes.
+      operationId: CredoAIWeb.API.V2.VendorController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorCreateRequest'
+        description: Attributes for the new vendor.
+  /vendors/{id}:
+    delete:
+      description: Remove a vendor from the system using its unique ID.
+      operationId: CredoAIWeb.API.V2.VendorController.delete
+      parameters:
+      - description: Unique ID of the vendor to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    get:
+      description: Fetch detailed information about a specific vendor by ID.
+      operationId: CredoAIWeb.API.V2.VendorController.show
+      parameters:
+      - description: user,use_cases,questionnaires,models
+        in: query
+        name: include
+        required: false
+        x-example: user,use_cases,questionnaires,models
+        schema:
+          type: string
+      - description: Unique ID of the vendor.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    patch:
+      description: Update the details of an existing vendor identified by ID.
+      operationId: CredoAIWeb.API.V2.VendorController.update
+      parameters:
+      - description: Unique ID of the vendor.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorUpdateRequest'
+        description: Attributes to update for the vendor.
+  /vendors/{vendor_id}/model_links/{id}:
+    delete:
+      description: Delete a specific model link associated with a vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.ModelLinkController.delete
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the model link to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+  /vendors/{vendor_id}/questionnaires/{id}:
+    delete:
+      description: Remove a specific questionnaire from a vendor's collection.
+      operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.delete
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    patch:
+      description: Update the version of a specific questionnaire for a vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.update
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire to be updated.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorQuestionnaireResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorQuestionnaireUpdateRequest'
+        description: The attributes for updating the questionnaire.
+  /vendors/{vendor_id}/evidences:
+    get:
+      description: Retrieve a list of active evidences associated with a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.EvidenceController.index
+      parameters:
+      - description: type match filter
+        in: query
+        name: filter[type]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorEvidencesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+  /vendors/{vendor_id}/files/{id}:
+    delete:
+      description: Delete a specific file associated with a vendor by its unique ID.
+      operationId: CredoAIWeb.API.V2.Vendor.FileController.delete
+      parameters:
+      - description: The unique ID of the vendor whose file is to be deleted.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the file to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+  /vendors/{vendor_id}/evidences/{id}:
+    delete:
+      description: Deactivate a specific evidence for the given vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.EvidenceController.delete
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the evidence to be deactivated.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+  /vendors/{vendor_id}/questionnaire_sections/{section_id}:
+    get:
+      description: Retrieves a specific questionnaire section for a vendor
+      operationId: CredoAIWeb.API.V2.Vendor.Questionnaire.SectionController.show
+      parameters:
+      - description: The unique ID of the vendor
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire section
+        in: path
+        name: section_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorQuestionnaireSectionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+  /vendors/{vendor_id}/questionnaire_sections/{section_id}/tasks:
+    post:
+      description: Creates a new task for a vendor questionnaire section
+      operationId: CredoAIWeb.API.V2.Vendor.Questionnaire.SectionController.create_task
+      parameters:
+      - description: The unique ID of the vendor
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire section
+        in: path
+        name: section_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TaskResource'
+        description: The task creation details
+  /vendors/{vendor_id}/questionnaire_sections/{section_id}/evidences:
+    get:
+      description: Retrieves a list of evidences associated with a specific vendor's questionnaire section.
+      operationId: CredoAIWeb.API.V2.Vendor.Questionnaire.SectionEvidenceController.index
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire section.
+        in: path
+        name: section_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorEvidencesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    post:
+      description: Creates a new evidence entry for a specific question within a vendor's questionnaire section.
+      operationId: CredoAIWeb.API.V2.Vendor.Questionnaire.SectionEvidenceController.create
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the questionnaire section.
+        in: path
+        name: section_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorEvidenceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorQuestionnaireSectionEvidenceCreateRequest'
+        description: The attributes of the evidence to be created.
+  /vendors/{vendor_id}/questionnaires:
+    get:
+      description: Retrieve a list of all questionnaires associated with a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.index
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorQuestionnairesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    post:
+      description: Create a new questionnaire for a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.create
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorQuestionnaireResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorQuestionnaireCreateRequest'
+        description: The attributes for the new questionnaire.
+  /vendors/{vendor_id}/custom_fields:
+    get:
+      description: Retrieve a list of all custom fields associated with a specific vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.CustomFieldController.index
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorCustomFieldsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+    patch:
+      description: Update the value of a specific custom field for a vendor.
+      operationId: CredoAIWeb.API.V2.Vendor.CustomFieldController.update_one
+      parameters:
+      - description: The unique ID of the vendor.
+        in: path
+        name: vendor_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/VendorCustomFieldResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - vendors
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/VendorCustomFieldUpdateOneRequest'
+        description: The attributes of the custom field to be updated.
+components:
+  schemas:
+    VendorCustomFieldsResponse:
+      description: A collection of [VendorCustomFieldResource](#vendorcustomfieldresource)
+      properties:
+        data:
+          description: Content with [VendorCustomFieldResource](#vendorcustomfieldresource) objects
+          items:
+            $ref: '#/components/schemas/VendorCustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorEvidencesResponse:
+      description: A collection of [VendorEvidenceResource](#vendorevidenceresource)
+      properties:
+        data:
+          description: Content with [VendorEvidenceResource](#vendorevidenceresource) objects
+          items:
+            $ref: '#/components/schemas/VendorEvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorFileResponse:
+      description: A JSON-API document with a single [VendorFileResource](#vendorfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorCustomFieldResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            custom_field_id:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            value:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            custom_field:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related custom_field resource id
+                      type: string
+                    type:
+                      description: Type of related custom_field resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_custom_fields
+          type: string
+      type: object
+    VendorCustomFieldUpdateOneRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                custom_field_id:
+                  description: custom_field_id
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - custom_field_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorQuestionnaireUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                version:
+                  description: questionnaire version
+                  type: integer
+              required:
+              - version
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorFileResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            content_type:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            filename:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_files
+          type: string
+      type: object
+    ModelVendorLinkCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                model_id:
+                  description: Model ID
+                  type: string
+              required:
+              - model_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorQuestionnaireSectionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            compliances:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            questionnaire_id:
+              description: ''
+              type: string
+            section_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            task:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related task resource id
+                      type: string
+                    type:
+                      description: Type of related task resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_questionnaire_sections
+          type: string
+      type: object
+    TaskResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            assigner_id:
+              description: ''
+              type: string
+            completed_at:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            entity_questionnaire_section_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            model_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            sub_status:
+              description: ''
+              type: string
+            team_ids:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_control_id:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            use_case_review_id:
+              description: ''
+              type: string
+            user_ids:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            assigner:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related assigner resource id
+                      type: string
+                    type:
+                      description: Type of related assigner resource
+                      type: string
+                  type: object
+              type: object
+            entity_questionnaire_section:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related entity_questionnaire_section resource id
+                      type: string
+                    type:
+                      description: Type of related entity_questionnaire_section resource
+                      type: string
+                  type: object
+              type: object
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            teams:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related teams resource id
+                      type: string
+                    type:
+                      description: Type of related teams resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+            use_case_control:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_control resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_control resource
+                      type: string
+                  type: object
+              type: object
+            use_case_review:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_review resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_review resource
+                      type: string
+                  type: object
+              type: object
+            users:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related users resource id
+                      type: string
+                    type:
+                      description: Type of related users resource
+                      type: string
+                  type: object
+              type: object
+            vendor:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related vendor resource id
+                      type: string
+                    type:
+                      description: Type of related vendor resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: tasks
+          type: string
+      type: object
+    VendorResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            configurable_risk_score_classification:
+              description: ''
+              type: string
+            custom:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            questionnaire_ids:
+              description: ''
+              type: string
+            risk_classification_id:
+              description: ''
+              type: string
+            risk_classification_level:
+              description: ''
+              type: string
+            risk_classification_set_at:
+              description: ''
+              type: string
+            risk_classification_set_by:
+              description: ''
+              type: string
+            risk_classification_set_by_user_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+            workflow_stage_id:
+              description: ''
+              type: string
+            workflow_stage_step:
+              description: ''
+              type: string
+            workflow_stage_step_status:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            models:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related models resource id
+                      type: string
+                    type:
+                      description: Type of related models resource
+                      type: string
+                  type: object
+              type: object
+            questionnaires:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related questionnaires resource id
+                      type: string
+                    type:
+                      description: Type of related questionnaires resource
+                      type: string
+                  type: object
+              type: object
+            use_case_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_links resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_links resource
+                      type: string
+                  type: object
+              type: object
+            use_cases:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_cases resource id
+                      type: string
+                    type:
+                      description: Type of related use_cases resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendors
+          type: string
+      type: object
+    VendorQuestionnaireSectionResponse:
+      description: A collection of [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource)
+      properties:
+        data:
+          description: Content with [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource) objects
+          items:
+            $ref: '#/components/schemas/VendorQuestionnaireSectionResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorQuestionnaireResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_questionnaires
+          type: string
+      type: object
+    VendorFileCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: Base 64 encoded file content
+                  type: string
+                content_type:
+                  description: content type
+                  type: string
+                filename:
+                  description: File name
+                  type: string
+                size:
+                  description: File size
+                  type: integer
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorResponse:
+      description: A JSON-API document with a single [VendorResource](#vendorresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+                questionnaire_ids:
+                  description: Questionnaire Version IDs To Include
+                  example:
+                  - VEND+1
+                  - VEND_QUEST+2
+                  items: string
+                  type: array
+              required:
+              - name
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorQuestionnaireSectionEvidenceCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: evidence generated time
+                  example: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                question_id:
+                  description: question id
+                  type: string
+              required:
+              - question_id
+              - data
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorQuestionnaireCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                key:
+                  description: questionnaire key
+                  type: string
+                version:
+                  description: questionnaire version
+                  type: integer
+              required:
+              - key
+              - version
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ModelVendorLinkResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            inserted_at:
+              description: When the link was created
+              type: datetime
+            model_id:
+              description: The ID of the model
+              type: string
+            updated_at:
+              description: When the link was last updated
+              type: datetime
+            vendor_id:
+              description: The ID of the vendor
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            vendor:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related vendor resource id
+                      type: string
+                    type:
+                      description: Type of related vendor resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: model_vendor_links
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ModelVendorLinkResponse:
+      description: A JSON-API document with a single [ModelVendorLinkResource](#modelvendorlinkresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelVendorLinkResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorFilesResponse:
+      description: A collection of [VendorFileResource](#vendorfileresource)
+      properties:
+        data:
+          description: Content with [VendorFileResource](#vendorfileresource) objects
+          items:
+            $ref: '#/components/schemas/VendorFileResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorsResponse:
+      description: A page of [VendorResource](#vendorresource) results
+      properties:
+        data:
+          description: Content with [VendorResource](#vendorresource) objects
+          items:
+            $ref: '#/components/schemas/VendorResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    VendorEvidenceResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            creator:
+              description: ''
+              type: string
+            data:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            generated_at:
+              description: ''
+              type: string
+            hash_key:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            label:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            asset_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related asset_links resource id
+                      type: string
+                    type:
+                      description: Type of related asset_links resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_evidences
+          type: string
+      type: object
+    VendorQuestionnaireResponse:
+      description: A JSON-API document with a single [VendorQuestionnaireResource](#vendorquestionnaireresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorQuestionnaireResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorQuestionnairesResponse:
+      description: A collection of [VendorQuestionnaireResource](#vendorquestionnaireresource)
+      properties:
+        data:
+          description: Content with [VendorQuestionnaireResource](#vendorquestionnaireresource) objects
+          items:
+            $ref: '#/components/schemas/VendorQuestionnaireResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelVendorLinksResponse:
+      description: A page of [ModelVendorLinkResource](#modelvendorlinkresource) results
+      properties:
+        data:
+          description: Content with [ModelVendorLinkResource](#modelvendorlinkresource) objects
+          items:
+            $ref: '#/components/schemas/ModelVendorLinkResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    VendorCustomFieldResponse:
+      description: A JSON-API document with a single [VendorCustomFieldResource](#vendorcustomfieldresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorCustomFieldResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    VendorEvidenceResponse:
+      description: A JSON-API document with a single [VendorEvidenceResource](#vendorevidenceresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorEvidenceResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

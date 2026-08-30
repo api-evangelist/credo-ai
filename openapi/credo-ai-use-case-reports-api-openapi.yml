@@ -1,0 +1,889 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Use Case Reports API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: use_case_reports
+  description: Operations related to reports for a specific use case, including creation, retrieval, and management of attestation requests
+paths:
+  /use_cases/{use_case_id}/reports/{report_id}/attestation_requests/{id}:
+    delete:
+      description: Cancel a specific attestation request associated with a report and use case.
+      operationId: CredoAIWeb.API.V2.UseCase.Report.AttestationRequestController.delete
+      parameters:
+      - description: The unique identifier of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the attestation request to be canceled.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+  /use_cases/{use_case_id}/reports/{id}:
+    delete:
+      description: Delete a report and its associated widgets.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.delete
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+    get:
+      description: Fetch detailed information about a specific report with widget data.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.show
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+    patch:
+      description: Update report metadata (name, description). Structure cannot be changed after creation.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.update
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ReportUpdateRequest'
+        description: The attributes to update.
+  /use_cases/{use_case_id}/reports/{report_id}/attestation_requests:
+    post:
+      description: Create a new attestation request for a specific report associated with a use case.
+      operationId: CredoAIWeb.API.V2.UseCase.Report.AttestationRequestController.create
+      parameters:
+      - description: The unique identifier of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ReportAttestationRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ReportAttestationRequestCreateRequest'
+        description: The attributes for the new attestation request.
+  /use_cases/{use_case_id}/reports/{report_id}/snapshot:
+    get:
+      description: Retrieve the snapshot data for a specific report associated with a use case.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.show_snapshot
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseSnapshotResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+  /use_cases/{use_case_id}/reports:
+    get:
+      description: Retrieve a list of reports associated with a specific use case.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.index
+      parameters:
+      - description: policy_pack_key match filter
+        in: query
+        name: filter[policy_pack_key]
+        required: false
+        schema:
+          type: string
+      - description: template_id match filter
+        in: query
+        name: filter[template_id]
+        required: false
+        schema:
+          type: string
+      - description: report_type match filter
+        in: query
+        name: filter[report_type]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ReportsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+    post:
+      description: Create a new report. Use template_id for template-based reports or policy_pack_key for legacy reports.
+      operationId: CredoAIWeb.API.V2.UseCase.ReportController.create
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_reports
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/ReportCreateRequest'
+        description: The attributes for the new report.
+components:
+  schemas:
+    UseCaseSnapshotResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comments:
+              description: comments
+              example: []
+              type: array
+            controls:
+              description: controls
+              example: []
+              type: array
+            custom_fields:
+              description: custom_fields
+              example: []
+              type: array
+            evidences:
+              description: evidences
+              example: []
+              type: array
+            files:
+              description: files
+              example: []
+              type: array
+            inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            model_links:
+              description: model_links
+              example: []
+              type: array
+            models:
+              description: models
+              example: []
+              type: array
+            policy_packs:
+              description: policy_packs
+              example: []
+              type: array
+            questionnaire_sections:
+              description: questionnaire_sections
+              example: []
+              type: array
+            risk_scenarios:
+              description: risk_scenarios
+              example: []
+              type: array
+            schema_version:
+              description: ''
+              type: string
+            stakeholders:
+              description: stakeholders
+              example: []
+              type: array
+            trigger_actions:
+              description: triggered_actions
+              example: []
+              type: array
+            triggered_actions:
+              description: ''
+              type: string
+            use_case:
+              description: ''
+              type: object
+            use_case_id:
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            vendors:
+              description: vendors
+              example: []
+              type: array
+            workflow_stage:
+              description: ''
+              type: object
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_snapshots
+          type: string
+      type: object
+    ReportAttestationRequestCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_id:
+                  description: ''
+                  type: string
+                user_id:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ReportResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            orientation:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            policy_pack_version:
+              description: ''
+              type: string
+            report_type:
+              description: ''
+              type: string
+            snapshot_id:
+              description: ''
+              type: string
+            template_id:
+              description: ''
+              type: string
+            template_key:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            attestation_requests:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related attestation_requests resource id
+                      type: string
+                    type:
+                      description: Type of related attestation_requests resource
+                      type: string
+                  type: object
+              type: object
+            snapshot:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related snapshot resource id
+                      type: string
+                    type:
+                      description: Type of related snapshot resource
+                      type: string
+                  type: object
+              type: object
+            template:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related template resource id
+                      type: string
+                    type:
+                      description: Type of related template resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+            widgets:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related widgets resource id
+                      type: string
+                    type:
+                      description: Type of related widgets resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_reports
+          type: string
+      type: object
+    ReportAttestationRequestResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            attestation_comment:
+              description: ''
+              type: string
+            attested_at:
+              description: ''
+              type: string
+            attester_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            report_id:
+              description: ''
+              type: string
+            requested_team_id:
+              description: ''
+              type: string
+            requested_user_id:
+              description: ''
+              type: string
+            requester_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            attester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related attester resource id
+                      type: string
+                    type:
+                      description: Type of related attester resource
+                      type: string
+                  type: object
+              type: object
+            requested_team:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_team resource id
+                      type: string
+                    type:
+                      description: Type of related requested_team resource
+                      type: string
+                  type: object
+              type: object
+            requested_user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_user resource id
+                      type: string
+                    type:
+                      description: Type of related requested_user resource
+                      type: string
+                  type: object
+              type: object
+            requester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requester resource id
+                      type: string
+                    type:
+                      description: Type of related requester resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: report_attestation_requests
+          type: string
+      type: object
+    ReportsResponse:
+      description: A collection of [ReportResource](#reportresource)
+      properties:
+        data:
+          description: Content with [ReportResource](#reportresource) objects
+          items:
+            $ref: '#/components/schemas/ReportResource'
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ReportAttestationRequestResponse:
+      description: A JSON-API document with a single [ReportAttestationRequestResource](#reportattestationrequestresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ReportAttestationRequestResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseSnapshotResponse:
+      description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseSnapshotResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ReportCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+                policy_pack_key:
+                  description: ''
+                  type: string
+                policy_pack_version:
+                  description: ''
+                  type: integer
+                report_type:
+                  description: ''
+                  type: string
+                template_id:
+                  description: ''
+                  type: string
+                template_key:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ReportUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ReportResponse:
+      description: A JSON-API document with a single [ReportResource](#reportresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ReportResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

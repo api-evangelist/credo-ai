@@ -1,0 +1,898 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Comment Threads API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: comment_threads
+paths:
+  /use_cases/{use_case_id}/comment_threads:
+    get:
+      description: Retrieve a list of all comment threads associated with a specific entity.
+      operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.index
+      parameters:
+      - description: status filter type
+        in: query
+        name: filter[status][type]
+        required: false
+        schema:
+          type: string
+      - description: status filter value
+        in: query
+        name: filter[status][value]
+        required: false
+        schema:
+          type: string
+      - description: resource_type filter type
+        in: query
+        name: filter[resource_type][type]
+        required: false
+        schema:
+          type: string
+      - description: resource_type filter value
+        in: query
+        name: filter[resource_type][value]
+        required: false
+        schema:
+          type: string
+      - description: resource_id filter type
+        in: query
+        name: filter[resource_id][type]
+        required: false
+        schema:
+          type: string
+      - description: resource_id filter value
+        in: query
+        name: filter[resource_id][value]
+        required: false
+        schema:
+          type: string
+      - description: parent_q_section_id filter type
+        in: query
+        name: filter[parent_q_section_id][type]
+        required: false
+        schema:
+          type: string
+      - description: parent_q_section_id filter value
+        in: query
+        name: filter[parent_q_section_id][value]
+        required: false
+        schema:
+          type: string
+      - description: parent_entity_control_id filter type
+        in: query
+        name: filter[parent_entity_control_id][type]
+        required: false
+        schema:
+          type: string
+      - description: parent_entity_control_id filter value
+        in: query
+        name: filter[parent_entity_control_id][value]
+        required: false
+        schema:
+          type: string
+      - description: parent_use_case_review_id filter type
+        in: query
+        name: filter[parent_use_case_review_id][type]
+        required: false
+        schema:
+          type: string
+      - description: parent_use_case_review_id filter value
+        in: query
+        name: filter[parent_use_case_review_id][value]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      - description: ''
+        in: query
+        name: include
+        required: false
+        x-example: ''
+        schema:
+          type: string
+      - description: page after cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: page before cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      - description: page limit
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          type: integer
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentThreadsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+    post:
+      description: Create a new comment thread with the first comment within a specified use case.
+      operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.create
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentThreadResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CommentThreadCreateRequest'
+        description: The attributes for the new thread.
+  /use_cases/{use_case_id}/comment_threads/{thread_id}/comments:
+    post:
+      description: Create a new comment within a comment thread.
+      operationId: CredoAIWeb.API.V2.Entity.CommentController.create
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the thread.
+        in: path
+        name: thread_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CommentCreateRequest'
+        description: The attributes for the new comment.
+  /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}:
+    delete:
+      description: Delete a specific comment from a comment thread.
+      operationId: CredoAIWeb.API.V2.Entity.CommentController.delete
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the thread.
+        in: path
+        name: thread_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the comment to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+    patch:
+      description: Update a specific comment within a comment thread.
+      operationId: CredoAIWeb.API.V2.Entity.CommentController.update
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the thread.
+        in: path
+        name: thread_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the comment.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CommentUpdateRequest'
+        description: The attributes of the comment to update.
+  /use_cases/{use_case_id}/comment_threads/{id}:
+    get:
+      description: Retrieve details of a specific comment thread within a use case.
+      operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.show
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the thread.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentThreadResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+    patch:
+      description: Resolve a specific comment thread within a use case.
+      operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.update
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the thread.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CommentThreadResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/BadRequestError'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UnprocessableEntityError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - comment_threads
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CommentThreadUpdateRequest'
+        description: The attributes of the thread to update.
+components:
+  schemas:
+    BadRequestError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentResponse:
+      description: A JSON-API document with a single [CommentResource](#commentresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/CommentResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    CommentThreadResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comments_count:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            is_external:
+              description: ''
+              type: string
+            parent_entity_control_id:
+              description: ''
+              type: string
+            parent_q_section_id:
+              description: ''
+              type: string
+            parent_use_case_review_id:
+              description: ''
+              type: string
+            resource_id:
+              description: ''
+              type: string
+            resource_type:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            status_updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            comments:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related comments resource id
+                        type: string
+                      type:
+                        description: Type of related comments resource
+                        type: string
+                    type: object
+                  type: array
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: comment_threads
+          type: string
+      type: object
+    CommentUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: The content of the comment
+                  type: string
+              required:
+              - content
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: comments
+              type: string
+          type: object
+      type: object
+    CommentThreadResponse:
+      description: A JSON-API document with a single [CommentThreadResource](#commentthreadresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/CommentThreadResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentThreadCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: ''
+                  type: string
+                parent_entity_control_id:
+                  description: parent entity control id
+                  type: string
+                parent_q_section_id:
+                  description: parent question section id
+                  type: string
+                parent_use_case_review_id:
+                  description: parent use case review id
+                  type: string
+                resource_id:
+                  description: resource id
+                  type: string
+                resource_type:
+                  description: resource type
+                  enum:
+                  - review_action
+                  - evidence_requirement
+                  - control
+                  - question
+                  - none
+                  type: string
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: comment_threads
+              type: string
+          type: object
+      type: object
+    UnprocessableEntityError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: The content of the comment
+                  type: string
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: comments
+              type: string
+          type: object
+      type: object
+    CommentThreadUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                status:
+                  description: status
+                  enum:
+                  - resolved
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: comment_threads
+              type: string
+          type: object
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comment_thread_id:
+              description: ''
+              type: string
+            content:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: comments
+          type: string
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentThreadsResponse:
+      description: A page of [CommentThreadResource](#commentthreadresource) results
+      properties:
+        data:
+          description: Content with [CommentThreadResource](#commentthreadresource) objects
+          items:
+            $ref: '#/components/schemas/CommentThreadResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

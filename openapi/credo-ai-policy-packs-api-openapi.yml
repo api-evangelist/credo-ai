@@ -1,0 +1,981 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Policy Packs API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: policy_packs
+  description: Endpoints for policy packs management
+paths:
+  /policy_packs/{id}/duplicate:
+    post:
+      description: Create a duplicate of an existing out-of-the-box policy pack, generating a new custom policy pack with version 1.
+      operationId: CredoAIWeb.API.V2.PolicyPackController.duplicate
+      parameters:
+      - description: The unique ID of the policy pack to duplicate.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyPackDuplicateRequest'
+        description: Attributes for the duplicated policy pack.
+  /policy_packs:
+    get:
+      description: Retrieve a list of all available out-of-the-box policy packs.
+      operationId: CredoAIWeb.API.V2.PolicyPackController.index
+      parameters:
+      - description: name ilike search
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+      - description: archived
+        in: query
+        name: filter[archived]
+        required: false
+        schema:
+          type: boolean
+      - description: description ilike search
+        in: query
+        name: filter[description]
+        required: false
+        schema:
+          type: string
+      - description: custom
+        in: query
+        name: filter[custom]
+        required: false
+        schema:
+          type: boolean
+      - description: exclude keys
+        in: query
+        name: filter[exclude_keys][]
+        required: false
+        schema:
+          type: string
+      - description: entity type id
+        in: query
+        name: filter[entity_type_id]
+        required: false
+        schema:
+          type: string
+      - description: deprecated
+        in: query
+        name: filter[deprecated]
+        required: false
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPacksCollectionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+  /policy_pack_bases:
+    get:
+      description: Retrieves a list of all custom policy pack bases.
+      operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicyPackBasesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    post:
+      description: Creates a new custom policy pack base with the provided attributes.
+      operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicyPackBaseResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CustomPolicyPackBaseCreateRequest'
+        description: The attributes for the new custom policy pack base.
+  /policy_pack_bases/{id}:
+    delete:
+      description: Deletes a custom policy pack base identified by its unique ID from the system.
+      operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.delete
+      parameters:
+      - description: The unique ID of the custom policy pack base to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    get:
+      description: Fetches the details of a specific custom policy pack base identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.show
+      parameters:
+      - description: The unique ID of the custom policy pack base to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicyPackBaseResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    post:
+      description: Updates an existing custom policy pack base identified by its unique ID with the provided attributes.
+      operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.update
+      parameters:
+      - description: The unique ID of the custom policy pack base to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicyPackBaseResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CustomPolicyPackBaseUpdateRequest'
+        description: The attributes to update the custom policy pack base.
+  /policy_pack_bases/{base_id}/versions:
+    get:
+      description: Retrieves a list of all versions associated with a specific custom policy pack base.
+      operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.index
+      parameters:
+      - description: The unique ID of the policy pack base.
+        in: path
+        name: base_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackVersionsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    post:
+      description: Creates a new version for a specified custom policy pack base, using the provided attributes.
+      operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.create
+      parameters:
+      - description: The unique ID of the policy pack base.
+        in: path
+        name: base_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyPackVersionCreateRequest'
+        description: The attributes for the new version.
+  /policy_pack_versions/{id}:
+    delete:
+      description: Deletes a specific version of a custom policy pack identified by its ID.
+      operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.delete
+      parameters:
+      - description: The unique ID of the version to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    get:
+      description: Fetches the details of a specific version of a custom policy pack by its ID.
+      operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.show
+      parameters:
+      - description: The unique ID of the version to retrieve.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+    patch:
+      description: Updates an existing version of a custom policy pack identified by its ID with the provided attributes.
+      operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.update
+      parameters:
+      - description: The unique identifier of the version to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/PolicyPackVersionUpdateRequest'
+        description: The attributes to update the version with.
+  /policy_packs/{id}:
+    get:
+      description: Fetch detailed information about a specific out-of-the-box policy pack identified by its ID.
+      operationId: CredoAIWeb.API.V2.PolicyPackController.show
+      parameters:
+      - description: The unique ID of the policy pack.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/PolicyPackResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - policy_packs
+components:
+  schemas:
+    PolicyPackVersionsResponse:
+      description: A collection of [PolicyPackVersionResource](#policypackversionresource)
+      properties:
+        data:
+          description: Content with [PolicyPackVersionResource](#policypackversionresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyPackVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    CustomPolicyPackBaseResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            custom:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            entity_type_ids:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            latest_published:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related latest_published resource id
+                      type: string
+                    type:
+                      description: Type of related latest_published resource
+                      type: string
+                  type: object
+              type: object
+            versions:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related versions resource id
+                      type: string
+                    type:
+                      description: Type of related versions resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_pack_bases
+          type: string
+      type: object
+    PolicyPackVersionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            base_id:
+              description: ''
+              type: string
+            controls:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            draft:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            report_template:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: custom_policy_pack_versions
+          type: string
+      type: object
+    PolicyPackVersionUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                controls:
+                  description: policy pack controls
+                  type: array
+                draft:
+                  description: draft
+                  type: boolean
+                info:
+                  description: policy pack info
+                  type: object
+                report_template:
+                  description: policy pack report template
+                  type: object
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyPackResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            controls:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            kind:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            report_template:
+              description: ''
+              type: string
+            spec:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_packs
+          type: string
+      type: object
+    CustomPolicyPackBaseCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                entity_type_ids:
+                  description: entity type ids this pack targets; omit or [] for all
+                  example: []
+                  type: array
+                id:
+                  description: id
+                  type: string
+                info:
+                  description: policy pack info shared across versions
+                  example:
+                    name: Policy pack name
+                  type: object
+              required:
+              - id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyPackVersionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                controls:
+                  description: policy pack controls
+                  type: array
+                info:
+                  description: policy pack info
+                  type: object
+                report_template:
+                  description: policy pack report template
+                  type: object
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyPackResponse:
+      description: A JSON-API document with a single [PolicyPackResource](#policypackresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyPackResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    CustomPolicyPackBaseUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                archived:
+                  description: archived
+                  type: boolean
+                entity_type_ids:
+                  description: entity type ids this pack targets; add-only (cannot narrow)
+                  example: []
+                  type: array
+                info:
+                  description: policy pack info shared across versions
+                  example:
+                    name: Policy pack name
+                  type: object
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyPacksCollectionResponse:
+      description: A collection of [PolicyPackResource](#policypackresource)
+      properties:
+        data:
+          description: Content with [PolicyPackResource](#policypackresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyPackResource'
+          type: array
+      required:
+      - data
+      type: object
+    CustomPolicyPackBaseResponse:
+      description: A JSON-API document with a single [CustomPolicyPackBaseResource](#custompolicypackbaseresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/CustomPolicyPackBaseResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyPackVersionResponse:
+      description: A JSON-API document with a single [PolicyPackVersionResource](#policypackversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyPackVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyPackDuplicateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                key:
+                  description: key of duplicated policy pack
+                  example: PACK-DUP
+                  type: string
+                name:
+                  description: name of duplicated policy pack
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CustomPolicyPackBasesResponse:
+      description: A collection of [CustomPolicyPackBaseResource](#custompolicypackbaseresource)
+      properties:
+        data:
+          description: Content with [CustomPolicyPackBaseResource](#custompolicypackbaseresource) objects
+          items:
+            $ref: '#/components/schemas/CustomPolicyPackBaseResource'
+          type: array
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

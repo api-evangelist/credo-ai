@@ -1,0 +1,1184 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Entity Controls API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: entity_controls
+paths:
+  /entities/{entity_id}/controls/{control_id}/evidences:
+    get:
+      description: Retrieve a list of evidences associated with a specific entity control.
+      operationId: CredoAIWeb.API.V2.Entity.ControlEvidenceController.index
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EvidencesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+    post:
+      description: Create a new evidence entry for a specified requirement of an entity control.
+      operationId: CredoAIWeb.API.V2.Entity.ControlEvidenceController.create
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EvidenceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityControlEvidenceCreateRequest'
+        description: The attributes of the evidence to be created.
+  /entities/{entity_id}/controls/{control_id}/tasks:
+    post:
+      description: Create a new task for a specific control.
+      operationId: CredoAIWeb.API.V2.Entity.ControlController.create_task
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TaskResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityControlTaskCreateRequest'
+        description: The attributes for the new task.
+  /entities/{entity_id}/controls:
+    get:
+      description: Retrieve a list of controls associated with a specific entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlController.index
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+  /entities/{entity_id}/controls/{control_id}/files:
+    get:
+      description: Retrieves a list of all files (attachments) associated with a specific control for an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlFileController.index
+      parameters:
+      - description: The unique ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlFilesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+    post:
+      description: Creates a new file (attachment) associated with a specific control for an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlFileController.create
+      parameters:
+      - description: The unique ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlFileResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityControlFileCreateRequest'
+        description: The attributes of the file to be created.
+        required: true
+  /entities/{entity_id}/controls/{id}:
+    get:
+      description: Fetch detailed information about a specific control within an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlController.show
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+    patch:
+      description: Update the details of a specific control within an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlController.update
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityControlUpdateRequest'
+        description: The attributes to update for the control.
+  /entities/{entity_id}/controls/{id}/cookbook:
+    get:
+      description: Retrieve the cookbook associated with a specific control. Only available for use case entities.
+      operationId: CredoAIWeb.API.V2.Entity.ControlController.cookbook
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityControlCookbookResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+  /entities/{entity_id}/controls/{control_id}/files/{id}:
+    delete:
+      description: Deletes a specific file (attachment) associated with a control for an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ControlFileController.delete
+      parameters:
+      - description: The unique ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the control.
+        in: path
+        name: control_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the file to be deleted.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_controls
+components:
+  schemas:
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityControlsResponse:
+      description: A collection of [EntityControlResource](#entitycontrolresource)
+      properties:
+        data:
+          description: Content with [EntityControlResource](#entitycontrolresource) objects
+          items:
+            $ref: '#/components/schemas/EntityControlResource'
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlResponse:
+      description: A JSON-API document with a single [EntityControlResource](#entitycontrolresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TaskResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            assigner_id:
+              description: ''
+              type: string
+            completed_at:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            entity_questionnaire_section_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            model_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            sub_status:
+              description: ''
+              type: string
+            team_ids:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_control_id:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            use_case_review_id:
+              description: ''
+              type: string
+            user_ids:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            assigner:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related assigner resource id
+                      type: string
+                    type:
+                      description: Type of related assigner resource
+                      type: string
+                  type: object
+              type: object
+            entity_questionnaire_section:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related entity_questionnaire_section resource id
+                      type: string
+                    type:
+                      description: Type of related entity_questionnaire_section resource
+                      type: string
+                  type: object
+              type: object
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            teams:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related teams resource id
+                      type: string
+                    type:
+                      description: Type of related teams resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+            use_case_control:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_control resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_control resource
+                      type: string
+                  type: object
+              type: object
+            use_case_review:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_review resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_review resource
+                      type: string
+                  type: object
+              type: object
+            users:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related users resource id
+                      type: string
+                    type:
+                      description: Type of related users resource
+                      type: string
+                  type: object
+              type: object
+            vendor:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related vendor resource id
+                      type: string
+                    type:
+                      description: Type of related vendor resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: tasks
+          type: string
+      type: object
+    EvidencesResponse:
+      description: A collection of [EvidenceResource](#evidenceresource)
+      properties:
+        data:
+          description: Content with [EvidenceResource](#evidenceresource) objects
+          items:
+            $ref: '#/components/schemas/EvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    EvidenceResponse:
+      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlCookbookResponse:
+      description: A JSON-API document with a single [EntityControlCookbookResource](#entitycontrolcookbookresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlCookbookResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlFileResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            content_type:
+              description: ''
+              type: string
+            control_id:
+              description: ''
+              type: string
+            filename:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            requirement_key:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_control_files
+          type: string
+      type: object
+    EntityControlFileCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: Base 64 encoded file content
+                  type: string
+                content_type:
+                  description: Content type
+                  type: string
+                filename:
+                  description: File name
+                  type: string
+                requirement_key:
+                  description: file requirement key
+                  type: string
+                size:
+                  description: File size
+                  type: integer
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EvidenceResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_key:
+              description: Control key
+              example: FAIR.C1
+              type: string
+            creator:
+              description: Creator
+              example:
+                family_name: John
+                given_name: Doe
+                nickname: doe
+              type: object
+            data:
+              description: value data,
+              example:
+                value: value
+              type: object
+            entity_id:
+              description: ''
+              type: string
+            generated_at:
+              description: Evidence generation time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            hash_key:
+              description: ''
+              type: string
+            inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            label:
+              description: label in the evidence requirement
+              example:
+                key: value
+              type: object
+            metadata:
+              description: metadata
+              example:
+                key: value
+              type: object
+            model_id:
+              description: model_id
+              example: 4pEfRTw2RVVrouMbFH9tuH
+              type: string
+            model_version:
+              description: ''
+              type: string
+            type:
+              description: Evidence type
+              example: text
+              type: string
+            use_case_id:
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            asset_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related asset_links resource id
+                      type: string
+                    type:
+                      description: Type of related asset_links resource
+                      type: string
+                  type: object
+              type: object
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            policy_pack_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related policy_pack_links resource id
+                      type: string
+                    type:
+                      description: Type of related policy_pack_links resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: evidences
+          type: string
+      type: object
+    EntityControlEvidenceCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                requirement_key:
+                  description: evidence requirement key
+                  type: string
+              required:
+              - data
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityControlFileResponse:
+      description: A JSON-API document with a single [EntityControlFileResource](#entitycontrolfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlCookbookResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            data:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_control_cookbooks
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityControlUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityControlResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            compliances:
+              description: ''
+              type: string
+            control_key:
+              description: ''
+              type: string
+            control_version:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            model_id:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            task:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related task resource id
+                      type: string
+                    type:
+                      description: Type of related task resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_controls
+          type: string
+      type: object
+    EntityControlFilesResponse:
+      description: A page of [EntityControlFileResponse](#entitycontrolfileresponse) results
+      properties:
+        data:
+          description: Content with [EntityControlFileResponse](#entitycontrolfileresponse) objects
+          items:
+            $ref: '#/components/schemas/EntityControlFileResponse'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

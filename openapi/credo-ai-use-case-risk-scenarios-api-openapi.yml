@@ -1,0 +1,506 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Use Case Risk Scenarios API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: use_case_risk_scenarios
+  description: Operations related to risk scenarios for a specific use case
+paths:
+  /use_cases/{use_case_id}/risk_scenarios/{id}:
+    delete:
+      description: Deletes the specified risk scenario from the use case.
+      operationId: CredoAIWeb.API.V2.UseCase.RiskScenarioController.delete
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the risk scenario.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_risk_scenarios
+    get:
+      description: Retrieves detailed information about a specific risk scenario associated with the given use case.
+      operationId: CredoAIWeb.API.V2.UseCase.RiskScenarioController.show
+      parameters:
+      - description: The ID of the risk scenario.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseRiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_risk_scenarios
+    patch:
+      description: Updates the attributes of an existing risk scenario.
+      operationId: CredoAIWeb.API.V2.UseCase.RiskScenarioController.update
+      parameters:
+      - description: The ID of the risk scenario.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseRiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_risk_scenarios
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseRiskScenarioUpdateRequest'
+        description: The updated attributes for the risk scenario.
+  /use_cases/{use_case_id}/risk_scenarios:
+    get:
+      description: Retrieves a list of all risk scenarios associated with the specified use case
+      operationId: CredoAIWeb.API.V2.UseCase.RiskScenarioController.index
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCasesRiskScenariosResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_risk_scenarios
+    post:
+      description: 'Creates a new risk scenario for the specified use case. Options include:
+
+        1. Creating a new scenario with a name and risk type.
+
+        2. Referencing an existing scenario using its ID.
+
+        '
+      operationId: CredoAIWeb.API.V2.UseCase.RiskScenarioController.create
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseRiskScenarioResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseRiskAlreadyExistError'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_risk_scenarios
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseRiskScenarioCreateRequest'
+        description: The attributes for the new risk scenario.
+components:
+  schemas:
+    UseCaseRiskScenarioUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk scenario description
+                  type: string
+                inherent_risk_impact:
+                  description: inherent risk impact(1-5)
+                  example: 1
+                  type: integer
+                inherent_risk_likelihood:
+                  description: inherent risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                name:
+                  description: risk scenario name
+                  type: string
+                residual_risk_impact:
+                  description: residual risk impact(1-5)
+                  example: 1
+                  type: integer
+                residual_risk_likelihood:
+                  description: residual risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+                type:
+                  description: risk type
+                  example: abuse_misuse
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseRiskScenarioCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk scenario description
+                  type: string
+                inherent_risk_impact:
+                  description: inherent risk impact(1-5)
+                  example: 1
+                  type: integer
+                inherent_risk_likelihood:
+                  description: inherent risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                name:
+                  description: risk scenario name
+                  type: string
+                risk_scenario_id:
+                  description: risk scenario id
+                  example: 8zA2nPjVSenyvcc429LPDT
+                  type: string
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+                type:
+                  description: risk type
+                  example: abuse_misuse
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCasesRiskScenariosResponse:
+      description: A collection of [UseCaseRiskScenarioResource](#usecaseriskscenarioresource)
+      properties:
+        data:
+          description: Content with [UseCaseRiskScenarioResource](#usecaseriskscenarioresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseRiskScenarioResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseRiskScenarioResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inherent_risk:
+              description: ''
+              type: string
+            inherent_risk_impact:
+              description: ''
+              type: string
+            inherent_risk_likelihood:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            residual_risk:
+              description: ''
+              type: string
+            residual_risk_impact:
+              description: ''
+              type: string
+            residual_risk_likelihood:
+              description: ''
+              type: string
+            risk_scenario_id:
+              description: ''
+              type: string
+            risk_type_ids:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            risk_control_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related risk_control_links resource id
+                      type: string
+                    type:
+                      description: Type of related risk_control_links resource
+                      type: string
+                  type: object
+              type: object
+            risk_scenario:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related risk_scenario resource id
+                      type: string
+                    type:
+                      description: Type of related risk_scenario resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_risk_scenarios
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseRiskScenarioResponse:
+      description: A JSON-API document with a single [UseCaseRiskScenarioResource](#usecaseriskscenarioresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseRiskScenarioResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

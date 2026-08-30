@@ -1,0 +1,427 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Alerts API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: alerts
+paths:
+  /alerts:
+    get:
+      description: Retrieves a list of alerts with optional filtering
+      operationId: CredoAIWeb.API.V2.AlertController.index
+      parameters:
+      - description: Filter by type
+        in: query
+        name: filter[type][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by severity
+        in: query
+        name: filter[severity][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by status
+        in: query
+        name: filter[status][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by use case ID
+        in: query
+        name: filter[use_case_id][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by evidence ID
+        in: query
+        name: filter[evidence_id][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by policy pack controls
+        in: query
+        name: filter[is_policy_pack]
+        required: false
+        schema:
+          type: boolean
+      - description: Filter by standalone controls
+        in: query
+        name: filter[is_standalone]
+        required: false
+        schema:
+          type: boolean
+      - description: Filter by policy pack version key
+        in: query
+        name: filter[policy_pack_version_key][]
+        required: false
+        schema:
+          type: string
+      - description: Filter by control version key
+        in: query
+        name: filter[control_version_key][]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AlertsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - alerts
+  /alerts/{id}:
+    delete:
+      description: Marks an alert as ignored (soft delete)
+      operationId: CredoAIWeb.API.V2.AlertController.delete
+      parameters:
+      - description: The unique ID of the alert to mark as ignored
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - alerts
+    get:
+      description: Fetches the details of a specific alert
+      operationId: CredoAIWeb.API.V2.AlertController.show
+      parameters:
+      - description: The unique ID of the alert
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AlertResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - alerts
+  /use_cases/{use_case_id}/evidences/{evidence_id}/alerts:
+    get:
+      description: Retrieves alerts for a specific evidence. By default, only returns active alerts unless a different status filter is provided.
+      operationId: CredoAIWeb.API.V2.AlertController.use_case_evidence_alerts
+      parameters:
+      - description: The unique ID of the use case
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the evidence
+        in: path
+        name: evidence_id
+        required: true
+        schema:
+          type: string
+      - description: Filter by status (active, inactive, ignored)
+        in: query
+        name: filter[status]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AlertsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - alerts
+  /use_cases/{use_case_id}/alerts:
+    get:
+      description: Retrieves alerts for a specific use case. By default, only returns active alerts unless a different status filter is provided.
+      operationId: CredoAIWeb.API.V2.AlertController.use_case_alerts
+      parameters:
+      - description: The unique ID of the use case
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: Filter by status (active, inactive, ignored)
+        in: query
+        name: filter[status]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AlertsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - alerts
+components:
+  schemas:
+    AlertResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            evidence_id:
+              description: ''
+              type: string
+            governance_bound_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            message:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            severity:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            evidence:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related evidence resource id
+                      type: string
+                    type:
+                      description: Type of related evidence resource
+                      type: string
+                  type: object
+              type: object
+            governance_bound:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related governance_bound resource id
+                      type: string
+                    type:
+                      description: Type of related governance_bound resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: alerts
+          type: string
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    AlertsResponse:
+      description: A collection of [AlertResource](#alertresource)
+      properties:
+        data:
+          description: Content with [AlertResource](#alertresource) objects
+          items:
+            $ref: '#/components/schemas/AlertResource'
+          type: array
+      required:
+      - data
+      type: object
+    AlertResponse:
+      description: A JSON-API document with a single [AlertResource](#alertresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/AlertResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

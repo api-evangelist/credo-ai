@@ -1,0 +1,302 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Entity Risk Scenario Controls API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: entity_risk_scenario_controls
+paths:
+  /entities/{entity_id}/risk_scenarios/{risk_scenario_id}/controls/bulk_delete:
+    post:
+      description: Removes links between multiple controls and a risk scenario for the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.RiskScenarioControlController.bulk_delete
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the risk scenario.
+        in: path
+        name: risk_scenario_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_risk_scenario_controls
+  /entities/{entity_id}/risk_scenarios/{risk_scenario_id}/controls:
+    get:
+      description: Retrieves a list of controls linked to a specific risk scenario for the specified entity
+      operationId: CredoAIWeb.API.V2.Entity.RiskScenarioControlController.index
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the risk scenario.
+        in: path
+        name: risk_scenario_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityRiskScenarioControlsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_risk_scenario_controls
+    post:
+      description: Links one or more controls to a specific risk scenario for the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.RiskScenarioControlController.create
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the risk scenario.
+        in: path
+        name: risk_scenario_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityRiskScenarioControlsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_risk_scenario_controls
+  /entities/{entity_id}/risk_scenarios/{risk_scenario_id}/controls/{id}:
+    delete:
+      description: Removes the link between a control and a risk scenario for the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.RiskScenarioControlController.delete
+      parameters:
+      - description: The ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the risk scenario.
+        in: path
+        name: risk_scenario_id
+        required: true
+        schema:
+          type: string
+      - description: The ID of the entity control to unlink.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - entity_risk_scenario_controls
+components:
+  schemas:
+    EntityRiskScenarioControlResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_key:
+              description: ''
+              type: string
+            control_version:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_risk_scenario_controls
+          type: string
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityRiskScenarioControlsResponse:
+      description: A collection of [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource)
+      properties:
+        data:
+          description: Content with [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource) objects
+          items:
+            $ref: '#/components/schemas/EntityRiskScenarioControlResource'
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

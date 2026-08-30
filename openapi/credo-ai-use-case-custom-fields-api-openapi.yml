@@ -1,0 +1,439 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Use Case Custom Fields API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: use_case_custom_fields
+  description: Operations related to use case custom fields
+paths:
+  /use_cases/{use_case_id}/custom_fields/{name}:
+    delete:
+      deprecated: true
+      description: '[DEPRECATED] Delete a custom field identified by its name for a specific use case.'
+      operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.delete
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The name of the custom field to be deleted.
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_custom_fields
+    patch:
+      deprecated: true
+      description: '[DEPRECATED] Update the value of a custom field identified by its name for a specific use case.'
+      operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.update
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The name of the custom field to be updated.
+        in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseCustomFieldResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_custom_fields
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseCustomFieldUpdateRequest'
+        description: The attributes of the custom field to be updated.
+  /use_cases/{use_case_id}/custom_fields:
+    get:
+      description: Retrieve a list of all custom fields associated with a specific use case.
+      operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.index
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseCustomFieldsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_custom_fields
+    patch:
+      description: Update the value of a specific custom field for a given use case.
+      operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.update_one
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseCustomFieldResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_custom_fields
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseCustomFieldUpdateOneRequest'
+        description: The attributes of the custom field to be updated.
+    post:
+      deprecated: true
+      description: '[DEPRECATED] Create a new custom field for a specific use case.'
+      operationId: CredoAIWeb.API.V2.UseCase.CustomFieldController.create
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseCustomFieldResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_custom_fields
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseCustomFieldCreateRequest'
+        description: The attributes of the custom field to be created.
+components:
+  schemas:
+    UseCaseCustomFieldCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                name:
+                  description: name
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - name
+              - value
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseCustomFieldsResponse:
+      description: A collection of [UseCaseCustomFieldResource](#usecasecustomfieldresource)
+      properties:
+        data:
+          description: Content with [UseCaseCustomFieldResource](#usecasecustomfieldresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseCustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseCustomFieldResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            custom_field_id:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            value:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            custom_field:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related custom_field resource id
+                      type: string
+                    type:
+                      description: Type of related custom_field resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_custom_fields
+          type: string
+      type: object
+    UseCaseCustomFieldResponse:
+      description: A JSON-API document with a single [UseCaseCustomFieldResource](#usecasecustomfieldresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseCustomFieldResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseCustomFieldUpdateOneRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                custom_field_id:
+                  description: custom_field_id
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - custom_field_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseCustomFieldUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                value:
+                  description: value
+                  type: any
+              required:
+              - value
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

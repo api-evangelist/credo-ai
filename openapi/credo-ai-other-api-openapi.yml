@@ -1,0 +1,284 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Other API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: other
+  description: Utility endpoints including tenant information and evidence types
+paths:
+  /evidence_types:
+    get:
+      description: Retrieves all available evidence types supported by the system.
+      operationId: CredoAIWeb.API.V2.EvidenceTypeController.evidence_types
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EvidenceTypeResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - other
+  /tenant_info:
+    get:
+      description: Retrieves the tenant's information including display name and logo URL
+      operationId: CredoAIWeb.API.V2.TenantInfoController.show
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TenantInfoResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - other
+    patch:
+      description: Updates the tenant's information such as display name and logo URL
+      operationId: CredoAIWeb.API.V2.TenantInfoController.update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/TenantInfoResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - other
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/TenantInfoUpdateRequest'
+        description: data
+components:
+  schemas:
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EvidenceTypeResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            document:
+              description: document evidence types
+              example:
+              - text
+              - short_text
+              - select
+              - user
+              - file
+              - yes_no
+              - date
+              - number
+              type: array
+            technical:
+              description: technical evidence types
+              example:
+              - metric
+              - statistical_test
+              - table
+              type: array
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: evidence_types
+          type: string
+      type: object
+    EvidenceTypeResponse:
+      description: A JSON-API document with a single [EvidenceTypeResource](#evidencetyperesource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceTypeResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TenantInfoResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            display_name:
+              description: Display Name
+              example: Credo AI
+              type: string
+            help_url:
+              description: Help URL
+              example: https://help.acme.com/help/me
+              type: string
+            logo_url:
+              description: Logo URL
+              example: https://assets.credo.ai/foo.png
+              type: string
+            scim_token_enabled:
+              description: SCIM Token Enabled
+              example: true
+              type: boolean
+            scim_token_last_generated_at:
+              description: SCIM Token Last Generated At
+              example: '2021-01-01T00:00:00Z'
+              type: string
+            scim_token_last_used_at:
+              description: SCIM Token Last Used At
+              example: '2021-01-01T00:00:00Z'
+              type: string
+            webhook_app_id:
+              description: Webhook App ID
+              example: ep_2etTEQef3g4gSOb0q1jDRARZ7R2
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: tenant_infos
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TenantInfoUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                display_name:
+                  description: Display Name
+                  example: Credo AI
+                  type: string
+                help_url:
+                  description: Help URL
+                  example: https://help.acme.com/help/me
+                  type: string
+                logo_url:
+                  description: Logo URL
+                  example: https://assets.credo.ai/foo.png
+                  type: string
+                scim_token_enabled:
+                  description: SCIM Token Enabled
+                  example: true
+                  type: boolean
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    TenantInfoResponse:
+      description: A JSON-API document with a single [TenantInfoResource](#tenantinforesource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantInfoResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

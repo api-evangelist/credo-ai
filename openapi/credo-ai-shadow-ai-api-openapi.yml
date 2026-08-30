@@ -1,0 +1,990 @@
+openapi: 3.2.0
+info:
+  contact:
+    email: support@credo.ai
+    name: Credo AI Support
+    url: https://credo.ai/contact
+  description: 'The Credo AI API provides endpoints for managing AI models, use cases, and policy controls.
+
+
+    ## Authentication
+
+    All API requests must include a valid Bearer token in the Authorization header.
+
+    To obtain a token, use the [`POST /auth/exchange`](#tag/Auth/operation/CredoAIWeb.Auth.TokenController.exchange) endpoint with your API token and tenant.
+
+
+    ## Rate Limiting
+
+    API requests are limited based on your subscription plan. Contact support for specific limits.
+
+
+    ## Versioning
+
+    This is version 2.0 of the API. All endpoints are prefixed with `/api/v2/`.
+
+    '
+  license:
+    name: Proprietary
+    url: https://credo.ai/terms
+  title: Credo AI Shadow AI API
+  version: 2.0.0
+servers:
+- description: Local development server (with preconfigured tenant 'credoai')
+  url: http://localhost:4000/api/v2/{tenant}
+  variables:
+    tenant:
+      default: credoai
+      description: The tenant identifier
+- description: Quality Assurance server (with preconfigured tenant 'credoai')
+  url: https://api.credo-qa.com/api/v2/{tenant}
+  variables:
+    tenant:
+      default: credoai
+      description: The tenant identifier
+- description: Production API - Replace {tenant} with your assigned tenant ID
+  url: https://api.credo.ai/api/v2/{tenant}
+  variables:
+    tenant:
+      default: ''
+      description: Your tenant identifier (contact support@credo.ai to get yours)
+- description: Custom On-Premise Server - Enter your full base URL
+  url: '{custom_base_url}/api/v2/{tenant}'
+  variables:
+    custom_base_url:
+      default: https://api.your-company.com
+      description: Your complete base URL (e.g., https://api.your-company.com, http://192.168.1.100:8080)
+    tenant:
+      default: ''
+      description: Your tenant identifier
+security:
+- BearerAuth: []
+tags:
+- name: Shadow AI
+paths:
+  /shadow_ai/ai_events:
+    get:
+      callbacks: {}
+      description: Retrieve a list of all AI events in the system
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIEventController.index
+      parameters:
+      - description: Filter by action
+        in: query
+        name: filter[action]
+        required: false
+        schema:
+          type: string
+      - description: Filter by app name
+        in: query
+        name: filter[app_name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by category
+        in: query
+        name: filter[category]
+        required: false
+        schema:
+          type: string
+      - description: Filter by department
+        in: query
+        name: filter[department]
+        required: false
+        schema:
+          type: string
+      - description: Filter by device hostname
+        in: query
+        name: filter[device_hostname]
+        required: false
+        schema:
+          type: string
+      - description: Filter by referrer url
+        in: query
+        name: filter[referrer_url]
+        required: false
+        schema:
+          type: string
+      - description: Filter by risk score
+        in: query
+        name: filter[risk_score]
+        required: false
+        schema:
+          type: number
+      - description: Filter by timestamp
+        in: query
+        name: filter[timestamp]
+        required: false
+        schema:
+          type: string
+      - description: Filter by url
+        in: query
+        name: filter[url]
+        required: false
+        schema:
+          type: string
+      - description: Filter by user email
+        in: query
+        name: filter[user_email]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIEventsResponse'
+          description: List of AI events
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+      summary: List AI events
+      tags:
+      - Shadow AI
+    post:
+      callbacks: {}
+      description: Create a new AI event with the provided attributes
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIEventController.create
+      parameters: []
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/AIEventCreateRequest'
+        description: AI event attributes
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIEventResponse'
+          description: AI event created
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Create AI event
+      tags:
+      - Shadow AI
+  /shadow_ai/ai_events/bulk:
+    post:
+      callbacks: {}
+      description: Create multiple AI events in bulk. Accepts either JSONAPI format with a 'data' array or simple format with an 'events' array.
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIEventController.create_bulk
+      parameters: []
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/AIEventBulkCreateRequest'
+        description: Bulk AI event data
+        required: true
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIEventsResponse'
+          description: AI events created
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Validation error
+      summary: Create AI events in bulk
+      tags:
+      - Shadow AI
+  /shadow_ai/ai_events/{id}:
+    delete:
+      callbacks: {}
+      description: Delete an AI event by ID
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIEventController.delete
+      parameters:
+      - description: AI event ID
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          content:
+            ? ''
+            : {}
+          description: AI event deleted
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+      summary: Delete AI event
+      tags:
+      - Shadow AI
+  /shadow_ai/ai_tools:
+    get:
+      callbacks: {}
+      description: Retrieve a list of all AI tools available in the system
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIToolController.index
+      parameters:
+      - description: 'Include related resources in the response\
+
+          Multiple fields can be specified as comma-separated values.'
+        explode: false
+        in: query
+        name: include
+        required: false
+        schema:
+          items:
+            enum:
+            - use_case
+            type: string
+          type: array
+        style: form
+      - description: 'Sort results by one or more fields. Use ascending order by default, or prefix with ''-'' for descending order.\
+
+          Multiple fields can be specified as comma-separated values.'
+        explode: false
+        in: query
+        name: sort
+        required: false
+        schema:
+          items:
+            enum:
+            - name
+            - -name
+            - inserted_at
+            - -inserted_at
+            - updated_at
+            - -updated_at
+            type: string
+          type: array
+        style: form
+      - description: Filter by name
+        in: query
+        name: filter[name]
+        required: false
+        schema:
+          type: string
+      - description: Filter by use case id
+        in: query
+        name: filter[use_case_id]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIToolsResponse'
+          description: List of AI tools
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+      summary: List AI tools
+      tags:
+      - Shadow AI
+  /shadow_ai/ai_tools/{id}/register:
+    post:
+      callbacks: {}
+      description: Register an AI tool with a use case. This associates the AI tool with a specific use case in the system.
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIToolController.register
+      parameters:
+      - description: The unique ID of the AI tool to register
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIToolResponse'
+          description: AI tool registered
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+      summary: Register AI tool
+      tags:
+      - Shadow AI
+  /shadow_ai/ai_tools/{id}/unregister:
+    post:
+      callbacks: {}
+      description: Unregister an AI tool from its associated use case. This removes the association between the AI tool and the use case.
+      operationId: CredoAIWeb.API.V2.ShadowAI.AIToolController.unregister
+      parameters:
+      - description: The unique ID of the AI tool to unregister
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AIToolResponse'
+          description: AI tool unregistered
+        '403':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+      summary: Unregister AI tool
+      tags:
+      - Shadow AI
+components:
+  schemas:
+    AIToolsResponse:
+      description: Response containing a collection of AI tools
+      properties:
+        data:
+          description: Array of AI tool resources
+          items:
+            description: An AI tool in the system
+            properties:
+              attributes:
+                description: AI tool attributes
+                properties:
+                  inserted_at:
+                    description: Creation timestamp
+                    format: date-time
+                    type: string
+                  name:
+                    description: Name of the AI tool
+                    type: string
+                  updated_at:
+                    description: Last update timestamp
+                    format: date-time
+                    type: string
+                  use_case_id:
+                    description: ID of the associated use case
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - name
+                - inserted_at
+                - updated_at
+                type: object
+              id:
+                description: Unique identifier for the AI tool
+                type: string
+              type:
+                description: Resource type identifier
+                example: ai_tool
+                type: string
+            required:
+            - id
+            - type
+            - attributes
+            title: AITool
+            type: object
+          type: array
+        included:
+          description: Included related resources when the 'include' parameter is used
+          items:
+            properties:
+              attributes:
+                description: The JSON-API resource attributes
+                type: object
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+      required:
+      - data
+      title: AIToolsResponse
+      type: object
+    AIEventBulkCreateRequest:
+      description: Request schema for creating multiple AI events in bulk. Accepts either JSONAPI format with a 'data' array or simple format with an 'events' array.
+      properties:
+        data:
+          description: Array of AI event data objects in JSONAPI format. Each object should have 'attributes' containing the event data.
+          items:
+            properties:
+              attributes:
+                properties:
+                  action:
+                    type:
+                    - string
+                    - 'null'
+                  app_name:
+                    type:
+                    - string
+                    - 'null'
+                  category:
+                    type:
+                    - string
+                    - 'null'
+                  department:
+                    type:
+                    - string
+                    - 'null'
+                  device_hostname:
+                    type:
+                    - string
+                    - 'null'
+                  referrer_url:
+                    type:
+                    - string
+                    - 'null'
+                  risk_score:
+                    maximum: 100
+                    minimum: 0
+                    type:
+                    - integer
+                    - 'null'
+                  timestamp:
+                    description: Timestamp of the AI event in ISO-8601 format
+                    format: date-time
+                    type: string
+                  url:
+                    type:
+                    - string
+                    - 'null'
+                  user_email:
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - timestamp
+                type: object
+              type:
+                example: ai_event
+                type: string
+            required:
+            - type
+            - attributes
+            type: object
+          type: array
+        events:
+          description: Array of AI event objects in simple format
+          items:
+            properties:
+              action:
+                type:
+                - string
+                - 'null'
+              app_name:
+                type:
+                - string
+                - 'null'
+              category:
+                type:
+                - string
+                - 'null'
+              department:
+                type:
+                - string
+                - 'null'
+              device_hostname:
+                type:
+                - string
+                - 'null'
+              referrer_url:
+                type:
+                - string
+                - 'null'
+              risk_score:
+                maximum: 100
+                minimum: 0
+                type:
+                - integer
+                - 'null'
+              timestamp:
+                description: Timestamp of the AI event in ISO-8601 format
+                format: date-time
+                type: string
+              url:
+                type:
+                - string
+                - 'null'
+              user_email:
+                type:
+                - string
+                - 'null'
+            required:
+            - timestamp
+            type: object
+          type: array
+      title: AIEventBulkCreateRequest
+      type: object
+    Error:
+      description: Error response schema
+      example:
+        errors:
+        - code: 2217
+          detail: This model cannot be deleted because it is part of an Use Case.
+          title: Model in use
+      properties:
+        errors:
+          items:
+            properties:
+              code:
+                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
+                example: 2217
+                type: integer
+              detail:
+                description: Detailed error message
+                example: This model cannot be deleted because it is part of an Use Case.
+                type: string
+              title:
+                description: Short error title
+                example: Model in use
+                type: string
+            required:
+            - code
+            - title
+            - detail
+            type: object
+          type: array
+      required:
+      - errors
+      title: Error
+      type: object
+    AIEventResponse:
+      description: Response containing a single AI event
+      properties:
+        data:
+          description: An AI event in the system
+          properties:
+            attributes:
+              description: AI event attributes
+              properties:
+                action:
+                  description: Action that was performed
+                  type:
+                  - string
+                  - 'null'
+                app_name:
+                  description: Name of the application where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                category:
+                  description: Category classification of the event
+                  type:
+                  - string
+                  - 'null'
+                department:
+                  description: Department of the user
+                  type:
+                  - string
+                  - 'null'
+                device_hostname:
+                  description: Hostname of the device where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                inserted_at:
+                  description: Creation timestamp
+                  format: date-time
+                  type: string
+                referrer_url:
+                  description: Referrer URL for the event
+                  type:
+                  - string
+                  - 'null'
+                risk_score:
+                  description: Risk score for the event (0-100)
+                  maximum: 100
+                  minimum: 0
+                  type:
+                  - integer
+                  - 'null'
+                timestamp:
+                  description: Timestamp of the AI event
+                  format: date-time
+                  type: string
+                updated_at:
+                  description: Last update timestamp
+                  format: date-time
+                  type: string
+                url:
+                  description: URL associated with the event
+                  type:
+                  - string
+                  - 'null'
+                user_email:
+                  description: Email address of the user associated with the event
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - timestamp
+              - inserted_at
+              - updated_at
+              type: object
+            id:
+              description: Unique identifier for the AI event
+              type: string
+            type:
+              description: Resource type identifier
+              example: ai_event
+              type: string
+          required:
+          - id
+          - type
+          - attributes
+          title: AIEvent
+          type: object
+        included:
+          description: Included related resources when the 'include' parameter is used
+          items:
+            properties:
+              attributes:
+                description: The JSON-API resource attributes
+                type: object
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+      required:
+      - data
+      title: AIEventResponse
+      type: object
+    AIEventsResponse:
+      description: Response containing a collection of AI events
+      properties:
+        data:
+          description: Array of AI event resources
+          items:
+            description: An AI event in the system
+            properties:
+              attributes:
+                description: AI event attributes
+                properties:
+                  action:
+                    description: Action that was performed
+                    type:
+                    - string
+                    - 'null'
+                  app_name:
+                    description: Name of the application where the event occurred
+                    type:
+                    - string
+                    - 'null'
+                  category:
+                    description: Category classification of the event
+                    type:
+                    - string
+                    - 'null'
+                  department:
+                    description: Department of the user
+                    type:
+                    - string
+                    - 'null'
+                  device_hostname:
+                    description: Hostname of the device where the event occurred
+                    type:
+                    - string
+                    - 'null'
+                  inserted_at:
+                    description: Creation timestamp
+                    format: date-time
+                    type: string
+                  referrer_url:
+                    description: Referrer URL for the event
+                    type:
+                    - string
+                    - 'null'
+                  risk_score:
+                    description: Risk score for the event (0-100)
+                    maximum: 100
+                    minimum: 0
+                    type:
+                    - integer
+                    - 'null'
+                  timestamp:
+                    description: Timestamp of the AI event
+                    format: date-time
+                    type: string
+                  updated_at:
+                    description: Last update timestamp
+                    format: date-time
+                    type: string
+                  url:
+                    description: URL associated with the event
+                    type:
+                    - string
+                    - 'null'
+                  user_email:
+                    description: Email address of the user associated with the event
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - timestamp
+                - inserted_at
+                - updated_at
+                type: object
+              id:
+                description: Unique identifier for the AI event
+                type: string
+              type:
+                description: Resource type identifier
+                example: ai_event
+                type: string
+            required:
+            - id
+            - type
+            - attributes
+            title: AIEvent
+            type: object
+          type: array
+        included:
+          description: Included related resources when the 'include' parameter is used
+          items:
+            properties:
+              attributes:
+                description: The JSON-API resource attributes
+                type: object
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+      required:
+      - data
+      title: AIEventsResponse
+      type: object
+    AIEventCreateRequest:
+      description: Request schema for creating an AI event
+      properties:
+        data:
+          description: AI event data
+          properties:
+            attributes:
+              description: AI event attributes
+              properties:
+                action:
+                  description: Action that was performed
+                  type:
+                  - string
+                  - 'null'
+                app_name:
+                  description: Name of the application where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                category:
+                  description: Category classification of the event
+                  type:
+                  - string
+                  - 'null'
+                department:
+                  description: Department of the user
+                  type:
+                  - string
+                  - 'null'
+                device_hostname:
+                  description: Hostname of the device where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                referrer_url:
+                  description: Referrer URL for the event
+                  type:
+                  - string
+                  - 'null'
+                risk_score:
+                  description: Risk score for the event (0-100)
+                  maximum: 100
+                  minimum: 0
+                  type:
+                  - integer
+                  - 'null'
+                timestamp:
+                  description: Timestamp of the AI event in ISO-8601 format
+                  format: date-time
+                  type: string
+                url:
+                  description: URL associated with the event
+                  type:
+                  - string
+                  - 'null'
+                user_email:
+                  description: Email address of the user associated with the event
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - timestamp
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: ai_event
+              type: string
+          required:
+          - type
+          - attributes
+          type: object
+      required:
+      - data
+      title: AIEventCreateRequest
+      type: object
+    AIToolResponse:
+      description: Response containing a single AI tool
+      properties:
+        data:
+          description: An AI tool in the system
+          properties:
+            attributes:
+              description: AI tool attributes
+              properties:
+                inserted_at:
+                  description: Creation timestamp
+                  format: date-time
+                  type: string
+                name:
+                  description: Name of the AI tool
+                  type: string
+                updated_at:
+                  description: Last update timestamp
+                  format: date-time
+                  type: string
+                use_case_id:
+                  description: ID of the associated use case
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - name
+              - inserted_at
+              - updated_at
+              type: object
+            id:
+              description: Unique identifier for the AI tool
+              type: string
+            type:
+              description: Resource type identifier
+              example: ai_tool
+              type: string
+          required:
+          - id
+          - type
+          - attributes
+          title: AITool
+          type: object
+        included:
+          description: Included related resources when the 'include' parameter is used
+          items:
+            properties:
+              attributes:
+                description: The JSON-API resource attributes
+                type: object
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+      required:
+      - data
+      title: AIToolResponse
+      type: object
+  securitySchemes:
+    BearerAuth:
+      bearerFormat: JWT
+      description: 'JWT access token obtained from [`POST /auth/exchange`](#tag/Auth/operation/CredoAIWeb.Auth.TokenController.exchange).
+
+
+        Include in the Authorization header: `Authorization: Bearer <token>`
+
+        '
+      scheme: bearer
+      type: http

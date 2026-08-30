@@ -1,0 +1,484 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Use Case Scheduled Reviews API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: use_case_scheduled_reviews
+paths:
+  /use_cases/{use_case_id}/scheduled_reviews:
+    get:
+      description: Retrieve a list of scheduled reviews associated with a specific use case.
+      operationId: CredoAIWeb.API.V2.UseCase.ScheduledReviewController.index
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseScheduledReviewsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_scheduled_reviews
+    post:
+      description: Create a new scheduled_review for a specified use case.
+      operationId: CredoAIWeb.API.V2.UseCase.ScheduledReviewController.create
+      parameters:
+      - description: The unique ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseScheduledReviewResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_scheduled_reviews
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseScheduledReviewCreateRequest'
+        description: The attributes for the new scheduled review.
+  /use_cases/{use_case_id}/scheduled_reviews/{id}:
+    delete:
+      description: Delete a specific scheduled_review identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.UseCase.ScheduledReviewController.delete
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the use case scheduled_review.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_scheduled_reviews
+    get:
+      description: Fetch details of a specific scheduled_review by its unique ID.
+      operationId: CredoAIWeb.API.V2.UseCase.ScheduledReviewController.show
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the use case scheduled_review.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UseCaseScheduledReviewResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_scheduled_reviews
+    patch:
+      description: Update an existing scheduled review identified by its ID.
+      operationId: CredoAIWeb.API.V2.UseCase.ScheduledReviewController.update
+      parameters:
+      - description: The ID of the use case.
+        in: path
+        name: use_case_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the use case scheduled review.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - use_case_scheduled_reviews
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UseCaseScheduledReviewUpdateRequest'
+        description: The attributes to update the scheduled review.
+components:
+  schemas:
+    UseCaseScheduledReviewsResponse:
+      description: A collection of [UseCaseScheduledReviewResource](#usecasescheduledreviewresource)
+      properties:
+        data:
+          description: Content with [UseCaseScheduledReviewResource](#usecasescheduledreviewresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseScheduledReviewResource'
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseScheduledReviewResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            created_by_id:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            scheduled_at:
+              description: ''
+              type: string
+            team_ids:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_ids:
+              description: ''
+              type: string
+            workflow_stage_id:
+              description: ''
+              type: string
+            workflow_stage_step:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            teams:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related teams resource id
+                      type: string
+                    type:
+                      description: Type of related teams resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+            users:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related users resource id
+                      type: string
+                    type:
+                      description: Type of related users resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_scheduled_reviews
+          type: string
+      type: object
+    UseCaseScheduledReviewUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                scheduled_at:
+                  description: scheduled date time
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                team_ids:
+                  description: list of team ids
+                  example:
+                  - team_123
+                  - team_456
+                  type: array
+                timezone:
+                  description: timezone
+                  example: America/New_York
+                  type: string
+                user_ids:
+                  description: list of user ids
+                  example:
+                  - user_123
+                  - user_456
+                  type: array
+                workflow_stage_step:
+                  description: workflow stage step
+                  example: step_123
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseScheduledReviewResponse:
+      description: A JSON-API document with a single [UseCaseScheduledReviewResource](#usecasescheduledreviewresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseScheduledReviewResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseScheduledReviewCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                scheduled_at:
+                  description: scheduled date time
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                team_ids:
+                  description: list of team ids
+                  example:
+                  - team_123
+                  - team_456
+                  type: array
+                timezone:
+                  description: timezone
+                  example: America/New_York
+                  type: string
+                user_ids:
+                  description: list of user ids
+                  example:
+                  - user_123
+                  - user_456
+                  type: array
+                workflow_stage_step:
+                  description: workflow stage step
+                  example: step_123
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

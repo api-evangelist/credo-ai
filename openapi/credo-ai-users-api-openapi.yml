@@ -1,0 +1,474 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Users API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: users
+  description: Endpoints for user management, roles, and profiles
+paths:
+  /users/{id}:
+    get:
+      description: Retrieve detailed information about a specific user by their unique ID.
+      operationId: CredoAIWeb.API.V2.UserController.show
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - users
+    patch:
+      description: Update the information of an existing user identified by their unique ID.
+      operationId: CredoAIWeb.API.V2.UserController.update
+      parameters:
+      - description: id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - users
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserUpdateRequest'
+        description: data
+  /users:
+    get:
+      description: List of users
+      operationId: CredoAIWeb.API.V2.UserController.index
+      parameters:
+      - description: page after cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: page before cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      - description: page limit
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          type: integer
+      - description: given_name filter type
+        in: query
+        name: filter[given_name][type]
+        required: false
+        schema:
+          type: string
+      - description: given_name filter value
+        in: query
+        name: filter[given_name][value]
+        required: false
+        schema:
+          type: string
+      - description: role match filter
+        in: query
+        name: filter[role]
+        required: false
+        schema:
+          type: string
+      - description: q match filter
+        in: query
+        name: filter[q]
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UsersResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - users
+    post:
+      description: Create a new vendor user with the provided user data.
+      operationId: CredoAIWeb.API.V2.UserController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/UserResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - users
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/UserCreateRequest'
+        description: data
+components:
+  schemas:
+    UserResponse:
+      description: A JSON-API document with a single [UserResource](#userresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UserResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UserUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                family_name:
+                  description: ''
+                  type: string
+                given_name:
+                  description: ''
+                  type: string
+                is_initialized:
+                  description: ''
+                  type: boolean
+                job:
+                  description: ''
+                  type: string
+                locale:
+                  description: ''
+                  type: string
+                nickname:
+                  description: ''
+                  type: string
+                picture:
+                  description: ''
+                  type: string
+                role:
+                  description: ''
+                  type: string
+                team:
+                  description: ''
+                  type: string
+                title:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UserResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            auth_methods_available:
+              description: ''
+              type: string
+            configurable_notification_types:
+              description: List of configurable notification types
+              type: array
+            deleted_at:
+              description: ''
+              type: string
+            email:
+              description: ''
+              type: string
+            family_name:
+              description: ''
+              type: string
+            given_name:
+              description: ''
+              type: string
+            invitation_accepted_at:
+              description: ''
+              type: string
+            invitation_sent_at:
+              description: ''
+              type: string
+            is_initialized:
+              description: ''
+              type: boolean
+            is_invitation_expired:
+              description: ''
+              type: string
+            is_local:
+              description: ''
+              type: boolean
+            job:
+              description: ''
+              type: string
+            locale:
+              description: ''
+              type: string
+            nickname:
+              description: ''
+              type: string
+            picture:
+              description: ''
+              type: string
+            role:
+              description: ''
+              type: string
+            sub:
+              description: ''
+              type: string
+            team:
+              description: ''
+              type: string
+            title:
+              description: ''
+              type: string
+            ux_config:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            setting:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related setting resource id
+                      type: string
+                    type:
+                      description: Type of related setting resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: users
+          type: string
+      type: object
+    UserCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                email:
+                  description: name@credo.ai
+                  type: string
+                family_name:
+                  description: ''
+                  type: string
+                given_name:
+                  description: ''
+                  type: string
+                job:
+                  description: ''
+                  type: string
+                locale:
+                  description: ''
+                  type: string
+                nickname:
+                  description: ''
+                  type: string
+                picture:
+                  description: ''
+                  type: string
+                role:
+                  description: role
+                  type: string
+              required:
+              - email
+              - role
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UsersResponse:
+      description: A page of [UserResource](#userresource) results
+      properties:
+        data:
+          description: Content with [UserResource](#userresource) objects
+          items:
+            $ref: '#/components/schemas/UserResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey

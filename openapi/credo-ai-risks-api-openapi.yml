@@ -1,0 +1,956 @@
+openapi: 3.2.0
+info:
+  description: Credo AI server API
+  title: Credo AI server Risks API
+servers:
+- url: /api/v2/credoai
+tags:
+- name: risks
+  description: Endpoints for management of risk classifications, risk types, and risk scenarios
+paths:
+  /risk_type/{id}:
+    delete:
+      description: Delete a risk type identified by its ID.
+      operationId: CredoAIWeb.API.V2.RiskTypeController.delete
+      parameters:
+      - description: The unique ID of the risk type to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+  /risk_classifications:
+    get:
+      description: Retrieve the list of custom risk classifications.
+      operationId: CredoAIWeb.API.V2.RiskClassificationController.index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskClassificationsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+    put:
+      description: Update the custom risk classifications with the provided attributes.
+      operationId: CredoAIWeb.API.V2.RiskClassificationController.update
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskClassificationsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/RiskClassificationsUpdateRequest'
+        description: attributes
+  /risk_scenarios:
+    get:
+      description: Retrieves a list of all available risk scenarios.
+      operationId: CredoAIWeb.API.V2.RiskScenarioController.index
+      parameters:
+      - description: ownership_type filter type
+        in: query
+        name: filter[ownership_type][type]
+        required: false
+        schema:
+          type: string
+      - description: ownership_type filter value
+        in: query
+        name: filter[ownership_type][value]
+        required: false
+        schema:
+          type: string
+      - description: archived filter type
+        in: query
+        name: filter[archived][type]
+        required: false
+        schema:
+          type: string
+      - description: archived filter value
+        in: query
+        name: filter[archived][value]
+        required: false
+        schema:
+          type: string
+      - description: deprecated filter type
+        in: query
+        name: filter[deprecated][type]
+        required: false
+        schema:
+          type: string
+      - description: deprecated filter value
+        in: query
+        name: filter[deprecated][value]
+        required: false
+        schema:
+          type: string
+      - description: risk_type_id filter type
+        in: query
+        name: filter[risk_type_id][type]
+        required: false
+        schema:
+          type: string
+      - description: risk_type_id filter value
+        in: query
+        name: filter[risk_type_id][value]
+        required: false
+        schema:
+          type: string
+      - description: entity_type_id filter type
+        in: query
+        name: filter[entity_type_id][type]
+        required: false
+        schema:
+          type: string
+      - description: entity_type_id filter value
+        in: query
+        name: filter[entity_type_id][value]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: name,inserted_at
+        schema:
+          type: string
+      - description: page after cursor
+        in: query
+        name: page[after]
+        required: false
+        schema:
+          type: string
+      - description: page before cursor
+        in: query
+        name: page[before]
+        required: false
+        schema:
+          type: string
+      - description: page limit
+        in: query
+        name: page[limit]
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskScenariosResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+  /risk_types/{id}:
+    patch:
+      description: Update an existing risk type identified by its ID.
+      operationId: CredoAIWeb.API.V2.RiskTypeController.update
+      parameters:
+      - description: The unique ID of the risk type to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskTypeResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/RiskTypeUpdateRequest'
+        description: attributes
+  /custom_risk_scenarios/{id}:
+    delete:
+      description: Deletes the custom risk scenario identified by its ID.
+      operationId: CredoAIWeb.API.V2.CustomRiskScenarioController.delete
+      parameters:
+      - description: The unique ID of the risk scenario to delete.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+    patch:
+      description: Updates an existing custom risk scenario identified by its ID.
+      operationId: CredoAIWeb.API.V2.CustomRiskScenarioController.update
+      parameters:
+      - description: The unique ID of the risk scenario to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CustomRiskScenarioUpdateRequest'
+        description: data
+  /risk_scenarios/{id}:
+    get:
+      description: Get risk scenario
+      operationId: CredoAIWeb.API.V2.RiskScenarioController.show
+      parameters:
+      - description: risk scenario id
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+    patch:
+      description: Updates the visibility status of a specific risk scenario.
+      operationId: CredoAIWeb.API.V2.RiskScenarioController.update
+      parameters:
+      - description: The unique ID of the risk scenario to update.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/RiskScenarioUpdateRequest'
+        description: The attributes to update for the risk scenario.
+  /custom_risk_scenarios:
+    post:
+      description: Creates a new custom risk scenario with the provided attributes.
+      operationId: CredoAIWeb.API.V2.CustomRiskScenarioController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskScenarioResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/CustomRiskScenarioCreateRequest'
+        description: data
+  /risk_types:
+    get:
+      description: Retrieve a list of all available risk types.
+      operationId: CredoAIWeb.API.V2.RiskTypeController.index
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskTypesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+    post:
+      description: Create a new risk type with the specified attributes.
+      operationId: CredoAIWeb.API.V2.RiskTypeController.create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/RiskTypeResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: ''
+      tags:
+      - risks
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/RiskTypeCreateRequest'
+        description: attributes
+components:
+  schemas:
+    RiskTypeCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk type description
+                  example: Custom Risk Description
+                  type: string
+                name:
+                  description: risk type name
+                  example: Custom Risk
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    RiskScenarioUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                archived:
+                  description: ''
+                  type: boolean
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    RiskTypeUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk type description
+                  example: Custom Risk Description
+                  type: string
+                hidden:
+                  description: hidden value for risk type
+                  example: true
+                  type: boolean
+                name:
+                  description: risk type name
+                  example: Custom Risk
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    CustomRiskScenarioUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                author:
+                  description: author name
+                  type: string
+                description:
+                  description: risk scenario description
+                  type: string
+                domains:
+                  description: domain names
+                  example:
+                  - domain 1
+                  type: array
+                entity_type_ids:
+                  description: entity type ids this asset targets; add-only (cannot narrow)
+                  example: []
+                  type: array
+                industries:
+                  description: industry names
+                  example:
+                  - industry 1
+                  type: array
+                name:
+                  description: risk scenario name
+                  type: string
+                regions:
+                  description: region names
+                  example:
+                  - region 1
+                  type: array
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - ppduDfPRaPVNh8NvPD9Gug
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    RiskScenarioResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            author:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            domains:
+              description: ''
+              type: string
+            entity_type_ids:
+              description: ''
+              type: string
+            industries:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            reasoning:
+              description: ''
+              type: string
+            regions:
+              description: ''
+              type: string
+            risk_type_ids:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: risk_scenarios
+          type: string
+      type: object
+    RiskScenarioResponse:
+      description: A JSON-API document with a single [RiskScenarioResource](#riskscenarioresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/RiskScenarioResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    RiskClassificationsUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                value:
+                  description: custom risk classifications (formerly known as risk categories - deprecated term)
+                  example:
+                  - level: '1'
+                    name: High
+                  - level: '2'
+                    name: Low
+                  type: array
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    RiskScenariosResponse:
+      description: A collection of [RiskScenarioResource](#riskscenarioresource)
+      properties:
+        data:
+          description: Content with [RiskScenarioResource](#riskscenarioresource) objects
+          items:
+            $ref: '#/components/schemas/RiskScenarioResource'
+          type: array
+      required:
+      - data
+      type: object
+    RiskTypeResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            custom:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            hidden:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: risk_types
+          type: string
+      type: object
+    RiskClassificationResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            value:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: risk_classifications
+          type: string
+      type: object
+    RiskTypesResponse:
+      description: A collection of [RiskTypeResource](#risktyperesource)
+      properties:
+        data:
+          description: Content with [RiskTypeResource](#risktyperesource) objects
+          items:
+            $ref: '#/components/schemas/RiskTypeResource'
+          type: array
+      required:
+      - data
+      type: object
+    RiskClassificationsResponse:
+      description: A collection of [RiskClassificationResource](#riskclassificationresource)
+      properties:
+        data:
+          description: Content with [RiskClassificationResource](#riskclassificationresource) objects
+          items:
+            $ref: '#/components/schemas/RiskClassificationResource'
+          type: array
+      required:
+      - data
+      type: object
+    RiskTypeResponse:
+      description: A JSON-API document with a single [RiskTypeResource](#risktyperesource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/RiskTypeResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    CustomRiskScenarioCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                author:
+                  description: author name
+                  type: string
+                description:
+                  description: risk scenario description
+                  type: string
+                domains:
+                  description: domain names
+                  example:
+                  - domain 1
+                  type: array
+                entity_type_ids:
+                  description: entity type ids this asset targets; omit or [] for all
+                  example: []
+                  type: array
+                industries:
+                  description: industry names
+                  example:
+                  - industry 1
+                  type: array
+                name:
+                  description: risk scenario name
+                  type: string
+                regions:
+                  description: region names
+                  example:
+                  - region 1
+                  type: array
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - ppduDfPRaPVNh8NvPD9Gug
+                  type: array
+              required:
+              - name
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+  securitySchemes:
+    Bearer:
+      in: header
+      name: Authorization
+      type: apiKey
