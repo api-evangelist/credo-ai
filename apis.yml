@@ -32,21 +32,21 @@ created: '2026-08-11'
 modified: '2026-08-11'
 tags:
 - Company
-- ai-governance
+- AI Governance
 - ai-risk-management
-- responsible-ai
+- Responsible AI
 - Compliance
-- regulatory-technology
-- model-registry
-- vendor-risk
-- eu-ai-act
-- nist-ai-rmf
-- iso-42001
-- shadow-ai
-- agent-governance
+- Regulatory Technology
+- Model Registry
+- Vendor Risk
+- EU AI Act
+- NIST AI RMF
+- ISO 42001
+- Shadow AI
+- Agent Governance
 - Audit
-- json-api
-- agent-skills
+- JSON:API
+- Agent Skills
 tags_raw:
 - Company
 - ai-governance
@@ -76,8 +76,8 @@ apis:
   baseURL: npx -y @credoai/governance-hub-mcp
   tags:
   - MCP
-  - ai-governance
-  - agent-skills
+  - AI Governance
+  - Agent Skills
   tags_raw:
   - mcp
   - ai-governance
