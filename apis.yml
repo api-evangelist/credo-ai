@@ -612,7 +612,7 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
-  - PolicyPacks
+  - Policy Packs
   tags_raw:
   - policy_packs
   properties:
@@ -642,7 +642,7 @@ apis:
   humanURL: https://docs.sdk.credo.ai/docs/intro/
   baseURL: https://api.credo.ai/api/v2/{tenant}
   tags:
-  - Questionnaires
+  - Questionnaire
   tags_raw:
   - questionnaires
   properties:
