@@ -17,9 +17,7 @@ paths:
 
         Please use the comment_threads API endpoints instead for comment functionality:
 
-        [GET /use_cases/{use_case_id}/comment_threads](#/paths/~1use_cases~1{use_case_id}~1comment_threads/get)
-
-        '
+        GET /use_cases/{use_case_id}/comment_threads'
       operationId: CredoAIWeb.API.V2.UseCase.Review.ActionController.index
       parameters:
       - description: page after cursor
@@ -95,9 +93,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review action controller index
       tags:
       - use_case_reviews
+      x-summary-source: derived
     post:
       description: 'Create a new review action for the specified use case review.
 
@@ -106,13 +105,11 @@ paths:
 
         Please use the comment_threads API endpoints instead for comment functionality:
 
-        [POST /use_cases/{use_case_id}/comment_threads](#/paths/~1use_cases~1{use_case_id}~1comment_threads/post)
+        POST /use_cases/{use_case_id}/comment_threads
 
         and
 
-        [POST /use_cases/{use_case_id}/comment_threads/{thread_id}/comments](#/paths/~1use_cases~1{use_case_id}~1comment_threads~1{thread_id}~1comments/post)
-
-        '
+        POST /use_cases/{use_case_id}/comment_threads/{thread_id}/comments'
       operationId: CredoAIWeb.API.V2.UseCase.Review.ActionController.create
       parameters:
       - description: The unique ID of the use case review for which a new action is being created.
@@ -148,7 +145,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review action controller create
       tags:
       - use_case_reviews
       requestBody:
@@ -157,6 +154,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UseCaseReviewActionCreateRequest'
         description: The attributes of the review action to be created.
+      x-summary-source: derived
   /use_case_reviews/{review_id}/snapshot:
     get:
       description: Retrieve the snapshot of a specific review.
@@ -189,9 +187,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller show snapshot
       tags:
       - use_case_reviews
+      x-summary-source: derived
   /use_case_reviews/{id}:
     delete:
       description: Delete a specific review identified by its unique ID.
@@ -226,9 +225,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller delete
       tags:
       - use_case_reviews
+      x-summary-source: derived
     get:
       description: Fetch details of a specific review by its unique ID.
       operationId: CredoAIWeb.API.V2.UseCase.ReviewController.show
@@ -260,9 +260,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller show
       tags:
       - use_case_reviews
+      x-summary-source: derived
     patch:
       description: Update an existing review identified by its ID.
       operationId: CredoAIWeb.API.V2.UseCase.ReviewController.update
@@ -296,7 +297,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller update
       tags:
       - use_case_reviews
       requestBody:
@@ -305,6 +306,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UseCaseReviewUpdateRequest'
         description: The attributes to update the review.
+      x-summary-source: derived
   /use_cases/{use_case_id}/reviews:
     get:
       description: Retrieve a list of reviews associated with a specific use case.
@@ -351,9 +353,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller index
       tags:
       - use_case_reviews
+      x-summary-source: derived
     post:
       description: Create a new review for a specified use case.
       operationId: CredoAIWeb.API.V2.UseCase.ReviewController.create
@@ -385,7 +388,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller create
       tags:
       - use_case_reviews
       requestBody:
@@ -394,6 +397,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UseCaseReviewCreateRequest'
         description: The attributes for the new review.
+      x-summary-source: derived
   /use_case_reviews/{review_id}/snapshot/workflow_stage:
     get:
       description: Retrieve the workflow stage from a specific review's snapshot.
@@ -426,9 +430,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller show workflow stage
       tags:
       - use_case_reviews
+      x-summary-source: derived
   /use_case_reviews/{review_id}/tasks:
     post:
       description: Create a new task associated with a specific use case review.
@@ -461,7 +466,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review controller create task
       tags:
       - use_case_reviews
       requestBody:
@@ -470,6 +475,7 @@ paths:
             schema:
               $ref: '#/components/schemas/UseCaseControlTaskCreateRequest'
         description: The attributes for the new task.
+      x-summary-source: derived
   /use_case_review_actions/{id}:
     delete:
       description: 'Delete a specific review action.
@@ -479,13 +485,11 @@ paths:
 
         Please use the comment_threads API endpoints instead for comment functionality:
 
-        [DELETE /use_cases/{use_case_id}/comment_threads/{thread_id}](#/paths/~1use_cases~1{use_case_id}~1comment_threads~1{thread_id}/delete)
+        DELETE /use_cases/{use_case_id}/comment_threads/{thread_id}
 
         or
 
-        [DELETE /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}](#/paths/~1use_cases~1{use_case_id}~1comment_threads~1{thread_id}~1comments~1{id}/delete)
-
-        '
+        DELETE /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}'
       operationId: CredoAIWeb.API.V2.UseCase.Review.ActionController.delete
       parameters:
       - description: The unique ID of the review action to be deleted.
@@ -517,9 +521,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review action controller delete
       tags:
       - use_case_reviews
+      x-summary-source: derived
     patch:
       description: 'Update an existing review action.
 
@@ -528,13 +533,11 @@ paths:
 
         Please use the comment_threads API endpoints instead for comment functionality:
 
-        [PATCH /use_cases/{use_case_id}/comment_threads/{thread_id}](#/paths/~1use_cases~1{use_case_id}~1comment_threads~1{thread_id}/patch)
+        PATCH /use_cases/{use_case_id}/comment_threads/{thread_id}
 
         or
 
-        [PATCH /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}](#/paths/~1use_cases~1{use_case_id}~1comment_threads~1{thread_id}~1comments~1{id}/patch)
-
-        '
+        PATCH /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}'
       operationId: CredoAIWeb.API.V2.UseCase.Review.ActionController.update
       parameters:
       - description: The unique ID of the review action to be updated.
@@ -570,7 +573,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case review action controller update
       tags:
       - use_case_reviews
       requestBody:
@@ -579,8 +582,34 @@ paths:
             schema:
               $ref: '#/components/schemas/UseCaseReviewActionUpdateRequest'
         description: The attributes to be updated for the review action.
+      x-summary-source: derived
 components:
   schemas:
+    UseCaseReviewActionUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                comment:
+                  description: comment
+                  type: string
+                resolved:
+                  description: resolved
+                  type: boolean
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
     UseCaseReviewActionResponse:
       description: A JSON-API document with a single [UseCaseReviewActionResource](#usecasereviewactionresource) resource
       properties:
@@ -600,6 +629,44 @@ components:
           type: array
       required:
       - data
+      type: object
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
       type: object
     UseCaseSnapshotResource:
       description: ''
@@ -691,7 +758,62 @@ components:
           example: use_case_snapshots
           type: string
       type: object
-    UseCaseReviewCreateRequest:
+    UseCaseReviewActionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                comment:
+                  description: comment
+                  example: This is a comment
+                  type: string
+                tags:
+                  description: Tags
+                  example:
+                    controlKey: FAIR.C1
+                  type: object
+                task_id:
+                  description: task id
+                  example: y4AsgRJnHGPn6MZXp4uRYe
+                  type: string
+                type:
+                  description: type
+                  enum:
+                  - change_request
+                  - approve
+                  - reject
+                  - close_review
+                  - comment
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseReviewUpdateRequest:
       description: ''
       properties:
         data:
@@ -703,16 +825,146 @@ components:
                   description: due date
                   example: '2024-01-30T17:00:00.000Z'
                   type: string
+                review_date:
+                  description: review date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                status:
+                  description: status
+                  enum:
+                  - in_progress
+                  - closed
+                  - approved
+                  - rejected
+                  type: string
                 timezone:
                   description: due date timezone
                   example: America/New_York
                   type: string
               type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
+      type: object
+    UseCaseReviewActionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comment:
+              description: ''
+              type: string
+            deleted:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            reply_thread_id:
+              description: ''
+              type: string
+            resolved:
+              description: ''
+              type: string
+            review_id:
+              description: ''
+              type: string
+            tags:
+              description: ''
+              type: string
+            task_id:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            reply_thread:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related reply_thread resource id
+                      type: string
+                    type:
+                      description: Type of related reply_thread resource
+                      type: string
+                  type: object
+              type: object
+            review:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related review resource id
+                      type: string
+                    type:
+                      description: Type of related review resource
+                      type: string
+                  type: object
+              type: object
+            task:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related task resource id
+                      type: string
+                    type:
+                      description: Type of related task resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_review_actions
+          type: string
       type: object
     UseCaseReviewResource:
       description: ''
@@ -822,6 +1074,51 @@ components:
           example: use_case_reviews
           type: string
       type: object
+    UseCaseControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     UseCaseReviewsResponse:
       description: A collection of [UseCaseReviewResource](#usecasereviewresource)
       properties:
@@ -832,6 +1129,29 @@ components:
           type: array
       required:
       - data
+      type: object
+    UseCaseReviewCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     TaskResource:
       description: ''
@@ -1010,6 +1330,46 @@ components:
           example: tasks
           type: string
       type: object
+    UseCaseSnapshotResponse:
+      description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseSnapshotResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseReviewResponse:
+      description: A JSON-API document with a single [UseCaseReviewResource](#usecasereviewresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseReviewResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     UseCaseReviewActionsResponse:
       description: A page of [UseCaseReviewActionResource](#usecasereviewactionresource) results
       properties:
@@ -1032,362 +1392,6 @@ components:
           type: object
       required:
       - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseReviewActionCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                comment:
-                  description: comment
-                  example: This is a comment
-                  type: string
-                tags:
-                  description: Tags
-                  example:
-                    controlKey: FAIR.C1
-                  type: object
-                task_id:
-                  description: task id
-                  example: y4AsgRJnHGPn6MZXp4uRYe
-                  type: string
-                type:
-                  description: type
-                  enum:
-                  - change_request
-                  - approve
-                  - reject
-                  - close_review
-                  - comment
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseSnapshotResponse:
-      description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseSnapshotResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseReviewActionUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                comment:
-                  description: comment
-                  type: string
-                resolved:
-                  description: resolved
-                  type: boolean
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UseCaseReviewResponse:
-      description: A JSON-API document with a single [UseCaseReviewResource](#usecasereviewresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseReviewResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseControlTaskCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseReviewActionResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            comment:
-              description: ''
-              type: string
-            deleted:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            reply_thread_id:
-              description: ''
-              type: string
-            resolved:
-              description: ''
-              type: string
-            review_id:
-              description: ''
-              type: string
-            tags:
-              description: ''
-              type: string
-            task_id:
-              description: ''
-              type: string
-            type:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            use_case_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            reply_thread:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related reply_thread resource id
-                      type: string
-                    type:
-                      description: Type of related reply_thread resource
-                      type: string
-                  type: object
-              type: object
-            review:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related review resource id
-                      type: string
-                    type:
-                      description: Type of related review resource
-                      type: string
-                  type: object
-              type: object
-            task:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related task resource id
-                      type: string
-                    type:
-                      description: Type of related task resource
-                      type: string
-                  type: object
-              type: object
-            use_case:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_case resource id
-                      type: string
-                    type:
-                      description: Type of related use_case resource
-                      type: string
-                  type: object
-              type: object
-            user:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related user resource id
-                      type: string
-                    type:
-                      description: Type of related user resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_review_actions
-          type: string
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseReviewUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                review_date:
-                  description: review date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                status:
-                  description: status
-                  enum:
-                  - in_progress
-                  - closed
-                  - approved
-                  - rejected
-                  type: string
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
   securitySchemes:
     Bearer:

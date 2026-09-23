@@ -47,9 +47,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario controller delete
       tags:
       - entity_risk_scenarios
+      x-summary-source: derived
     get:
       description: Retrieves detailed information about a specific risk scenario associated with the given entity.
       operationId: CredoAIWeb.API.V2.Entity.RiskScenarioController.show
@@ -87,9 +88,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario controller show
       tags:
       - entity_risk_scenarios
+      x-summary-source: derived
     patch:
       description: Updates the attributes of an existing risk scenario.
       operationId: CredoAIWeb.API.V2.Entity.RiskScenarioController.update
@@ -133,7 +135,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario controller update
       tags:
       - entity_risk_scenarios
       requestBody:
@@ -142,6 +144,7 @@ paths:
             schema:
               $ref: '#/components/schemas/EntityRiskScenarioUpdateRequest'
         description: The updated attributes for the risk scenario.
+      x-summary-source: derived
   /entities/{entity_id}/risk_scenarios:
     get:
       description: Retrieves a paginated list of risk scenarios associated with the specified entity
@@ -174,17 +177,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario controller index
       tags:
       - entity_risk_scenarios
+      x-summary-source: derived
     post:
       description: 'Creates a new risk scenario for the specified entity. Options include:
 
         1. Creating a new scenario with a name and risk type.
 
-        2. Referencing an existing catalog scenario using its ID.
-
-        '
+        2. Referencing an existing catalog scenario using its ID.'
       operationId: CredoAIWeb.API.V2.Entity.RiskScenarioController.create
       parameters:
       - description: The ID of the entity.
@@ -220,7 +222,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario controller create
       tags:
       - entity_risk_scenarios
       requestBody:
@@ -229,8 +231,178 @@ paths:
             schema:
               $ref: '#/components/schemas/EntityRiskScenarioCreateRequest'
         description: The attributes for the new risk scenario.
+      x-summary-source: derived
 components:
   schemas:
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityRiskScenarioResponse:
+      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityRiskScenarioResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityRiskScenariosResponse:
+      description: A collection of [EntityRiskScenarioResource](#entityriskscenarioresource)
+      properties:
+        data:
+          description: Content with [EntityRiskScenarioResource](#entityriskscenarioresource) objects
+          items:
+            $ref: '#/components/schemas/EntityRiskScenarioResource'
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityRiskScenarioUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk scenario description
+                  type: string
+                inherent_risk_impact:
+                  description: inherent risk impact(1-5)
+                  example: 1
+                  type: integer
+                inherent_risk_likelihood:
+                  description: inherent risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                name:
+                  description: risk scenario name
+                  type: string
+                residual_risk_impact:
+                  description: residual risk impact(1-5)
+                  example: 1
+                  type: integer
+                residual_risk_likelihood:
+                  description: residual risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityRiskScenarioCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk scenario description
+                  type: string
+                inherent_risk_impact:
+                  description: inherent risk impact(1-5)
+                  example: 1
+                  type: integer
+                inherent_risk_likelihood:
+                  description: inherent risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                name:
+                  description: risk scenario name
+                  type: string
+                risk_scenario_id:
+                  description: risk scenario id
+                  example: 8zA2nPjVSenyvcc429LPDT
+                  type: string
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
     EntityRiskScenarioResource:
       description: ''
       properties:
@@ -311,175 +483,6 @@ components:
           description: The JSON-API resource type
           example: entity_risk_scenarios
           type: string
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    EntityRiskScenarioCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: risk scenario description
-                  type: string
-                inherent_risk_impact:
-                  description: inherent risk impact(1-5)
-                  example: 1
-                  type: integer
-                inherent_risk_likelihood:
-                  description: inherent risk likelihood(1-5)
-                  example: 1
-                  type: integer
-                name:
-                  description: risk scenario name
-                  type: string
-                risk_scenario_id:
-                  description: risk scenario id
-                  example: 8zA2nPjVSenyvcc429LPDT
-                  type: string
-                risk_type_ids:
-                  description: risk type ids
-                  example:
-                  - NkBkDB9i64w53eVR6ssfzj
-                  type: array
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    EntityRiskScenariosResponse:
-      description: A collection of [EntityRiskScenarioResource](#entityriskscenarioresource)
-      properties:
-        data:
-          description: Content with [EntityRiskScenarioResource](#entityriskscenarioresource) objects
-          items:
-            $ref: '#/components/schemas/EntityRiskScenarioResource'
-          type: array
-      required:
-      - data
-      type: object
-    EntityRiskScenarioUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: risk scenario description
-                  type: string
-                inherent_risk_impact:
-                  description: inherent risk impact(1-5)
-                  example: 1
-                  type: integer
-                inherent_risk_likelihood:
-                  description: inherent risk likelihood(1-5)
-                  example: 1
-                  type: integer
-                name:
-                  description: risk scenario name
-                  type: string
-                residual_risk_impact:
-                  description: residual risk impact(1-5)
-                  example: 1
-                  type: integer
-                residual_risk_likelihood:
-                  description: residual risk likelihood(1-5)
-                  example: 1
-                  type: integer
-                risk_type_ids:
-                  description: risk type ids
-                  example:
-                  - NkBkDB9i64w53eVR6ssfzj
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    EntityRiskScenarioResponse:
-      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityRiskScenarioResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

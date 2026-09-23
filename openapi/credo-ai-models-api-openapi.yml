@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: models
+- name: Models
   description: Operations related to models and model versions
 paths:
   /models/{model_id}/files:
@@ -40,9 +40,10 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model file controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Upload a new file for a specific model.
       operationId: CredoAIWeb.API.V2.Model.FileController.create
@@ -80,15 +81,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model file controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelFileCreateRequest'
         description: The attributes of the file to be created.
+      x-summary-source: derived
   /models/{model_id}/questionnaires/{id}:
     delete:
       description: Remove a specific questionnaire from a model's collection.
@@ -129,9 +131,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     patch:
       description: Update the version of a specific questionnaire for a model.
       operationId: CredoAIWeb.API.V2.Model.QuestionnaireController.update
@@ -175,15 +178,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire controller update
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelQuestionnaireUpdateRequest'
         description: The attributes for updating the questionnaire.
+      x-summary-source: derived
   /models/{model_id}/vendor_links:
     get:
       description: Retrieve a list of vendor links associated with a specific model.
@@ -210,9 +214,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model vendor link controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Create a new vendor link for a specific model.
       operationId: CredoAIWeb.API.V2.Model.VendorLinkController.create
@@ -250,15 +255,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model vendor link controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelVendorLinkCreateRequest'
         description: The attributes for the new vendor link.
+      x-summary-source: derived
   /models/{model_id}/vendor_links/{id}:
     delete:
       description: Delete a specific vendor link associated with a model.
@@ -299,9 +305,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model vendor link controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
   /models/{model_id}/custom_fields:
     get:
       description: Retrieve a list of all custom fields associated with a specific model.
@@ -334,9 +341,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model custom field controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
   /models/{model_id}/versions/{id}:
     delete:
       description: Delete a specific model version identified by its unique ID.
@@ -377,9 +385,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model version controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     get:
       description: Retrieve details of a specific model version identified by its unique ID.
       operationId: CredoAIWeb.API.V2.Model.VersionController.show
@@ -417,9 +426,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model version controller show
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     patch:
       description: Update the attributes of a specific model version identified by its unique ID.
       operationId: CredoAIWeb.API.V2.Model.VersionController.update
@@ -463,15 +473,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model version controller update
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelVersionUpdateRequest'
         description: Updated attributes for the model version.
+      x-summary-source: derived
   /models/{id}:
     delete:
       description: Delete a specific model identified by its ID from the system.
@@ -506,9 +517,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     get:
       description: Retrieve detailed information about a specific model identified by its ID.
       operationId: CredoAIWeb.API.V2.ModelController.show
@@ -547,9 +559,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model controller show
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     patch:
       description: Update the attributes of an existing model identified by its ID.
       operationId: CredoAIWeb.API.V2.ModelController.update
@@ -587,15 +600,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model controller update
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelUpdateRequest'
         description: Attributes to update the model
+      x-summary-source: derived
   /models/{model_id}/questionnaire_sections/{section_id}/tasks:
     post:
       description: Creates a new task for a model questionnaire section
@@ -640,15 +654,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire section controller create task
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TaskResource'
         description: The task creation details
+      x-summary-source: derived
   /models:
     get:
       description: Retrieve a list of all models available in the system.
@@ -724,9 +739,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Create a new model with the specified attributes.
       operationId: CredoAIWeb.API.V2.ModelController.create
@@ -751,15 +767,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelCreateRequest'
         description: Attributes required to create a new model
+      x-summary-source: derived
   /models/{model_id}/questionnaire_sections/{section_id}:
     get:
       description: Retrieves a specific questionnaire section for a model
@@ -804,9 +821,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire section controller show
       tags:
-      - models
+      - Models
+      x-summary-source: derived
   /models/{model_id}/questionnaires:
     get:
       description: Retrieve a list of all questionnaires associated with a specific model.
@@ -839,9 +857,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Create a new questionnaire for a specific model.
       operationId: CredoAIWeb.API.V2.Model.QuestionnaireController.create
@@ -879,15 +898,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelQuestionnaireCreateRequest'
         description: The attributes for the new questionnaire.
+      x-summary-source: derived
   /models/{model_id}/evidences/{id}:
     delete:
       description: Deactivate a specific evidence for the given model.
@@ -928,9 +948,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model evidence controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
   /models/{model_id}/versions:
     get:
       description: Retrieve a list of all model versions associated with the specified model.
@@ -957,9 +978,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model version controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Create a new version for the specified model with the provided attributes.
       operationId: CredoAIWeb.API.V2.Model.VersionController.create
@@ -991,15 +1013,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model version controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelVersionCreateRequest'
         description: Attributes for the new model version.
+      x-summary-source: derived
   /models/{model_id}/questionnaire_sections/{section_id}/evidences:
     get:
       description: List all evidences for a specific questionnaire section in a model.
@@ -1038,9 +1061,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire section evidence controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
     post:
       description: Create a new evidence for a specific questionnaire section in a model.
       operationId: CredoAIWeb.API.V2.Model.Questionnaire.SectionEvidenceController.create
@@ -1084,15 +1108,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model questionnaire section evidence controller create
       tags:
-      - models
+      - Models
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelEvidenceCreateRequest'
         description: The attributes for the new evidence.
+      x-summary-source: derived
   /models/{model_id}/evidences:
     get:
       description: Retrieve a list of active evidences associated with a specific model.
@@ -1132,9 +1157,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model evidence controller index
       tags:
-      - models
+      - Models
+      x-summary-source: derived
   /models/{model_id}/files/{id}:
     delete:
       description: Delete a specific file associated with a model by its unique ID.
@@ -1175,11 +1201,50 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 model file controller delete
       tags:
-      - models
+      - Models
+      x-summary-source: derived
 components:
   schemas:
+    ModelFileResponse:
+      description: A JSON-API document with a single [ModelFileResource](#modelfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     ModelFileResource:
       description: ''
       properties:
@@ -1222,147 +1287,32 @@ components:
           example: model_files
           type: string
       type: object
-    ModelVersionUpdateRequest:
+    ModelVersionResource:
       description: ''
       properties:
-        data:
-          description: ''
+        attributes:
           properties:
-            attributes:
-              properties:
-                description:
-                  description: ''
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
+            description:
+              description: ''
               type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
+            model_id:
+              description: ''
+              type: string
+            version:
+              description: ''
               type: string
           type: object
-      type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ModelQuestionnairesResponse:
-      description: A collection of [ModelQuestionnaireResource](#modelquestionnaireresource)
-      properties:
-        data:
-          description: Content with [ModelQuestionnaireResource](#modelquestionnaireresource) objects
-          items:
-            $ref: '#/components/schemas/ModelQuestionnaireResource'
-          type: array
-      required:
-      - data
-      type: object
-    ModelEvidenceCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                data:
-                  description: value data
-                  example:
-                    value: This is text evidence
-                  type: object
-                generated_at:
-                  description: evidence generated time
-                  example: '2022-05-03T11:33:25.582138Z'
-                  type: string
-                question_id:
-                  description: question id
-                  type: string
-              required:
-              - question_id
-              - data
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
           type: object
-      type: object
-    ModelFilesResponse:
-      description: A collection of [ModelFileResource](#modelfileresource)
-      properties:
-        data:
-          description: Content with [ModelFileResource](#modelfileresource) objects
-          items:
-            $ref: '#/components/schemas/ModelFileResource'
-          type: array
-      required:
-      - data
-      type: object
-    ModelCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                name:
-                  description: Model name
-                  type: string
-                questionnaire_ids:
-                  description: Questionnaire Version IDs To Include
-                  example:
-                  - MODEL-QUEST+1
-                  - MODEL-EVAL+2
-                  items: string
-                  type: array
-                source:
-                  description: ''
-                  type: string
-                summary:
-                  description: ''
-                  type: string
-              required:
-              - name
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ModelCustomFieldsResponse:
-      description: A collection of [ModelCustomFieldResource](#modelcustomfieldresource)
-      properties:
-        data:
-          description: Content with [ModelCustomFieldResource](#modelcustomfieldresource) objects
-          items:
-            $ref: '#/components/schemas/ModelCustomFieldResource'
-          type: array
-      required:
-      - data
+        type:
+          description: The JSON-API resource type
+          example: model_versions
+          type: string
       type: object
     ModelVendorLinkCreateRequest:
       description: ''
@@ -1384,24 +1334,70 @@ components:
               type: string
           type: object
       type: object
-    ModelCustomFieldResource:
+    ModelQuestionnaireSectionResponse:
+      description: A collection of [ModelQuestionnaireSectionResource](#modelquestionnairesectionresource)
+      properties:
+        data:
+          description: Content with [ModelQuestionnaireSectionResource](#modelquestionnairesectionresource) objects
+          items:
+            $ref: '#/components/schemas/ModelQuestionnaireSectionResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelResponse:
+      description: A JSON-API document with a single [ModelResource](#modelresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ModelEvidenceResource:
       description: ''
       properties:
         attributes:
           properties:
-            custom_field_id:
+            creator:
+              description: ''
+              type: string
+            data:
               description: ''
               type: string
             entity_id:
               description: ''
               type: string
+            generated_at:
+              description: ''
+              type: string
+            hash_key:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            label:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
             model_id:
               description: ''
               type: string
-            name:
-              description: ''
-              type: string
-            value:
+            type:
               description: ''
               type: string
           type: object
@@ -1411,46 +1407,60 @@ components:
           type: string
         relationships:
           properties:
-            custom_field:
+            asset_links:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related custom_field resource id
+                      description: Related asset_links resource id
                       type: string
                     type:
-                      description: Type of related custom_field resource
+                      description: Type of related asset_links resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: model_custom_fields
+          example: model_evidences
           type: string
       type: object
-    ModelQuestionnaireResource:
+    ModelVersionResponse:
+      description: A JSON-API document with a single [ModelVersionResource](#modelversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ModelVendorLinkResource:
       description: ''
       properties:
         attributes:
           properties:
-            entity_id:
-              description: ''
-              type: string
             inserted_at:
-              description: ''
-              type: string
-            key:
-              description: ''
-              type: string
+              description: When the link was created
+              type: datetime
             model_id:
-              description: ''
+              description: The ID of the model
               type: string
             updated_at:
-              description: ''
-              type: string
-            version:
-              description: ''
+              description: When the link was last updated
+              type: datetime
+            vendor_id:
+              description: The ID of the vendor
               type: string
           type: object
         id:
@@ -1458,12 +1468,56 @@ components:
           example: 64YUaLWSviHgibJaRWr3ZE
           type: string
         relationships:
-          properties: {}
+          properties:
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            vendor:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related vendor resource id
+                      type: string
+                    type:
+                      description: Type of related vendor resource
+                      type: string
+                  type: object
+              type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: model_questionnaires
+          example: model_vendor_links
           type: string
+      type: object
+    ModelVendorLinkResponse:
+      description: A JSON-API document with a single [ModelVendorLinkResource](#modelvendorlinkresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelVendorLinkResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
     ModelFileCreateRequest:
       description: ''
@@ -1671,6 +1725,61 @@ components:
           example: tasks
           type: string
       type: object
+    ModelCustomFieldsResponse:
+      description: A collection of [ModelCustomFieldResource](#modelcustomfieldresource)
+      properties:
+        data:
+          description: Content with [ModelCustomFieldResource](#modelcustomfieldresource) objects
+          items:
+            $ref: '#/components/schemas/ModelCustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelQuestionnaireUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                version:
+                  description: questionnaire version
+                  type: integer
+              required:
+              - version
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ModelQuestionnaireResponse:
+      description: A JSON-API document with a single [ModelQuestionnaireResource](#modelquestionnaireresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ModelQuestionnaireResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     ModelVersionCreateRequest:
       description: ''
       properties:
@@ -1694,39 +1803,64 @@ components:
               type: string
           type: object
       type: object
-    ModelEvidenceResource:
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ModelEvidencesResponse:
+      description: A collection of [ModelEvidenceResource](#modelevidenceresource)
+      properties:
+        data:
+          description: Content with [ModelEvidenceResource](#modelevidenceresource) objects
+          items:
+            $ref: '#/components/schemas/ModelEvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelVersionsResponse:
+      description: A collection of [ModelVersionResource](#modelversionresource)
+      properties:
+        data:
+          description: Content with [ModelVersionResource](#modelversionresource) objects
+          items:
+            $ref: '#/components/schemas/ModelVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelCustomFieldResource:
       description: ''
       properties:
         attributes:
           properties:
-            creator:
-              description: ''
-              type: string
-            data:
+            custom_field_id:
               description: ''
               type: string
             entity_id:
               description: ''
               type: string
-            generated_at:
-              description: ''
-              type: string
-            hash_key:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            label:
-              description: ''
-              type: string
-            metadata:
-              description: ''
-              type: string
             model_id:
               description: ''
               type: string
-            type:
+            name:
+              description: ''
+              type: string
+            value:
               description: ''
               type: string
           type: object
@@ -1736,96 +1870,91 @@ components:
           type: string
         relationships:
           properties:
-            asset_links:
+            custom_field:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related asset_links resource id
+                      description: Related custom_field resource id
                       type: string
                     type:
-                      description: Type of related asset_links resource
+                      description: Type of related custom_field resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: model_evidences
+          example: model_custom_fields
           type: string
       type: object
-    ModelEvidenceResponse:
-      description: A JSON-API document with a single [ModelEvidenceResource](#modelevidenceresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ModelEvidenceResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ModelResponse:
-      description: A JSON-API document with a single [ModelResource](#modelresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ModelResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ModelVersionResource:
+    ModelQuestionnaireCreateRequest:
       description: ''
       properties:
-        attributes:
+        data:
+          description: ''
           properties:
-            description:
-              description: ''
+            attributes:
+              properties:
+                key:
+                  description: questionnaire key
+                  type: string
+                version:
+                  description: questionnaire version
+                  type: integer
+              required:
+              - key
+              - version
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
               type: string
-            model_id:
-              description: ''
-              type: string
-            version:
-              description: ''
+            type:
+              description: The JSON-API resource type
+              example: resource-type
               type: string
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: model_versions
-          type: string
       type: object
-    ModelVersionResponse:
-      description: A JSON-API document with a single [ModelVersionResource](#modelversionresource) resource
+    ModelEvidenceCreateRequest:
+      description: ''
       properties:
         data:
-          $ref: '#/components/schemas/ModelVersionResource'
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: evidence generated time
+                  example: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                question_id:
+                  description: question id
+                  type: string
+              required:
+              - question_id
+              - data
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
         included:
           description: Included resources
           items:
@@ -1838,6 +1967,29 @@ components:
                 type: string
             type: object
           type: array
+      required:
+      - data
+      type: object
+    ModelsPageResponse:
+      description: A page of [ModelResource](#modelresource) results
+      properties:
+        data:
+          description: Content with [ModelResource](#modelresource) objects
+          items:
+            $ref: '#/components/schemas/ModelResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
       required:
       - data
       type: object
@@ -1895,16 +2047,94 @@ components:
           example: model_questionnaire_sections
           type: string
       type: object
-    ModelQuestionnaireSectionResponse:
-      description: A collection of [ModelQuestionnaireSectionResource](#modelquestionnairesectionresource)
+    ModelQuestionnaireResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            model_id:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: model_questionnaires
+          type: string
+      type: object
+    ModelUpdateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [ModelQuestionnaireSectionResource](#modelquestionnairesectionresource) objects
+          description: ''
+          properties:
+            attributes:
+              properties:
+                name:
+                  description: ''
+                  type: string
+                questionnaire_ids:
+                  description: Questionnaire Version IDs To Include
+                  example:
+                  - MODEL-QUEST+1
+                  - MODEL-EVAL+2
+                  items: string
+                  type: array
+                source:
+                  description: ''
+                  type: string
+                summary:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
           items:
-            $ref: '#/components/schemas/ModelQuestionnaireSectionResource'
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
           type: array
-      required:
-      - data
       type: object
     ModelResource:
       description: ''
@@ -2034,129 +2264,22 @@ components:
           example: models
           type: string
       type: object
-    ModelVendorLinkResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            inserted_at:
-              description: When the link was created
-              type: datetime
-            model_id:
-              description: The ID of the model
-              type: string
-            updated_at:
-              description: When the link was last updated
-              type: datetime
-            vendor_id:
-              description: The ID of the vendor
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            model:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related model resource id
-                      type: string
-                    type:
-                      description: Type of related model resource
-                      type: string
-                  type: object
-              type: object
-            vendor:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related vendor resource id
-                      type: string
-                    type:
-                      description: Type of related vendor resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: model_vendor_links
-          type: string
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ModelQuestionnaireCreateRequest:
-      description: ''
+    ModelFilesResponse:
+      description: A collection of [ModelFileResource](#modelfileresource)
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                key:
-                  description: questionnaire key
-                  type: string
-                version:
-                  description: questionnaire version
-                  type: integer
-              required:
-              - key
-              - version
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
+          description: Content with [ModelFileResource](#modelfileresource) objects
+          items:
+            $ref: '#/components/schemas/ModelFileResource'
+          type: array
+      required:
+      - data
       type: object
-    ModelVendorLinkResponse:
-      description: A JSON-API document with a single [ModelVendorLinkResource](#modelvendorlinkresource) resource
+    ModelEvidenceResponse:
+      description: A JSON-API document with a single [ModelEvidenceResource](#modelevidenceresource) resource
       properties:
         data:
-          $ref: '#/components/schemas/ModelVendorLinkResource'
+          $ref: '#/components/schemas/ModelEvidenceResource'
         included:
           description: Included resources
           items:
@@ -2172,18 +2295,18 @@ components:
       required:
       - data
       type: object
-    ModelVersionsResponse:
-      description: A collection of [ModelVersionResource](#modelversionresource)
+    ModelQuestionnairesResponse:
+      description: A collection of [ModelQuestionnaireResource](#modelquestionnaireresource)
       properties:
         data:
-          description: Content with [ModelVersionResource](#modelversionresource) objects
+          description: Content with [ModelQuestionnaireResource](#modelquestionnaireresource) objects
           items:
-            $ref: '#/components/schemas/ModelVersionResource'
+            $ref: '#/components/schemas/ModelQuestionnaireResource'
           type: array
       required:
       - data
       type: object
-    ModelUpdateRequest:
+    ModelCreateRequest:
       description: ''
       properties:
         data:
@@ -2192,7 +2315,7 @@ components:
             attributes:
               properties:
                 name:
-                  description: ''
+                  description: Model name
                   type: string
                 questionnaire_ids:
                   description: Questionnaire Version IDs To Include
@@ -2207,114 +2330,14 @@ components:
                 summary:
                   description: ''
                   type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ModelsPageResponse:
-      description: A page of [ModelResource](#modelresource) results
-      properties:
-        data:
-          description: Content with [ModelResource](#modelresource) objects
-          items:
-            $ref: '#/components/schemas/ModelResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    ModelQuestionnaireUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                version:
-                  description: questionnaire version
-                  type: integer
               required:
-              - version
+              - name
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
-      type: object
-    ModelFileResponse:
-      description: A JSON-API document with a single [ModelFileResource](#modelfileresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ModelFileResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ModelQuestionnaireResponse:
-      description: A JSON-API document with a single [ModelQuestionnaireResource](#modelquestionnaireresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ModelQuestionnaireResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ModelEvidencesResponse:
-      description: A collection of [ModelEvidenceResource](#modelevidenceresource)
-      properties:
-        data:
-          description: Content with [ModelEvidenceResource](#modelevidenceresource) objects
-          items:
-            $ref: '#/components/schemas/ModelEvidenceResource'
-          type: array
-      required:
-      - data
       type: object
     ModelVendorLinksResponse:
       description: A page of [ModelVendorLinkResource](#modelvendorlinkresource) results
@@ -2339,23 +2362,27 @@ components:
       required:
       - data
       type: object
-    NotFoundError:
+    ModelVersionUpdateRequest:
+      description: ''
       properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
   securitySchemes:
     Bearer:

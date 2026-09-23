@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: policy_packs
+- name: Policy Packs
   description: Endpoints for policy packs management
 paths:
   /policy_packs/{id}/duplicate:
@@ -46,15 +46,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack controller duplicate
       tags:
-      - policy_packs
+      - Policy Packs
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/PolicyPackDuplicateRequest'
         description: Attributes for the duplicated policy pack.
+      x-summary-source: derived
   /policy_packs:
     get:
       description: Retrieve a list of all available out-of-the-box policy packs.
@@ -117,9 +118,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack controller index
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
   /policy_pack_bases:
     get:
       description: Retrieves a list of all custom policy pack bases.
@@ -139,9 +141,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack base controller index
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     post:
       description: Creates a new custom policy pack base with the provided attributes.
       operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.create
@@ -166,15 +169,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack base controller create
       tags:
-      - policy_packs
+      - Policy Packs
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CustomPolicyPackBaseCreateRequest'
         description: The attributes for the new custom policy pack base.
+      x-summary-source: derived
   /policy_pack_bases/{id}:
     delete:
       description: Deletes a custom policy pack base identified by its unique ID from the system.
@@ -209,9 +213,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack base controller delete
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     get:
       description: Fetches the details of a specific custom policy pack base identified by its unique ID.
       operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.show
@@ -243,9 +248,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack base controller show
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     post:
       description: Updates an existing custom policy pack base identified by its unique ID with the provided attributes.
       operationId: CredoAIWeb.API.V2.PolicyPack.BaseController.update
@@ -283,15 +289,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack base controller update
       tags:
-      - policy_packs
+      - Policy Packs
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CustomPolicyPackBaseUpdateRequest'
         description: The attributes to update the custom policy pack base.
+      x-summary-source: derived
   /policy_pack_bases/{base_id}/versions:
     get:
       description: Retrieves a list of all versions associated with a specific custom policy pack base.
@@ -318,9 +325,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack version controller index
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     post:
       description: Creates a new version for a specified custom policy pack base, using the provided attributes.
       operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.create
@@ -352,15 +360,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack version controller create
       tags:
-      - policy_packs
+      - Policy Packs
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/PolicyPackVersionCreateRequest'
         description: The attributes for the new version.
+      x-summary-source: derived
   /policy_pack_versions/{id}:
     delete:
       description: Deletes a specific version of a custom policy pack identified by its ID.
@@ -395,9 +404,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack version controller delete
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     get:
       description: Fetches the details of a specific version of a custom policy pack by its ID.
       operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.show
@@ -429,9 +439,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack version controller show
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
     patch:
       description: Updates an existing version of a custom policy pack identified by its ID with the provided attributes.
       operationId: CredoAIWeb.API.V2.PolicyPack.VersionController.update
@@ -469,15 +480,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack version controller update
       tags:
-      - policy_packs
+      - Policy Packs
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/PolicyPackVersionUpdateRequest'
         description: The attributes to update the version with.
+      x-summary-source: derived
   /policy_packs/{id}:
     get:
       description: Fetch detailed information about a specific out-of-the-box policy pack identified by its ID.
@@ -510,22 +522,12 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy pack controller show
       tags:
-      - policy_packs
+      - Policy Packs
+      x-summary-source: derived
 components:
   schemas:
-    PolicyPackVersionsResponse:
-      description: A collection of [PolicyPackVersionResource](#policypackversionresource)
-      properties:
-        data:
-          description: Content with [PolicyPackVersionResource](#policypackversionresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyPackVersionResource'
-          type: array
-      required:
-      - data
-      type: object
     CustomPolicyPackBaseResource:
       description: ''
       properties:
@@ -598,6 +600,92 @@ components:
           example: policy_pack_bases
           type: string
       type: object
+    PolicyPackVersionUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                controls:
+                  description: policy pack controls
+                  type: array
+                draft:
+                  description: draft
+                  type: boolean
+                info:
+                  description: policy pack info
+                  type: object
+                report_template:
+                  description: policy pack report template
+                  type: object
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyPackDuplicateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                key:
+                  description: key of duplicated policy pack
+                  example: PACK-DUP
+                  type: string
+                name:
+                  description: name of duplicated policy pack
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    CustomPolicyPackBasesResponse:
+      description: A collection of [CustomPolicyPackBaseResource](#custompolicypackbaseresource)
+      properties:
+        data:
+          description: Content with [CustomPolicyPackBaseResource](#custompolicypackbaseresource) objects
+          items:
+            $ref: '#/components/schemas/CustomPolicyPackBaseResource'
+          type: array
+      required:
+      - data
+      type: object
     PolicyPackVersionResource:
       description: ''
       properties:
@@ -652,38 +740,7 @@ components:
           example: custom_policy_pack_versions
           type: string
       type: object
-    PolicyPackVersionUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                controls:
-                  description: policy pack controls
-                  type: array
-                draft:
-                  description: draft
-                  type: boolean
-                info:
-                  description: policy pack info
-                  type: object
-                report_template:
-                  description: policy pack report template
-                  type: object
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -700,124 +757,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    PolicyPackResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            controls:
-              description: ''
-              type: string
-            id:
-              description: ''
-              type: string
-            info:
-              description: ''
-              type: string
-            key:
-              description: ''
-              type: string
-            kind:
-              description: ''
-              type: string
-            metadata:
-              description: ''
-              type: string
-            report_template:
-              description: ''
-              type: string
-            spec:
-              description: ''
-              type: string
-            version:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: policy_packs
-          type: string
-      type: object
-    CustomPolicyPackBaseCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                entity_type_ids:
-                  description: entity type ids this pack targets; omit or [] for all
-                  example: []
-                  type: array
-                id:
-                  description: id
-                  type: string
-                info:
-                  description: policy pack info shared across versions
-                  example:
-                    name: Policy pack name
-                  type: object
-              required:
-              - id
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    PolicyPackVersionCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                controls:
-                  description: policy pack controls
-                  type: array
-                info:
-                  description: policy pack info
-                  type: object
-                report_template:
-                  description: policy pack report template
-                  type: object
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    PolicyPackResponse:
-      description: A JSON-API document with a single [PolicyPackResource](#policypackresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyPackResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
       type: object
     CustomPolicyPackBaseUpdateRequest:
       description: ''
@@ -881,70 +820,6 @@ components:
       required:
       - data
       type: object
-    PolicyPackVersionResponse:
-      description: A JSON-API document with a single [PolicyPackVersionResource](#policypackversionresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyPackVersionResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    PolicyPackDuplicateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                key:
-                  description: key of duplicated policy pack
-                  example: PACK-DUP
-                  type: string
-                name:
-                  description: name of duplicated policy pack
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     NotFoundError:
       properties:
         errors:
@@ -963,13 +838,151 @@ components:
             type: object
           type: array
       type: object
-    CustomPolicyPackBasesResponse:
-      description: A collection of [CustomPolicyPackBaseResource](#custompolicypackbaseresource)
+    CustomPolicyPackBaseCreateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [CustomPolicyPackBaseResource](#custompolicypackbaseresource) objects
+          description: ''
+          properties:
+            attributes:
+              properties:
+                entity_type_ids:
+                  description: entity type ids this pack targets; omit or [] for all
+                  example: []
+                  type: array
+                id:
+                  description: id
+                  type: string
+                info:
+                  description: policy pack info shared across versions
+                  example:
+                    name: Policy pack name
+                  type: object
+              required:
+              - id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyPackVersionsResponse:
+      description: A collection of [PolicyPackVersionResource](#policypackversionresource)
+      properties:
+        data:
+          description: Content with [PolicyPackVersionResource](#policypackversionresource) objects
           items:
-            $ref: '#/components/schemas/CustomPolicyPackBaseResource'
+            $ref: '#/components/schemas/PolicyPackVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    PolicyPackResponse:
+      description: A JSON-API document with a single [PolicyPackResource](#policypackresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyPackResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyPackVersionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                controls:
+                  description: policy pack controls
+                  type: array
+                info:
+                  description: policy pack info
+                  type: object
+                report_template:
+                  description: policy pack report template
+                  type: object
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyPackResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            controls:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            kind:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            report_template:
+              description: ''
+              type: string
+            spec:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_packs
+          type: string
+      type: object
+    PolicyPackVersionResponse:
+      description: A JSON-API document with a single [PolicyPackVersionResource](#policypackversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyPackVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
           type: array
       required:
       - data

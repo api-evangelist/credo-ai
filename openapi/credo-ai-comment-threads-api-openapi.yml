@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: comment_threads
+- name: Comment Threads
 paths:
   /use_cases/{use_case_id}/comment_threads:
     get:
@@ -161,9 +161,10 @@ paths:
                 $ref: '#/components/schemas/UnprocessableEntityError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment thread controller index
       tags:
-      - comment_threads
+      - Comment Threads
+      x-summary-source: derived
     post:
       description: Create a new comment thread with the first comment within a specified use case.
       operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.create
@@ -213,15 +214,16 @@ paths:
                 $ref: '#/components/schemas/UnprocessableEntityError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment thread controller create
       tags:
-      - comment_threads
+      - Comment Threads
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CommentThreadCreateRequest'
         description: The attributes for the new thread.
+      x-summary-source: derived
   /use_cases/{use_case_id}/comment_threads/{thread_id}/comments:
     post:
       description: Create a new comment within a comment thread.
@@ -266,15 +268,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment controller create
       tags:
-      - comment_threads
+      - Comment Threads
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CommentCreateRequest'
         description: The attributes for the new comment.
+      x-summary-source: derived
   /use_cases/{use_case_id}/comment_threads/{thread_id}/comments/{id}:
     delete:
       description: Delete a specific comment from a comment thread.
@@ -321,9 +324,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment controller delete
       tags:
-      - comment_threads
+      - Comment Threads
+      x-summary-source: derived
     patch:
       description: Update a specific comment within a comment thread.
       operationId: CredoAIWeb.API.V2.Entity.CommentController.update
@@ -373,15 +377,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment controller update
       tags:
-      - comment_threads
+      - Comment Threads
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CommentUpdateRequest'
         description: The attributes of the comment to update.
+      x-summary-source: derived
   /use_cases/{use_case_id}/comment_threads/{id}:
     get:
       description: Retrieve details of a specific comment thread within a use case.
@@ -432,9 +437,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment thread controller show
       tags:
-      - comment_threads
+      - Comment Threads
+      x-summary-source: derived
     patch:
       description: Resolve a specific comment thread within a use case.
       operationId: CredoAIWeb.API.V2.Entity.CommentThreadController.update
@@ -490,18 +496,19 @@ paths:
                 $ref: '#/components/schemas/UnprocessableEntityError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity comment thread controller update
       tags:
-      - comment_threads
+      - Comment Threads
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CommentThreadUpdateRequest'
         description: The attributes of the thread to update.
+      x-summary-source: derived
 components:
   schemas:
-    BadRequestError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -518,6 +525,26 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    CommentCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: The content of the comment
+                  type: string
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: comments
+              type: string
+          type: object
       type: object
     CommentResponse:
       description: A JSON-API document with a single [CommentResource](#commentresource) resource
@@ -538,6 +565,42 @@ components:
           type: array
       required:
       - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
       type: object
     CommentThreadResource:
       description: ''
@@ -646,43 +709,29 @@ components:
               type: string
           type: object
       type: object
-    CommentThreadResponse:
-      description: A JSON-API document with a single [CommentThreadResource](#commentthreadresource) resource
+    CommentThreadUpdateRequest:
+      description: ''
       properties:
         data:
-          $ref: '#/components/schemas/CommentThreadResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
+          description: ''
+          properties:
+            attributes:
+              properties:
+                status:
+                  description: status
+                  enum:
+                  - resolved
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: comment_threads
+              type: string
+          type: object
       type: object
     CommentThreadCreateRequest:
       description: ''
@@ -725,69 +774,50 @@ components:
               type: string
           type: object
       type: object
-    UnprocessableEntityError:
+    CommentThreadResponse:
+      description: A JSON-API document with a single [CommentThreadResource](#commentthreadresource) resource
       properties:
-        errors:
-          description: Errors
+        data:
+          $ref: '#/components/schemas/CommentThreadResource'
+        included:
+          description: Included resources
           items:
             properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+              id:
+                description: The JSON-API resource ID
                 type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+              type:
+                description: The JSON-API resource type
                 type: string
             type: object
           type: array
+      required:
+      - data
       type: object
-    CommentCreateRequest:
-      description: ''
+    CommentThreadsResponse:
+      description: A page of [CommentThreadResource](#commentthreadresource) results
       properties:
         data:
-          description: ''
+          description: Content with [CommentThreadResource](#commentthreadresource) objects
+          items:
+            $ref: '#/components/schemas/CommentThreadResource'
+          type: array
+        meta:
           properties:
-            attributes:
-              properties:
-                content:
-                  description: The content of the comment
-                  type: string
-              required:
-              - content
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: comments
+            after:
+              description: after cursor for the next page resources
               type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
           type: object
+      required:
+      - data
       type: object
-    CommentThreadUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                status:
-                  description: status
-                  enum:
-                  - resolved
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: comment_threads
-              type: string
-          type: object
-      type: object
-    ForbiddenError:
+    BadRequestError:
       properties:
         errors:
           description: Errors
@@ -850,7 +880,7 @@ components:
           example: comments
           type: string
       type: object
-    NotFoundError:
+    UnprocessableEntityError:
       properties:
         errors:
           description: Errors
@@ -867,29 +897,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    CommentThreadsResponse:
-      description: A page of [CommentThreadResource](#commentthreadresource) results
-      properties:
-        data:
-          description: Content with [CommentThreadResource](#commentthreadresource) objects
-          items:
-            $ref: '#/components/schemas/CommentThreadResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

@@ -54,9 +54,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report attestation request controller delete
       tags:
       - use_case_reports
+      x-summary-source: derived
   /use_cases/{use_case_id}/reports/{id}:
     delete:
       description: Delete a report and its associated widgets.
@@ -97,9 +98,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller delete
       tags:
       - use_case_reports
+      x-summary-source: derived
     get:
       description: Fetch detailed information about a specific report with widget data.
       operationId: CredoAIWeb.API.V2.UseCase.ReportController.show
@@ -137,9 +139,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller show
       tags:
       - use_case_reports
+      x-summary-source: derived
     patch:
       description: Update report metadata (name, description). Structure cannot be changed after creation.
       operationId: CredoAIWeb.API.V2.UseCase.ReportController.update
@@ -183,7 +186,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller update
       tags:
       - use_case_reports
       requestBody:
@@ -192,6 +195,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ReportUpdateRequest'
         description: The attributes to update.
+      x-summary-source: derived
   /use_cases/{use_case_id}/reports/{report_id}/attestation_requests:
     post:
       description: Create a new attestation request for a specific report associated with a use case.
@@ -230,7 +234,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report attestation request controller create
       tags:
       - use_case_reports
       requestBody:
@@ -239,6 +243,7 @@ paths:
             schema:
               $ref: '#/components/schemas/ReportAttestationRequestCreateRequest'
         description: The attributes for the new attestation request.
+      x-summary-source: derived
   /use_cases/{use_case_id}/reports/{report_id}/snapshot:
     get:
       description: Retrieve the snapshot data for a specific report associated with a use case.
@@ -277,9 +282,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller show snapshot
       tags:
       - use_case_reports
+      x-summary-source: derived
   /use_cases/{use_case_id}/reports:
     get:
       description: Retrieve a list of reports associated with a specific use case.
@@ -331,9 +337,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller index
       tags:
       - use_case_reports
+      x-summary-source: derived
     post:
       description: Create a new report. Use template_id for template-based reports or policy_pack_key for legacy reports.
       operationId: CredoAIWeb.API.V2.UseCase.ReportController.create
@@ -365,7 +372,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 use case report controller create
       tags:
       - use_case_reports
       requestBody:
@@ -374,8 +381,27 @@ paths:
             schema:
               $ref: '#/components/schemas/ReportCreateRequest'
         description: The attributes for the new report.
+      x-summary-source: derived
 components:
   schemas:
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     UseCaseSnapshotResource:
       description: ''
       properties:
@@ -466,6 +492,17 @@ components:
           example: use_case_snapshots
           type: string
       type: object
+    ReportsResponse:
+      description: A collection of [ReportResource](#reportresource)
+      properties:
+        data:
+          description: Content with [ReportResource](#reportresource) objects
+          items:
+            $ref: '#/components/schemas/ReportResource'
+          type: array
+      required:
+      - data
+      type: object
     ReportAttestationRequestCreateRequest:
       description: ''
       properties:
@@ -486,6 +523,161 @@ components:
               example: resource-type
               type: string
           type: object
+      type: object
+    ReportAttestationRequestResponse:
+      description: A JSON-API document with a single [ReportAttestationRequestResource](#reportattestationrequestresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ReportAttestationRequestResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ReportAttestationRequestResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            attestation_comment:
+              description: ''
+              type: string
+            attested_at:
+              description: ''
+              type: string
+            attester_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            report_id:
+              description: ''
+              type: string
+            requested_team_id:
+              description: ''
+              type: string
+            requested_user_id:
+              description: ''
+              type: string
+            requester_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            attester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related attester resource id
+                      type: string
+                    type:
+                      description: Type of related attester resource
+                      type: string
+                  type: object
+              type: object
+            requested_team:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_team resource id
+                      type: string
+                    type:
+                      description: Type of related requested_team resource
+                      type: string
+                  type: object
+              type: object
+            requested_user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_user resource id
+                      type: string
+                    type:
+                      description: Type of related requested_user resource
+                      type: string
+                  type: object
+              type: object
+            requester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requester resource id
+                      type: string
+                    type:
+                      description: Type of related requester resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: report_attestation_requests
+          type: string
       type: object
     ReportResource:
       description: ''
@@ -601,139 +793,11 @@ components:
           example: use_case_reports
           type: string
       type: object
-    ReportAttestationRequestResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            attestation_comment:
-              description: ''
-              type: string
-            attested_at:
-              description: ''
-              type: string
-            attester_id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            report_id:
-              description: ''
-              type: string
-            requested_team_id:
-              description: ''
-              type: string
-            requested_user_id:
-              description: ''
-              type: string
-            requester_id:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            use_case_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            attester:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related attester resource id
-                      type: string
-                    type:
-                      description: Type of related attester resource
-                      type: string
-                  type: object
-              type: object
-            requested_team:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related requested_team resource id
-                      type: string
-                    type:
-                      description: Type of related requested_team resource
-                      type: string
-                  type: object
-              type: object
-            requested_user:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related requested_user resource id
-                      type: string
-                    type:
-                      description: Type of related requested_user resource
-                      type: string
-                  type: object
-              type: object
-            requester:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related requester resource id
-                      type: string
-                    type:
-                      description: Type of related requester resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: report_attestation_requests
-          type: string
-      type: object
-    ReportsResponse:
-      description: A collection of [ReportResource](#reportresource)
+    ReportResponse:
+      description: A JSON-API document with a single [ReportResource](#reportresource) resource
       properties:
         data:
-          description: Content with [ReportResource](#reportresource) objects
-          items:
-            $ref: '#/components/schemas/ReportResource'
-          type: array
-      required:
-      - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ReportAttestationRequestResponse:
-      description: A JSON-API document with a single [ReportAttestationRequestResource](#reportattestationrequestresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ReportAttestationRequestResource'
+          $ref: '#/components/schemas/ReportResource'
         included:
           description: Included resources
           items:
@@ -768,6 +832,27 @@ components:
           type: array
       required:
       - data
+      type: object
+    ReportUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     ReportCreateRequest:
       description: ''
@@ -804,83 +889,6 @@ components:
               example: resource-type
               type: string
           type: object
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ReportUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: ''
-                  type: string
-                name:
-                  description: ''
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ReportResponse:
-      description: A JSON-API document with a single [ReportResource](#reportresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ReportResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

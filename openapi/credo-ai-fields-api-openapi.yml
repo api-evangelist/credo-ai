@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: fields
+- name: Fields
   description: Operations related to custom fields management
 paths:
   /domains:
@@ -27,9 +27,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller index
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
     post:
       description: Creates a new custom domain with the provided attributes.
       operationId: CredoAIWeb.API.V2.DomainController.create
@@ -54,15 +55,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller create
       tags:
-      - fields
+      - Fields
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/DomainCreateRequest'
         description: data
+      x-summary-source: derived
   /domains/{id}:
     delete:
       description: Deletes a custom domain identified by its unique ID.
@@ -97,9 +99,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller delete
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
     patch:
       description: Updates the attributes of an existing custom domain.
       operationId: CredoAIWeb.API.V2.DomainController.update
@@ -137,15 +140,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller update
       tags:
-      - fields
+      - Fields
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/DomainUpdateRequest'
         description: data
+      x-summary-source: derived
   /domains/in_use:
     get:
       description: Retrieves a list of domains that are currently in use.
@@ -165,9 +169,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller in use
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
   /custom_fields/{id}:
     delete:
       description: Deletes the custom field identified by its ID. Returns no content upon successful deletion.
@@ -202,9 +207,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 custom field controller delete
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
     patch:
       description: Updates the details of an existing custom field identified by its ID. Returns the updated field's details.
       operationId: CredoAIWeb.API.V2.CustomFieldController.update
@@ -242,15 +248,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 custom field controller update
       tags:
-      - fields
+      - Fields
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CustomFieldUpdateRequest'
         description: attributes
+      x-summary-source: derived
   /industries:
     get:
       description: Retrieves a list of available industries for the tenant.
@@ -270,9 +277,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 tenant info controller industries
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
   /domains/{id}/use_cases:
     get:
       description: Retrieves use cases associated with a specific domain.
@@ -299,9 +307,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 domain controller use cases
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
   /custom_fields:
     get:
       description: Retrieves a list of all custom fields.
@@ -321,9 +330,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 custom field controller index
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
     post:
       description: Creates a new custom field with the specified attributes. Returns the created field's details.
       operationId: CredoAIWeb.API.V2.CustomFieldController.create
@@ -348,15 +358,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 custom field controller create
       tags:
-      - fields
+      - Fields
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/CustomFieldCreateRequest'
         description: attributes
+      x-summary-source: derived
   /regions:
     get:
       description: Retrieves a list of available regions for the tenant.
@@ -376,12 +387,66 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 tenant info controller regions
       tags:
-      - fields
+      - Fields
+      x-summary-source: derived
 components:
   schemas:
-    CustomFieldUpdateRequest:
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CustomFieldsResponse:
+      description: A collection of [CustomFieldResource](#customfieldresource)
+      properties:
+        data:
+          description: Content with [CustomFieldResource](#customfieldresource) objects
+          items:
+            $ref: '#/components/schemas/CustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    IndustryResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: industries
+          type: string
+      type: object
+    DomainCreateRequest:
       description: ''
       properties:
         data:
@@ -389,55 +454,47 @@ components:
           properties:
             attributes:
               properties:
-                element_type:
-                  description: element type
-                  enum:
-                  - input
-                  - checkbox
-                  - select
-                  - datepicker
+                description:
+                  description: Domain description
                   type: string
-                entity_type_ids:
-                  description: entity type ids this field targets; add-only (cannot narrow)
-                  example: []
-                  type: array
-                metadata:
-                  description: metadata
-                  example:
-                    max: 100
-                    min: 0
-                  type: object
-                multiple:
-                  description: multiple
-                  example: true
-                  type: boolean
+                id:
+                  description: Domain ID
+                  type: string
                 name:
-                  description: name
+                  description: Domain name
                   type: string
-                options:
-                  description: options
-                  example:
-                  - Finance
-                  - Marketing
-                  type: array
-                type:
-                  description: type
-                  enum:
-                  - string
-                  - number
-                  - datetime
-                  - user
-                  type: string
+              required:
+              - id
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
+      type: object
+    RegionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            name:
+              description: ''
+              type: string
+            parents:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: regions
+          type: string
       type: object
     DomainsResponse:
       description: A collection of [DomainResource](#domainresource)
@@ -825,49 +882,81 @@ components:
           example: use_cases
           type: string
       type: object
-    IndustryResource:
-      description: ''
+    AuthError:
       properties:
-        attributes:
-          properties:
-            description:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: industries
-          type: string
-      type: object
-    DomainResponse:
-      description: A JSON-API document with a single [DomainResource](#domainresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/DomainResource'
-        included:
-          description: Included resources
+        errors:
+          description: Errors
           items:
             properties:
-              id:
-                description: The JSON-API resource ID
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
                 type: string
-              type:
-                description: The JSON-API resource type
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
                 type: string
             type: object
           type: array
-      required:
-      - data
+      type: object
+    CustomFieldUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                element_type:
+                  description: element type
+                  enum:
+                  - input
+                  - checkbox
+                  - select
+                  - datepicker
+                  type: string
+                entity_type_ids:
+                  description: entity type ids this field targets; add-only (cannot narrow)
+                  example: []
+                  type: array
+                metadata:
+                  description: metadata
+                  example:
+                    max: 100
+                    min: 0
+                  type: object
+                multiple:
+                  description: multiple
+                  example: true
+                  type: boolean
+                name:
+                  description: name
+                  type: string
+                options:
+                  description: options
+                  example:
+                  - Finance
+                  - Marketing
+                  type: array
+                type:
+                  description: type
+                  enum:
+                  - string
+                  - number
+                  - datetime
+                  - user
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     UseCasesResponse:
       description: A page of [UseCaseResource](#usecaseresource) results
@@ -891,75 +980,6 @@ components:
           type: object
       required:
       - data
-      type: object
-    RegionsResponse:
-      description: A collection of [RegionResource](#regionresource)
-      properties:
-        data:
-          description: Content with [RegionResource](#regionresource) objects
-          items:
-            $ref: '#/components/schemas/RegionResource'
-          type: array
-      required:
-      - data
-      type: object
-    DomainResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            custom:
-              description: ''
-              type: string
-            description:
-              description: ''
-              type: string
-            grouping:
-              description: ''
-              type: string
-            hidden:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-            use_case_count:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: domains
-          type: string
-      type: object
-    DomainUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                hidden:
-                  description: ''
-                  type: boolean
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     CustomFieldResource:
       description: ''
@@ -1003,87 +1023,36 @@ components:
           example: custom_fields
           type: string
       type: object
-    CustomFieldsResponse:
-      description: A collection of [CustomFieldResource](#customfieldresource)
+    DomainResponse:
+      description: A JSON-API document with a single [DomainResource](#domainresource) resource
       properties:
         data:
-          description: Content with [CustomFieldResource](#customfieldresource) objects
+          $ref: '#/components/schemas/DomainResource'
+        included:
+          description: Included resources
           items:
-            $ref: '#/components/schemas/CustomFieldResource'
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
           type: array
       required:
       - data
       type: object
-    RegionResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            name:
-              description: ''
-              type: string
-            parents:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: regions
-          type: string
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    IndustriesResponse:
-      description: A collection of [IndustryResource](#industryresource)
+    RegionsResponse:
+      description: A collection of [RegionResource](#regionresource)
       properties:
         data:
-          description: Content with [IndustryResource](#industryresource) objects
+          description: Content with [RegionResource](#regionresource) objects
           items:
-            $ref: '#/components/schemas/IndustryResource'
+            $ref: '#/components/schemas/RegionResource'
           type: array
       required:
       - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
     CustomFieldCreateRequest:
       description: ''
@@ -1141,6 +1110,71 @@ components:
               type: string
           type: object
       type: object
+    DomainResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            custom:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            grouping:
+              description: ''
+              type: string
+            hidden:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            use_case_count:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: domains
+          type: string
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    IndustriesResponse:
+      description: A collection of [IndustryResource](#industryresource)
+      properties:
+        data:
+          description: Content with [IndustryResource](#industryresource) objects
+          items:
+            $ref: '#/components/schemas/IndustryResource'
+          type: array
+      required:
+      - data
+      type: object
     CustomFieldResponse:
       description: A JSON-API document with a single [CustomFieldResource](#customfieldresource) resource
       properties:
@@ -1161,7 +1195,7 @@ components:
       required:
       - data
       type: object
-    DomainCreateRequest:
+    DomainUpdateRequest:
       description: ''
       properties:
         data:
@@ -1169,41 +1203,19 @@ components:
           properties:
             attributes:
               properties:
-                description:
-                  description: Domain description
-                  type: string
-                id:
-                  description: Domain ID
-                  type: string
-                name:
-                  description: Domain name
-                  type: string
-              required:
-              - id
+                hidden:
+                  description: ''
+                  type: boolean
               type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

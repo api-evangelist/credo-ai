@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: vendors
+- name: Vendors
   description: Operations related to vendors and their questionnaires
 paths:
   /vendors/{vendor_id}/model_links:
@@ -34,9 +34,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor model link controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     post:
       description: Create a new model link for a specific vendor.
       operationId: CredoAIWeb.API.V2.Vendor.ModelLinkController.create
@@ -74,15 +75,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor model link controller create
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ModelVendorLinkCreateRequest'
         description: The attributes for the new model link.
+      x-summary-source: derived
   /vendors/{vendor_id}/files:
     get:
       description: Retrieve a list of files associated with a specific vendor.
@@ -115,9 +117,10 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor file controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     post:
       description: Upload a new file for a specific vendor.
       operationId: CredoAIWeb.API.V2.Vendor.FileController.create
@@ -155,15 +158,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor file controller create
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorFileCreateRequest'
         description: The attributes of the file to be created.
+      x-summary-source: derived
   /vendors:
     get:
       description: Retrieve a list of all vendors.
@@ -221,9 +225,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     post:
       description: Create a new vendor with the provided attributes.
       operationId: CredoAIWeb.API.V2.VendorController.create
@@ -248,15 +253,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor controller create
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorCreateRequest'
         description: Attributes for the new vendor.
+      x-summary-source: derived
   /vendors/{id}:
     delete:
       description: Remove a vendor from the system using its unique ID.
@@ -291,9 +297,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor controller delete
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     get:
       description: Fetch detailed information about a specific vendor by ID.
       operationId: CredoAIWeb.API.V2.VendorController.show
@@ -332,9 +339,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor controller show
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     patch:
       description: Update the details of an existing vendor identified by ID.
       operationId: CredoAIWeb.API.V2.VendorController.update
@@ -372,15 +380,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor controller update
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorUpdateRequest'
         description: Attributes to update for the vendor.
+      x-summary-source: derived
   /vendors/{vendor_id}/model_links/{id}:
     delete:
       description: Delete a specific model link associated with a vendor.
@@ -421,9 +430,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor model link controller delete
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
   /vendors/{vendor_id}/questionnaires/{id}:
     delete:
       description: Remove a specific questionnaire from a vendor's collection.
@@ -464,9 +474,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire controller delete
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     patch:
       description: Update the version of a specific questionnaire for a vendor.
       operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.update
@@ -510,15 +521,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire controller update
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorQuestionnaireUpdateRequest'
         description: The attributes for updating the questionnaire.
+      x-summary-source: derived
   /vendors/{vendor_id}/evidences:
     get:
       description: Retrieve a list of active evidences associated with a specific vendor.
@@ -558,9 +570,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor evidence controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
   /vendors/{vendor_id}/files/{id}:
     delete:
       description: Delete a specific file associated with a vendor by its unique ID.
@@ -601,9 +614,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor file controller delete
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
   /vendors/{vendor_id}/evidences/{id}:
     delete:
       description: Deactivate a specific evidence for the given vendor.
@@ -644,9 +658,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor evidence controller delete
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
   /vendors/{vendor_id}/questionnaire_sections/{section_id}:
     get:
       description: Retrieves a specific questionnaire section for a vendor
@@ -691,9 +706,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire section controller show
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
   /vendors/{vendor_id}/questionnaire_sections/{section_id}/tasks:
     post:
       description: Creates a new task for a vendor questionnaire section
@@ -738,15 +754,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire section controller create task
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TaskResource'
         description: The task creation details
+      x-summary-source: derived
   /vendors/{vendor_id}/questionnaire_sections/{section_id}/evidences:
     get:
       description: Retrieves a list of evidences associated with a specific vendor's questionnaire section.
@@ -791,9 +808,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire section evidence controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     post:
       description: Creates a new evidence entry for a specific question within a vendor's questionnaire section.
       operationId: CredoAIWeb.API.V2.Vendor.Questionnaire.SectionEvidenceController.create
@@ -831,15 +849,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire section evidence controller create
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorQuestionnaireSectionEvidenceCreateRequest'
         description: The attributes of the evidence to be created.
+      x-summary-source: derived
   /vendors/{vendor_id}/questionnaires:
     get:
       description: Retrieve a list of all questionnaires associated with a specific vendor.
@@ -872,9 +891,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     post:
       description: Create a new questionnaire for a specific vendor.
       operationId: CredoAIWeb.API.V2.Vendor.QuestionnaireController.create
@@ -912,15 +932,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor questionnaire controller create
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorQuestionnaireCreateRequest'
         description: The attributes for the new questionnaire.
+      x-summary-source: derived
   /vendors/{vendor_id}/custom_fields:
     get:
       description: Retrieve a list of all custom fields associated with a specific vendor.
@@ -953,9 +974,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor custom field controller index
       tags:
-      - vendors
+      - Vendors
+      x-summary-source: derived
     patch:
       description: Update the value of a specific custom field for a vendor.
       operationId: CredoAIWeb.API.V2.Vendor.CustomFieldController.update_one
@@ -993,27 +1015,167 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 vendor custom field controller update one
       tags:
-      - vendors
+      - Vendors
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/VendorCustomFieldUpdateOneRequest'
         description: The attributes of the custom field to be updated.
+      x-summary-source: derived
 components:
   schemas:
-    VendorCustomFieldsResponse:
-      description: A collection of [VendorCustomFieldResource](#vendorcustomfieldresource)
+    VendorResource:
+      description: ''
       properties:
-        data:
-          description: Content with [VendorCustomFieldResource](#vendorcustomfieldresource) objects
+        attributes:
+          properties:
+            configurable_risk_score_classification:
+              description: ''
+              type: string
+            custom:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            questionnaire_ids:
+              description: ''
+              type: string
+            risk_classification_id:
+              description: ''
+              type: string
+            risk_classification_level:
+              description: ''
+              type: string
+            risk_classification_set_at:
+              description: ''
+              type: string
+            risk_classification_set_by:
+              description: ''
+              type: string
+            risk_classification_set_by_user_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+            workflow_stage_id:
+              description: ''
+              type: string
+            workflow_stage_step:
+              description: ''
+              type: string
+            workflow_stage_step_status:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            models:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related models resource id
+                      type: string
+                    type:
+                      description: Type of related models resource
+                      type: string
+                  type: object
+              type: object
+            questionnaires:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related questionnaires resource id
+                      type: string
+                    type:
+                      description: Type of related questionnaires resource
+                      type: string
+                  type: object
+              type: object
+            use_case_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case_links resource id
+                      type: string
+                    type:
+                      description: Type of related use_case_links resource
+                      type: string
+                  type: object
+              type: object
+            use_cases:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_cases resource id
+                      type: string
+                    type:
+                      description: Type of related use_cases resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendors
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
           items:
-            $ref: '#/components/schemas/VendorCustomFieldResource'
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
           type: array
-      required:
-      - data
       type: object
     VendorEvidencesResponse:
       description: A collection of [VendorEvidenceResource](#vendorevidenceresource)
@@ -1026,7 +1188,106 @@ components:
       required:
       - data
       type: object
-    VendorUpdateRequest:
+    VendorQuestionnaireCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                key:
+                  description: questionnaire key
+                  type: string
+                version:
+                  description: questionnaire version
+                  type: integer
+              required:
+              - key
+              - version
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorQuestionnairesResponse:
+      description: A collection of [VendorQuestionnaireResource](#vendorquestionnaireresource)
+      properties:
+        data:
+          description: Content with [VendorQuestionnaireResource](#vendorquestionnaireresource) objects
+          items:
+            $ref: '#/components/schemas/VendorQuestionnaireResource'
+          type: array
+      required:
+      - data
+      type: object
+    ModelVendorLinkCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                model_id:
+                  description: Model ID
+                  type: string
+              required:
+              - model_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorFileCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: Base 64 encoded file content
+                  type: string
+                content_type:
+                  description: content type
+                  type: string
+                filename:
+                  description: File name
+                  type: string
+                size:
+                  description: File size
+                  type: integer
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorFilesResponse:
+      description: A collection of [VendorFileResource](#vendorfileresource)
+      properties:
+        data:
+          description: Content with [VendorFileResource](#vendorfileresource) objects
+          items:
+            $ref: '#/components/schemas/VendorFileResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorCreateRequest:
       description: ''
       properties:
         data:
@@ -1040,22 +1301,38 @@ components:
                 name:
                   description: ''
                   type: string
+                questionnaire_ids:
+                  description: Questionnaire Version IDs To Include
+                  example:
+                  - VEND+1
+                  - VEND_QUEST+2
+                  items: string
+                  type: array
+              required:
+              - name
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
-    VendorFileResponse:
-      description: A JSON-API document with a single [VendorFileResource](#vendorfileresource) resource
+    VendorCustomFieldsResponse:
+      description: A collection of [VendorCustomFieldResource](#vendorcustomfieldresource)
       properties:
         data:
-          $ref: '#/components/schemas/VendorFileResource'
+          description: Content with [VendorCustomFieldResource](#vendorcustomfieldresource) objects
+          items:
+            $ref: '#/components/schemas/VendorCustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    VendorQuestionnaireResponse:
+      description: A JSON-API document with a single [VendorQuestionnaireResource](#vendorquestionnaireresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorQuestionnaireResource'
         included:
           description: Included resources
           items:
@@ -1071,25 +1348,22 @@ components:
       required:
       - data
       type: object
-    VendorCustomFieldResource:
+    ModelVendorLinkResource:
       description: ''
       properties:
         attributes:
           properties:
-            custom_field_id:
-              description: ''
+            inserted_at:
+              description: When the link was created
+              type: datetime
+            model_id:
+              description: The ID of the model
               type: string
-            entity_id:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-            value:
-              description: ''
-              type: string
+            updated_at:
+              description: When the link was last updated
+              type: datetime
             vendor_id:
-              description: ''
+              description: The ID of the vendor
               type: string
           type: object
         id:
@@ -1098,66 +1372,35 @@ components:
           type: string
         relationships:
           properties:
-            custom_field:
+            model:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related custom_field resource id
+                      description: Related model resource id
                       type: string
                     type:
-                      description: Type of related custom_field resource
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            vendor:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related vendor resource id
+                      type: string
+                    type:
+                      description: Type of related vendor resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: vendor_custom_fields
+          example: model_vendor_links
           type: string
-      type: object
-    VendorCustomFieldUpdateOneRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                custom_field_id:
-                  description: custom_field_id
-                  type: string
-                value:
-                  description: value
-                  type: any
-              required:
-              - custom_field_id
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
       type: object
     VendorQuestionnaireUpdateRequest:
       description: ''
@@ -1183,121 +1426,36 @@ components:
               type: string
           type: object
       type: object
-    VendorFileResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            content_type:
-              description: ''
-              type: string
-            entity_id:
-              description: ''
-              type: string
-            filename:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            size:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            url:
-              description: ''
-              type: string
-            vendor_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: vendor_files
-          type: string
-      type: object
-    ModelVendorLinkCreateRequest:
-      description: ''
+    ModelVendorLinkResponse:
+      description: A JSON-API document with a single [ModelVendorLinkResource](#modelvendorlinkresource) resource
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                model_id:
-                  description: Model ID
-                  type: string
-              required:
-              - model_id
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
+          $ref: '#/components/schemas/ModelVendorLinkResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
-    VendorQuestionnaireSectionResource:
-      description: ''
+    VendorQuestionnaireSectionResponse:
+      description: A collection of [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource)
       properties:
-        attributes:
-          properties:
-            compliances:
-              description: ''
-              type: string
-            entity_id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            questionnaire_id:
-              description: ''
-              type: string
-            section_id:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            vendor_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            task:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related task resource id
-                      type: string
-                    type:
-                      description: Type of related task resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: vendor_questionnaire_sections
-          type: string
+        data:
+          description: Content with [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource) objects
+          items:
+            $ref: '#/components/schemas/VendorQuestionnaireSectionResource'
+          type: array
+      required:
+      - data
       type: object
     TaskResource:
       description: ''
@@ -1476,219 +1634,11 @@ components:
           example: tasks
           type: string
       type: object
-    VendorResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            configurable_risk_score_classification:
-              description: ''
-              type: string
-            custom:
-              description: ''
-              type: string
-            description:
-              description: ''
-              type: string
-            entity_id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-            questionnaire_ids:
-              description: ''
-              type: string
-            risk_classification_id:
-              description: ''
-              type: string
-            risk_classification_level:
-              description: ''
-              type: string
-            risk_classification_set_at:
-              description: ''
-              type: string
-            risk_classification_set_by:
-              description: ''
-              type: string
-            risk_classification_set_by_user_id:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-            workflow_stage_id:
-              description: ''
-              type: string
-            workflow_stage_step:
-              description: ''
-              type: string
-            workflow_stage_step_status:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            models:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related models resource id
-                      type: string
-                    type:
-                      description: Type of related models resource
-                      type: string
-                  type: object
-              type: object
-            questionnaires:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related questionnaires resource id
-                      type: string
-                    type:
-                      description: Type of related questionnaires resource
-                      type: string
-                  type: object
-              type: object
-            use_case_links:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_case_links resource id
-                      type: string
-                    type:
-                      description: Type of related use_case_links resource
-                      type: string
-                  type: object
-              type: object
-            use_cases:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_cases resource id
-                      type: string
-                    type:
-                      description: Type of related use_cases resource
-                      type: string
-                  type: object
-              type: object
-            user:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related user resource id
-                      type: string
-                    type:
-                      description: Type of related user resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: vendors
-          type: string
-      type: object
-    VendorQuestionnaireSectionResponse:
-      description: A collection of [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource)
+    VendorEvidenceResponse:
+      description: A JSON-API document with a single [VendorEvidenceResource](#vendorevidenceresource) resource
       properties:
         data:
-          description: Content with [VendorQuestionnaireSectionResource](#vendorquestionnairesectionresource) objects
-          items:
-            $ref: '#/components/schemas/VendorQuestionnaireSectionResource'
-          type: array
-      required:
-      - data
-      type: object
-    VendorQuestionnaireResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            entity_id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            key:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            vendor_id:
-              description: ''
-              type: string
-            version:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: vendor_questionnaires
-          type: string
-      type: object
-    VendorFileCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                content:
-                  description: Base 64 encoded file content
-                  type: string
-                content_type:
-                  description: content type
-                  type: string
-                filename:
-                  description: File name
-                  type: string
-                size:
-                  description: File size
-                  type: integer
-              required:
-              - content
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    VendorResponse:
-      description: A JSON-API document with a single [VendorResource](#vendorresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/VendorResource'
+          $ref: '#/components/schemas/VendorEvidenceResource'
         included:
           description: Included resources
           items:
@@ -1703,36 +1653,6 @@ components:
           type: array
       required:
       - data
-      type: object
-    VendorCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: ''
-                  type: string
-                name:
-                  description: ''
-                  type: string
-                questionnaire_ids:
-                  description: Questionnaire Version IDs To Include
-                  example:
-                  - VEND+1
-                  - VEND_QUEST+2
-                  items: string
-                  type: array
-              required:
-              - name
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     VendorQuestionnaireSectionEvidenceCreateRequest:
       description: ''
@@ -1764,106 +1684,6 @@ components:
               type: string
           type: object
       type: object
-    VendorQuestionnaireCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                key:
-                  description: questionnaire key
-                  type: string
-                version:
-                  description: questionnaire version
-                  type: integer
-              required:
-              - key
-              - version
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ModelVendorLinkResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            inserted_at:
-              description: When the link was created
-              type: datetime
-            model_id:
-              description: The ID of the model
-              type: string
-            updated_at:
-              description: When the link was last updated
-              type: datetime
-            vendor_id:
-              description: The ID of the vendor
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            model:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related model resource id
-                      type: string
-                    type:
-                      description: Type of related model resource
-                      type: string
-                  type: object
-              type: object
-            vendor:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related vendor resource id
-                      type: string
-                    type:
-                      description: Type of related vendor resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: model_vendor_links
-          type: string
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     AuthError:
       properties:
         errors:
@@ -1881,37 +1701,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    ModelVendorLinkResponse:
-      description: A JSON-API document with a single [ModelVendorLinkResource](#modelvendorlinkresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ModelVendorLinkResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    VendorFilesResponse:
-      description: A collection of [VendorFileResource](#vendorfileresource)
-      properties:
-        data:
-          description: Content with [VendorFileResource](#vendorfileresource) objects
-          items:
-            $ref: '#/components/schemas/VendorFileResource'
-          type: array
-      required:
-      - data
       type: object
     VendorsResponse:
       description: A page of [VendorResource](#vendorresource) results
@@ -1935,6 +1724,139 @@ components:
           type: object
       required:
       - data
+      type: object
+    VendorUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    VendorFileResponse:
+      description: A JSON-API document with a single [VendorFileResource](#vendorfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorResponse:
+      description: A JSON-API document with a single [VendorResource](#vendorresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/VendorResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    VendorCustomFieldResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            custom_field_id:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            value:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            custom_field:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related custom_field resource id
+                      type: string
+                    type:
+                      description: Type of related custom_field resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_custom_fields
+          type: string
+      type: object
+    VendorCustomFieldUpdateOneRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                custom_field_id:
+                  description: custom_field_id
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - custom_field_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     VendorEvidenceResource:
       description: ''
@@ -1996,11 +1918,11 @@ components:
           example: vendor_evidences
           type: string
       type: object
-    VendorQuestionnaireResponse:
-      description: A JSON-API document with a single [VendorQuestionnaireResource](#vendorquestionnaireresource) resource
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
       properties:
         data:
-          $ref: '#/components/schemas/VendorQuestionnaireResource'
+          $ref: '#/components/schemas/TaskResource'
         included:
           description: Included resources
           items:
@@ -2016,39 +1938,83 @@ components:
       required:
       - data
       type: object
-    VendorQuestionnairesResponse:
-      description: A collection of [VendorQuestionnaireResource](#vendorquestionnaireresource)
+    VendorFileResource:
+      description: ''
       properties:
-        data:
-          description: Content with [VendorQuestionnaireResource](#vendorquestionnaireresource) objects
-          items:
-            $ref: '#/components/schemas/VendorQuestionnaireResource'
-          type: array
-      required:
-      - data
-      type: object
-    ModelVendorLinksResponse:
-      description: A page of [ModelVendorLinkResource](#modelvendorlinkresource) results
-      properties:
-        data:
-          description: Content with [ModelVendorLinkResource](#modelvendorlinkresource) objects
-          items:
-            $ref: '#/components/schemas/ModelVendorLinkResource'
-          type: array
-        meta:
+        attributes:
           properties:
-            after:
-              description: after cursor for the next page resources
+            content_type:
+              description: ''
               type: string
-            before:
-              description: before cursor for the previous page resources
+            entity_id:
+              description: ''
               type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
+            filename:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
           type: object
-      required:
-      - data
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_files
+          type: string
+      type: object
+    VendorQuestionnaireResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_questionnaires
+          type: string
       type: object
     VendorCustomFieldResponse:
       description: A JSON-API document with a single [VendorCustomFieldResource](#vendorcustomfieldresource) resource
@@ -2088,23 +2054,80 @@ components:
             type: object
           type: array
       type: object
-    VendorEvidenceResponse:
-      description: A JSON-API document with a single [VendorEvidenceResource](#vendorevidenceresource) resource
+    VendorQuestionnaireSectionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            compliances:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            questionnaire_id:
+              description: ''
+              type: string
+            section_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            task:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related task resource id
+                      type: string
+                    type:
+                      description: Type of related task resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: vendor_questionnaire_sections
+          type: string
+      type: object
+    ModelVendorLinksResponse:
+      description: A page of [ModelVendorLinkResource](#modelvendorlinkresource) results
       properties:
         data:
-          $ref: '#/components/schemas/VendorEvidenceResource'
-        included:
-          description: Included resources
+          description: Content with [ModelVendorLinkResource](#modelvendorlinkresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/ModelVendorLinkResource'
           type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
       required:
       - data
       type: object

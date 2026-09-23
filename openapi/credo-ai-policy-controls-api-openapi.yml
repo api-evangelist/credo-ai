@@ -34,9 +34,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control version controller index
       tags:
       - policy_controls
+      x-summary-source: derived
     post:
       description: Creates a new version for a specified policy control base.
       operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.create
@@ -68,7 +69,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control version controller create
       tags:
       - policy_controls
       requestBody:
@@ -77,6 +78,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PolicyControlVersionCreateRequest'
         description: The attributes of the new version to be created.
+      x-summary-source: derived
   /policy_controls:
     get:
       description: List all latest policy controls
@@ -145,9 +147,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control controller index
       tags:
       - policy_controls
+      x-summary-source: derived
   /policy_control_versions/{id}:
     delete:
       description: Deletes a specific version of a policy control identified by its unique ID.
@@ -182,9 +185,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control version controller delete
       tags:
       - policy_controls
+      x-summary-source: derived
     get:
       description: Fetches the details of a specific version of a policy control by its unique ID.
       operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.show
@@ -216,9 +220,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control version controller show
       tags:
       - policy_controls
+      x-summary-source: derived
     patch:
       description: Updates the attributes of an existing version of a policy control identified by its unique ID.
       operationId: CredoAIWeb.API.V2.PolicyControl.VersionController.update
@@ -256,7 +261,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control version controller update
       tags:
       - policy_controls
       requestBody:
@@ -265,6 +270,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PolicyControlVersionUpdateRequest'
         description: The updated attributes for the version.
+      x-summary-source: derived
   /policy_controls/{id}:
     get:
       description: Get policy control
@@ -297,9 +303,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control controller show
       tags:
       - policy_controls
+      x-summary-source: derived
   /policy_control_bases:
     get:
       description: Retrieves a list of all policy control bases available.
@@ -319,9 +326,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control base controller index
       tags:
       - policy_controls
+      x-summary-source: derived
     post:
       description: Creates a new custom policy control base with the provided attributes.
       operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.create
@@ -346,7 +354,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control base controller create
       tags:
       - policy_controls
       requestBody:
@@ -355,6 +363,7 @@ paths:
             schema:
               $ref: '#/components/schemas/PolicyControlBaseCreateRequest'
         description: The attributes for the new policy control base.
+      x-summary-source: derived
   /policy_control_bases/{id}:
     delete:
       description: Deletes a specific policy control base identified by its unique ID.
@@ -389,9 +398,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control base controller delete
       tags:
       - policy_controls
+      x-summary-source: derived
     get:
       description: Fetches the details of a specific policy control base identified by its unique ID.
       operationId: CredoAIWeb.API.V2.PolicyControl.BaseController.show
@@ -423,75 +433,12 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 policy control base controller show
       tags:
       - policy_controls
+      x-summary-source: derived
 components:
   schemas:
-    PolicyControlVersionUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                draft:
-                  description: draft
-                  type: boolean
-                evidence_requirements:
-                  description: policy control evidence requirements
-                  type: array
-                info:
-                  description: policy control info
-                  type: object
-                risk_type_ids:
-                  description: risk type ids
-                  example:
-                  - NkBkDB9i64w53eVR6ssfzj
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    PolicyControlBasesResponse:
-      description: A collection of [PolicyControlBaseResource](#policycontrolbaseresource)
-      properties:
-        data:
-          description: Content with [PolicyControlBaseResource](#policycontrolbaseresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyControlBaseResource'
-          type: array
-      required:
-      - data
-      type: object
-    PolicyControlBaseResponse:
-      description: A JSON-API document with a single [PolicyControlBaseResource](#policycontrolbaseresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyControlBaseResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
     PolicyControlResource:
       description: ''
       properties:
@@ -543,22 +490,13 @@ components:
           example: policy_controls
           type: string
       type: object
-    PolicyControlVersionResponse:
-      description: A JSON-API document with a single [PolicyControlVersionResource](#policycontrolversionresource) resource
+    PolicyControlBasesResponse:
+      description: A collection of [PolicyControlBaseResource](#policycontrolbaseresource)
       properties:
         data:
-          $ref: '#/components/schemas/PolicyControlVersionResource'
-        included:
-          description: Included resources
+          description: Content with [PolicyControlBaseResource](#policycontrolbaseresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/PolicyControlBaseResource'
           type: array
       required:
       - data
@@ -589,7 +527,7 @@ components:
               type: string
           type: object
       type: object
-    NotFoundError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -607,7 +545,7 @@ components:
             type: object
           type: array
       type: object
-    PolicyControlBaseCreateRequest:
+    PolicyControlVersionUpdateRequest:
       description: ''
       properties:
         data:
@@ -615,52 +553,48 @@ components:
           properties:
             attributes:
               properties:
-                entity_type_ids:
-                  description: entity type ids this control targets; omit or [] for all
-                  example: []
+                draft:
+                  description: draft
+                  type: boolean
+                evidence_requirements:
+                  description: policy control evidence requirements
                   type: array
-                id:
-                  description: id
-                  type: string
-              required:
-              - id
+                info:
+                  description: policy control info
+                  type: object
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
               type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
-    PolicyControlVersionsResponse:
-      description: A collection of [PolicyControlVersionResource](#policycontrolversionresource)
+    ForbiddenError:
       properties:
-        data:
-          description: Content with [PolicyControlVersionResource](#policycontrolversionresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyControlVersionResource'
-          type: array
-      required:
-      - data
-      type: object
-    PolicyControlResponse:
-      description: A JSON-API document with a single [PolicyControlResource](#policycontrolresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyControlResource'
-        included:
-          description: Included resources
+        errors:
+          description: Errors
           items:
             properties:
-              id:
-                description: The JSON-API resource ID
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
                 type: string
-              type:
-                description: The JSON-API resource type
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
                 type: string
             type: object
           type: array
-      required:
-      - data
       type: object
     PolicyControlBaseResource:
       description: ''
@@ -713,7 +647,27 @@ components:
           example: policy_control_bases
           type: string
       type: object
-    ForbiddenError:
+    PolicyControlResponse:
+      description: A JSON-API document with a single [PolicyControlResource](#policycontrolresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
       properties:
         errors:
           description: Errors
@@ -730,6 +684,92 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    PolicyControlBaseResponse:
+      description: A JSON-API document with a single [PolicyControlBaseResource](#policycontrolbaseresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlBaseResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlVersionResponse:
+      description: A JSON-API document with a single [PolicyControlVersionResource](#policycontrolversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlBaseCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                entity_type_ids:
+                  description: entity type ids this control targets; omit or [] for all
+                  example: []
+                  type: array
+                id:
+                  description: id
+                  type: string
+              required:
+              - id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    PolicyControlVersionsResponse:
+      description: A collection of [PolicyControlVersionResource](#policycontrolversionresource)
+      properties:
+        data:
+          description: Content with [PolicyControlVersionResource](#policycontrolversionresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlsCollectionResponse:
+      description: A collection of [PolicyControlResource](#policycontrolresource)
+      properties:
+        data:
+          description: Content with [PolicyControlResource](#policycontrolresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlResource'
+          type: array
+      required:
+      - data
       type: object
     PolicyControlVersionResource:
       description: ''
@@ -784,35 +824,6 @@ components:
           description: The JSON-API resource type
           example: policy_control_versions
           type: string
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    PolicyControlsCollectionResponse:
-      description: A collection of [PolicyControlResource](#policycontrolresource)
-      properties:
-        data:
-          description: Content with [PolicyControlResource](#policycontrolresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyControlResource'
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

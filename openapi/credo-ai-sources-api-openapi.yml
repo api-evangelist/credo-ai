@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: sources
+- name: Sources
 paths:
   /sources:
     get:
@@ -45,9 +45,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 source controller index
       tags:
-      - sources
+      - Sources
+      x-summary-source: derived
     post:
       description: Create a new source with the specified attributes.
       operationId: CredoAIWeb.API.V2.SourceController.create
@@ -72,15 +73,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 source controller create
       tags:
-      - sources
+      - Sources
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/SourceCreateRequest'
         description: Attributes required to create a new source
+      x-summary-source: derived
   /sources/in_use:
     get:
       description: Retrieves a list of sources that are currently in use by models.
@@ -100,9 +102,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 source controller in use
       tags:
-      - sources
+      - Sources
+      x-summary-source: derived
   /sources/{id}:
     patch:
       description: Update the attributes of an existing source identified by its ID.
@@ -141,18 +144,19 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 source controller update
       tags:
-      - sources
+      - Sources
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/SourceUpdateRequest'
         description: Attributes to update the source
+      x-summary-source: derived
 components:
   schemas:
-    NotFoundError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -169,49 +173,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    SourcesPageResponse:
-      description: A page of [SourceResource](#sourceresource) results
-      properties:
-        data:
-          description: Content with [SourceResource](#sourceresource) objects
-          items:
-            $ref: '#/components/schemas/SourceResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    SourceCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                name:
-                  description: Source name
-                  type: string
-              required:
-              - name
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     SourceUpdateRequest:
       description: ''
@@ -255,6 +216,67 @@ components:
             type: object
           type: array
       type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    SourceCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                name:
+                  description: Source name
+                  type: string
+              required:
+              - name
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    SourcesPageResponse:
+      description: A page of [SourceResource](#sourceresource) results
+      properties:
+        data:
+          description: Content with [SourceResource](#sourceresource) objects
+          items:
+            $ref: '#/components/schemas/SourceResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
     SourceResource:
       description: ''
       properties:
@@ -284,24 +306,6 @@ components:
           description: The JSON-API resource type
           example: sources
           type: string
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

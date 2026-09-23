@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: triggers_and_actions
+- name: Triggers and Actions
   description: Endpoints for managing triggers and actions
 paths:
   /triggers/{id}/affected_use_cases:
@@ -30,9 +30,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller affected use cases
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
   /trigger_actions/{id}/affected_use_cases:
     get:
       description: Returns the count and IDs of use cases affected by this action.
@@ -55,9 +56,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller affected use cases
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
   /triggers/{id}:
     delete:
       description: Delete a trigger identified by its ID.
@@ -96,9 +98,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller delete
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     get:
       description: Fetch details of a specific trigger by its ID.
       operationId: CredoAIWeb.API.V2.TriggerController.show
@@ -130,9 +133,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller show
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     patch:
       description: Update an existing trigger identified by its ID.
       operationId: CredoAIWeb.API.V2.TriggerController.update
@@ -164,15 +168,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller update
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TriggerUpdateRequest'
         description: The updated attributes of the trigger.
+      x-summary-source: derived
   /triggers:
     get:
       description: Retrieve a list of all available triggers.
@@ -192,9 +197,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller index
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     post:
       description: Create a new trigger with the specified attributes.
       operationId: CredoAIWeb.API.V2.TriggerController.create
@@ -213,15 +219,16 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger controller create
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TriggerCreateRequest'
         description: The attributes of the trigger to be created.
+      x-summary-source: derived
   /trigger_actions/{id}:
     delete:
       description: Delete an action identified by its ID from the system.
@@ -260,9 +267,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller delete
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     get:
       description: Fetch details of a specific action by its ID.
       operationId: CredoAIWeb.API.V2.TriggerActionController.show
@@ -294,9 +302,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller show
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     patch:
       description: Update an existing action identified by its ID.
       operationId: CredoAIWeb.API.V2.TriggerActionController.update
@@ -328,15 +337,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller update
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ActionUpdateRequest'
         description: Updated action data.
+      x-summary-source: derived
   /trigger_actions:
     get:
       description: Retrieve a list of all actions that can be triggered.
@@ -356,9 +366,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller index
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
+      x-summary-source: derived
     post:
       description: Create a new action with the provided attributes.
       operationId: CredoAIWeb.API.V2.TriggerActionController.create
@@ -377,18 +388,19 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 trigger action controller create
       tags:
-      - triggers_and_actions
+      - Triggers and Actions
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/ActionCreateRequest'
         description: The attributes for the action being created.
+      x-summary-source: derived
 components:
   schemas:
-    TriggerUpdateRequest:
+    TriggerCreateRequest:
       description: ''
       properties:
         data:
@@ -406,81 +418,54 @@ components:
                   description: ''
                   type: string
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
-    ActionResource:
-      description: ''
+    TriggersResponse:
+      description: A page of [TriggerResource](#triggerresource) results
       properties:
-        attributes:
+        data:
+          description: Content with [TriggerResource](#triggerresource) objects
+          items:
+            $ref: '#/components/schemas/TriggerResource'
+          type: array
+        meta:
           properties:
-            data:
-              description: ''
+            after:
+              description: after cursor for the next page resources
               type: string
-            description:
-              description: ''
+            before:
+              description: before cursor for the previous page resources
               type: string
-            rank:
-              description: ''
-              type: string
-            show_visual_alert:
-              description: ''
-              type: string
-            target_group_key:
-              description: ''
-              type: string
-            trigger_id:
-              description: ''
-              type: string
-            type:
-              description: ''
-              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: action
-          type: string
+      required:
+      - data
       type: object
-    TriggerResource:
-      description: ''
+    TriggerResponse:
+      description: A JSON-API document with a single [TriggerResource](#triggerresource) resource
       properties:
-        attributes:
-          properties:
-            data:
-              description: ''
-              type: string
-            description:
-              description: ''
-              type: string
-            type:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: trigger
-          type: string
+        data:
+          $ref: '#/components/schemas/TriggerResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
     ActionsResponse:
       description: A page of [ActionResource](#actionresource) results
@@ -553,28 +538,117 @@ components:
               type: string
           type: object
       type: object
-    TriggersResponse:
-      description: A page of [TriggerResource](#triggerresource) results
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ActionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            data:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            rank:
+              description: ''
+              type: string
+            show_visual_alert:
+              description: ''
+              type: string
+            target_group_key:
+              description: ''
+              type: string
+            trigger_id:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: action
+          type: string
+      type: object
+    TriggerResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            data:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: trigger
+          type: string
+      type: object
+    TriggerUpdateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [TriggerResource](#triggerresource) objects
-          items:
-            $ref: '#/components/schemas/TriggerResource'
-          type: array
-        meta:
+          description: ''
           properties:
-            after:
-              description: after cursor for the next page resources
+            attributes:
+              properties:
+                data:
+                  description: ''
+                  type: object
+                description:
+                  description: ''
+                  type: string
+                type:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
               type: string
-            before:
-              description: before cursor for the previous page resources
+            type:
+              description: The JSON-API resource type
+              example: resource-type
               type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
           type: object
-      required:
-      - data
       type: object
     ActionResponse:
       description: A JSON-API document with a single [ActionResource](#actionresource) resource
@@ -595,50 +669,6 @@ components:
           type: array
       required:
       - data
-      type: object
-    TriggerResponse:
-      description: A JSON-API document with a single [TriggerResource](#triggerresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TriggerResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    TriggerCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                data:
-                  description: ''
-                  type: object
-                description:
-                  description: ''
-                  type: string
-                type:
-                  description: ''
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     ActionUpdateRequest:
       description: ''
@@ -673,24 +703,6 @@ components:
               example: resource-type
               type: string
           type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

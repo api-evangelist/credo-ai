@@ -5,16 +5,14 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: teams
+- name: Teams
   description: Operations related to team management and memberships
 paths:
   /teams/{team_id}/relationships/members:
     delete:
       description: 'Remove specified team members from the team.
 
-        The request body should contain an array of user IDs to be removed.
-
-        '
+        The request body should contain an array of user IDs to be removed.'
       operationId: CredoAIWeb.API.V2.TeamController.remove_members
       parameters:
       - description: team id
@@ -38,21 +36,20 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller remove members
       tags:
-      - teams
+      - Teams
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TeamMembersRemoveRequest'
         description: attributes
+      x-summary-source: derived
     patch:
       description: 'Add or update team members based on the provided user IDs and roles.
 
-        The request body should contain an array of user IDs and their corresponding roles.
-
-        '
+        The request body should contain an array of user IDs and their corresponding roles.'
       operationId: CredoAIWeb.API.V2.TeamController.upsert_members
       parameters:
       - description: team id
@@ -76,15 +73,16 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller upsert members
       tags:
-      - teams
+      - Teams
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TeamMembersUpsertRequest'
         description: attributes
+      x-summary-source: derived
   /teams:
     get:
       description: Retrieve a list of all teams.
@@ -135,9 +133,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller index
       tags:
-      - teams
+      - Teams
+      x-summary-source: derived
     post:
       description: Create a new team with the provided attributes.
       operationId: CredoAIWeb.API.V2.TeamController.create
@@ -162,15 +161,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller create
       tags:
-      - teams
+      - Teams
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TeamCreateRequest'
         description: data
+      x-summary-source: derived
   /teams/{id}:
     delete:
       description: Remove a team from the system using its ID.
@@ -205,9 +205,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller delete
       tags:
-      - teams
+      - Teams
+      x-summary-source: derived
     get:
       description: Fetch detailed information about a specific team identified by its ID.
       operationId: CredoAIWeb.API.V2.TeamController.show
@@ -239,9 +240,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller show
       tags:
-      - teams
+      - Teams
+      x-summary-source: derived
     patch:
       description: Update the details of an existing team identified by its ID.
       operationId: CredoAIWeb.API.V2.TeamController.update
@@ -279,78 +281,18 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 team controller update
       tags:
-      - teams
+      - Teams
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/TeamUpdateRequest'
         description: data
+      x-summary-source: derived
 components:
   schemas:
-    TeamResponse:
-      description: A JSON-API document with a single [TeamResource](#teamresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TeamResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    TeamMembersUpsertRequest:
-      description: upsert team members request
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/TeamMembersUpsertResource'
-          type: array
-      type: object
-    TeamMembersRemoveRequest:
-      description: team mebers to delete
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/TeamMembersRemoveResource'
-          type: array
-      type: object
-    TeamUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: ''
-                  type: string
-                name:
-                  description: ''
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     TeamCreateRequest:
       description: ''
       properties:
@@ -392,45 +334,6 @@ components:
             type: object
           type: array
       type: object
-    TeamMembersRemoveResource:
-      description: Upsert TeamMembership
-      example:
-        id: user_id
-        type: users
-      properties:
-        id:
-          description: member id
-          type: string
-        type:
-          description: users
-          type: string
-      required:
-      - id
-      title: Upsert TeamMembership
-      type: object
-    TeamMembersUpsertResource:
-      description: Upsert TeamMembership
-      example:
-        id: user_id
-        role: owner
-        type: users
-      properties:
-        id:
-          description: member id
-          type: string
-        role:
-          description: member type
-          enum:
-          - owner
-          - member
-          type: string
-        type:
-          description: users
-          type: string
-      required:
-      - id
-      title: Upsert TeamMembership
-      type: object
     ForbiddenError:
       properties:
         errors:
@@ -466,6 +369,29 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    TeamMembersUpsertResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        role: owner
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        role:
+          description: member type
+          enum:
+          - owner
+          - member
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
       type: object
     TeamResource:
       description: ''
@@ -517,6 +443,59 @@ components:
           example: teams
           type: string
       type: object
+    TeamResponse:
+      description: A JSON-API document with a single [TeamResource](#teamresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TeamResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TeamUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    TeamMembersUpsertRequest:
+      description: upsert team members request
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TeamMembersUpsertResource'
+          type: array
+      type: object
     TeamsResponse:
       description: A page of [TeamResource](#teamresource) results
       properties:
@@ -539,6 +518,30 @@ components:
           type: object
       required:
       - data
+      type: object
+    TeamMembersRemoveRequest:
+      description: team mebers to delete
+      properties:
+        data:
+          items:
+            $ref: '#/components/schemas/TeamMembersRemoveResource'
+          type: array
+      type: object
+    TeamMembersRemoveResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
       type: object
   securitySchemes:
     Bearer:

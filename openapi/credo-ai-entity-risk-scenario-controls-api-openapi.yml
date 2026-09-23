@@ -47,9 +47,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario control controller bulk delete
       tags:
       - entity_risk_scenario_controls
+      x-summary-source: derived
   /entities/{entity_id}/risk_scenarios/{risk_scenario_id}/controls:
     get:
       description: Retrieves a list of controls linked to a specific risk scenario for the specified entity
@@ -88,9 +89,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario control controller index
       tags:
       - entity_risk_scenario_controls
+      x-summary-source: derived
     post:
       description: Links one or more controls to a specific risk scenario for the specified entity.
       operationId: CredoAIWeb.API.V2.Entity.RiskScenarioControlController.create
@@ -134,9 +136,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario control controller create
       tags:
       - entity_risk_scenario_controls
+      x-summary-source: derived
   /entities/{entity_id}/risk_scenarios/{risk_scenario_id}/controls/{id}:
     delete:
       description: Removes the link between a control and a risk scenario for the specified entity.
@@ -183,11 +186,77 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 entity risk scenario control controller delete
       tags:
       - entity_risk_scenario_controls
+      x-summary-source: derived
 components:
   schemas:
+    EntityRiskScenarioControlsResponse:
+      description: A collection of [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource)
+      properties:
+        data:
+          description: Content with [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource) objects
+          items:
+            $ref: '#/components/schemas/EntityRiskScenarioControlResource'
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     EntityRiskScenarioControlResource:
       description: ''
       properties:
@@ -229,71 +298,6 @@ components:
           description: The JSON-API resource type
           example: entity_risk_scenario_controls
           type: string
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    EntityRiskScenarioControlsResponse:
-      description: A collection of [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource)
-      properties:
-        data:
-          description: Content with [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource) objects
-          items:
-            $ref: '#/components/schemas/EntityRiskScenarioControlResource'
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
   securitySchemes:
     Bearer:

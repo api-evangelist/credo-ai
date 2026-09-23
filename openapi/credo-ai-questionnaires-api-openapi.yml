@@ -5,7 +5,7 @@ info:
 servers:
 - url: /api/v2/credoai
 tags:
-- name: questionnaires
+- name: Questionnaires
   description: Operations related to questionnaires and their versions
 paths:
   /questionnaires/{id}/duplicate:
@@ -46,15 +46,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire controller duplicate
       tags:
-      - questionnaires
+      - Questionnaires
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/QuestionnaireDuplicateRequest'
         description: Request body containing the new questionnaire's key and name
+      x-summary-source: derived
   /questionnaires/{id}:
     get:
       description: Fetches the details of a specific published questionnaire identified by its ID.
@@ -87,9 +88,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire controller show
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
   /questionnaire_versions/{id}:
     delete:
       description: Deletes a specific version of a questionnaire identified by its ID.
@@ -124,9 +126,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire version controller delete
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     get:
       description: Retrieves the details of a specific version of a questionnaire by its ID. By default, sections are excluded. Use ?expand=sections to include them.
       operationId: CredoAIWeb.API.V2.Questionnaire.VersionController.show
@@ -164,9 +167,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire version controller show
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     patch:
       description: Updates the details of a specific questionnaire version identified by its ID.
       operationId: CredoAIWeb.API.V2.Questionnaire.VersionController.update
@@ -204,15 +208,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire version controller update
       tags:
-      - questionnaires
+      - Questionnaires
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/QuestionnaireVersionUpdateRequest'
         description: Attributes to update the questionnaire version.
+      x-summary-source: derived
   /questionnaire_bases/{id}:
     delete:
       description: Deletes a specific questionnaire base identified by its ID from the system.
@@ -247,9 +252,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire base controller delete
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     get:
       description: Fetches the details of a specific questionnaire base identified by its ID.
       operationId: CredoAIWeb.API.V2.Questionnaire.BaseController.show
@@ -281,9 +287,10 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire base controller show
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     patch:
       description: Updates an existing questionnaire base identified by its ID with the provided attributes.
       operationId: CredoAIWeb.API.V2.Questionnaire.BaseController.update
@@ -321,15 +328,16 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire base controller update
       tags:
-      - questionnaires
+      - Questionnaires
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/QuestionnaireBaseUpdateRequest'
         description: The attributes to update the questionnaire base.
+      x-summary-source: derived
   /questionnaire_bases/{id}/versions:
     get:
       description: Retrieves a list of all versions associated with a specific questionnaire base. By default, sections are excluded. Use ?expand=sections to include them.
@@ -362,9 +370,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire version controller index
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     post:
       description: Creates a new version for the specified questionnaire base, using the provided attributes.
       operationId: CredoAIWeb.API.V2.Questionnaire.VersionController.create
@@ -396,9 +405,9 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire version controller create
       tags:
-      - questionnaires
+      - Questionnaires
       requestBody:
         content:
           application/vnd.api+json:
@@ -406,6 +415,7 @@ paths:
               $ref: '#/components/schemas/QuestionnaireVersionCreateRequest'
         description: Attributes for the new questionnaire version.
         required: true
+      x-summary-source: derived
   /questionnaire_bases:
     get:
       description: Retrieves a list of all questionnaire bases.
@@ -425,9 +435,10 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire base controller index
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
     post:
       description: Creates a new questionnaire base with the provided attributes.
       operationId: CredoAIWeb.API.V2.Questionnaire.BaseController.create
@@ -452,15 +463,16 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire base controller create
       tags:
-      - questionnaires
+      - Questionnaires
       requestBody:
         content:
           application/vnd.api+json:
             schema:
               $ref: '#/components/schemas/QuestionnaireBaseCreateRequest'
         description: The attributes for the new questionnaire base.
+      x-summary-source: derived
   /questionnaires:
     get:
       description: Retrieves a list of the latest versions of published questionnaires.
@@ -493,11 +505,218 @@ paths:
                 $ref: '#/components/schemas/AuthError'
       security:
       - Bearer: []
-      summary: ''
+      summary: Credo AI web API V2 questionnaire controller index
       tags:
-      - questionnaires
+      - Questionnaires
+      x-summary-source: derived
 components:
   schemas:
+    QuestionnaireDuplicateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                key:
+                  description: key of duplicated questionnaire
+                  example: QUES-KEY
+                  type: string
+                name:
+                  description: name of duplicated questionnaire
+                  type: string
+              required:
+              - key
+              - name
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    QuestionnaireVersionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                draft:
+                  description: draft
+                  type: boolean
+                sections:
+                  description: sections
+                  type: array
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    QuestionnaireVersionsResponse:
+      description: A collection of [QuestionnaireVersionResource](#questionnaireversionresource)
+      properties:
+        data:
+          description: Content with [QuestionnaireVersionResource](#questionnaireversionresource) objects
+          items:
+            $ref: '#/components/schemas/QuestionnaireVersionResource'
+          type: array
+      required:
+      - data
+      type: object
+    QuestionnaireVersionResponse:
+      description: A JSON-API document with a single [QuestionnaireVersionResource](#questionnaireversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/QuestionnaireVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    QuestionnaireBaseResponse:
+      description: A JSON-API document with a single [QuestionnaireBaseResource](#questionnairebaseresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/QuestionnaireBaseResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    QuestionnaireResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            applies_to:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            kind:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            section_count:
+              description: ''
+              type: string
+            sections:
+              description: ''
+              type: string
+            spec:
+              description: ''
+              type: string
+            target:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: questionnaires
+          type: string
+      type: object
     QuestionnaireBasesResponse:
       description: A collection of [QuestionnaireBaseResource](#questionnairebaseresource)
       properties:
@@ -505,6 +724,114 @@ components:
           description: Content with [QuestionnaireBaseResource](#questionnairebaseresource) objects
           items:
             $ref: '#/components/schemas/QuestionnaireBaseResource'
+          type: array
+      required:
+      - data
+      type: object
+    QuestionnaireVersionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            base_id:
+              description: ''
+              type: string
+            draft:
+              description: ''
+              type: string
+            has_hidden_questions:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            published_at:
+              description: ''
+              type: string
+            published_by_user_id:
+              description: ''
+              type: string
+            section_count:
+              description: ''
+              type: string
+            sections:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: questionnaire_versions
+          type: string
+      type: object
+    QuestionnaireBaseUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                applies_to:
+                  description: applies_to
+                  type: array
+                archived:
+                  description: archived
+                  type: boolean
+                info:
+                  description: ''
+                  type: object
+                metadata:
+                  description: ''
+                  type: object
+                name:
+                  description: name
+                  type: string
+                show_on_create:
+                  description: show_on_create
+                  type: boolean
+                target:
+                  description: target
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    QuestionnaireResponse:
+      description: A JSON-API document with a single [QuestionnaireResource](#questionnaireresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/QuestionnaireResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
           type: array
       required:
       - data
@@ -581,46 +908,6 @@ components:
           example: questionnaire_bases
           type: string
       type: object
-    QuestionnaireBaseUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                applies_to:
-                  description: applies_to
-                  type: array
-                archived:
-                  description: archived
-                  type: boolean
-                info:
-                  description: ''
-                  type: object
-                metadata:
-                  description: ''
-                  type: object
-                name:
-                  description: name
-                  type: string
-                show_on_create:
-                  description: show_on_create
-                  type: boolean
-                target:
-                  description: target
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     QuestionnairesResponse:
       description: A collection of [QuestionnaireResource](#questionnaireresource)
       properties:
@@ -631,65 +918,6 @@ components:
           type: array
       required:
       - data
-      type: object
-    QuestionnaireVersionCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                draft:
-                  description: draft
-                  type: boolean
-                sections:
-                  description: sections
-                  type: array
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    QuestionnaireResponse:
-      description: A JSON-API document with a single [QuestionnaireResource](#questionnaireresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/QuestionnaireResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
     QuestionnaireBaseCreateRequest:
       description: ''
@@ -727,192 +955,6 @@ components:
               type: string
           type: object
       type: object
-    QuestionnaireResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            applies_to:
-              description: ''
-              type: string
-            info:
-              description: ''
-              type: string
-            key:
-              description: ''
-              type: string
-            kind:
-              description: ''
-              type: string
-            metadata:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-            section_count:
-              description: ''
-              type: string
-            sections:
-              description: ''
-              type: string
-            spec:
-              description: ''
-              type: string
-            target:
-              description: ''
-              type: string
-            version:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: questionnaires
-          type: string
-      type: object
-    QuestionnaireDuplicateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                key:
-                  description: key of duplicated questionnaire
-                  example: QUES-KEY
-                  type: string
-                name:
-                  description: name of duplicated questionnaire
-                  type: string
-              required:
-              - key
-              - name
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    QuestionnaireVersionResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            base_id:
-              description: ''
-              type: string
-            draft:
-              description: ''
-              type: string
-            has_hidden_questions:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            published_at:
-              description: ''
-              type: string
-            published_by_user_id:
-              description: ''
-              type: string
-            section_count:
-              description: ''
-              type: string
-            sections:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            version:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: questionnaire_versions
-          type: string
-      type: object
-    QuestionnaireVersionResponse:
-      description: A JSON-API document with a single [QuestionnaireVersionResource](#questionnaireversionresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/QuestionnaireVersionResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    QuestionnaireBaseResponse:
-      description: A JSON-API document with a single [QuestionnaireBaseResource](#questionnairebaseresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/QuestionnaireBaseResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     QuestionnaireVersionUpdateRequest:
       description: ''
       properties:
@@ -937,35 +979,6 @@ components:
               example: resource-type
               type: string
           type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    QuestionnaireVersionsResponse:
-      description: A collection of [QuestionnaireVersionResource](#questionnaireversionresource)
-      properties:
-        data:
-          description: Content with [QuestionnaireVersionResource](#questionnaireversionresource) objects
-          items:
-            $ref: '#/components/schemas/QuestionnaireVersionResource'
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:
