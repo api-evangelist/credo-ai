@@ -69,29 +69,6 @@ components:
             type: object
           type: array
       type: object
-    EntityTypesResponse:
-      description: A page of [EntityTypeResource](#entitytyperesource) results
-      properties:
-        data:
-          description: Content with [EntityTypeResource](#entitytyperesource) objects
-          items:
-            $ref: '#/components/schemas/EntityTypeResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
     EntityTypeResource:
       description: ''
       properties:
@@ -148,6 +125,29 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    EntityTypesResponse:
+      description: A page of [EntityTypeResource](#entitytyperesource) results
+      properties:
+        data:
+          description: Content with [EntityTypeResource](#entitytyperesource) objects
+          items:
+            $ref: '#/components/schemas/EntityTypeResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
       type: object
   securitySchemes:
     Bearer:

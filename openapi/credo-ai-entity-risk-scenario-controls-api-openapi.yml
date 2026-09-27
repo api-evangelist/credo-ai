@@ -192,6 +192,48 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    EntityRiskScenarioControlResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_key:
+              description: ''
+              type: string
+            control_version:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_risk_scenario_controls
+          type: string
+      type: object
     EntityRiskScenarioControlsResponse:
       description: A collection of [EntityRiskScenarioControlResource](#entityriskscenariocontrolresource)
       properties:
@@ -256,48 +298,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    EntityRiskScenarioControlResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            control_key:
-              description: ''
-              type: string
-            control_version:
-              description: ''
-              type: string
-            due_date:
-              description: ''
-              type: string
-            entity_id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            policy_pack_key:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: entity_risk_scenario_controls
-          type: string
       type: object
   securitySchemes:
     Bearer:

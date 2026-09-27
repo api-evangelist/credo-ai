@@ -240,16 +240,48 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UseCaseCustomFieldsResponse:
-      description: A collection of [UseCaseCustomFieldResource](#usecasecustomfieldresource)
+    UseCaseCustomFieldUpdateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [UseCaseCustomFieldResource](#usecasecustomfieldresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseCustomFieldResource'
-          type: array
-      required:
-      - data
+          description: ''
+          properties:
+            attributes:
+              properties:
+                value:
+                  description: value
+                  type: any
+              required:
+              - value
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseCustomFieldUpdateOneRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                custom_field_id:
+                  description: custom_field_id
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - custom_field_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     UseCaseCustomFieldResource:
       description: ''
@@ -296,28 +328,25 @@ components:
           example: use_case_custom_fields
           type: string
       type: object
-    UseCaseCustomFieldUpdateOneRequest:
-      description: ''
+    UseCaseCustomFieldResponse:
+      description: A JSON-API document with a single [UseCaseCustomFieldResource](#usecasecustomfieldresource) resource
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                custom_field_id:
-                  description: custom_field_id
-                  type: string
-                value:
-                  description: value
-                  type: any
-              required:
-              - custom_field_id
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
+          $ref: '#/components/schemas/UseCaseCustomFieldResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
     AuthError:
       properties:
@@ -355,30 +384,6 @@ components:
             type: object
           type: array
       type: object
-    UseCaseCustomFieldCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                name:
-                  description: name
-                  type: string
-                value:
-                  description: value
-                  type: any
-              required:
-              - name
-              - value
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     NotFoundError:
       properties:
         errors:
@@ -397,27 +402,18 @@ components:
             type: object
           type: array
       type: object
-    UseCaseCustomFieldResponse:
-      description: A JSON-API document with a single [UseCaseCustomFieldResource](#usecasecustomfieldresource) resource
+    UseCaseCustomFieldsResponse:
+      description: A collection of [UseCaseCustomFieldResource](#usecasecustomfieldresource)
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseCustomFieldResource'
-        included:
-          description: Included resources
+          description: Content with [UseCaseCustomFieldResource](#usecasecustomfieldresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/UseCaseCustomFieldResource'
           type: array
       required:
       - data
       type: object
-    UseCaseCustomFieldUpdateRequest:
+    UseCaseCustomFieldCreateRequest:
       description: ''
       properties:
         data:
@@ -425,10 +421,14 @@ components:
           properties:
             attributes:
               properties:
+                name:
+                  description: name
+                  type: string
                 value:
                   description: value
                   type: any
               required:
+              - name
               - value
               type: object
             type:

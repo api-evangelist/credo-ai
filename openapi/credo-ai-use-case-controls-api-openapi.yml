@@ -623,79 +623,91 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    EvidencesResponse:
-      description: A collection of [EvidenceResource](#evidenceresource)
+    UseCaseControlsResponse:
+      description: A collection of [UseCaseControlResource](#usecasecontrolresource)
       properties:
         data:
-          description: Content with [EvidenceResource](#evidenceresource) objects
+          description: Content with [UseCaseControlResource](#usecasecontrolresource) objects
           items:
-            $ref: '#/components/schemas/EvidenceResource'
+            $ref: '#/components/schemas/UseCaseControlResource'
           type: array
       required:
       - data
       type: object
-    ControlFileResource:
+    UseCaseControlEvidenceCreateRequest:
       description: ''
       properties:
-        attributes:
+        data:
+          description: ''
           properties:
-            content_type:
-              description: ''
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                requirement_key:
+                  description: evidence requirement key
+                  type: string
+              required:
+              - data
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
               type: string
-            control_id:
-              description: ''
-              type: string
-            filename:
-              description: ''
-              type: string
+          type: object
+      type: object
+    UseCaseControlCookbookResponse:
+      description: A JSON-API document with a single [UseCaseControlCookbookResource](#usecasecontrolcookbookresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseControlCookbookResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
             id:
-              description: ''
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
               type: string
-            inserted_at:
-              description: ''
-              type: string
-            requirement_key:
-              description: ''
-              type: string
-            size:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            url:
-              description: ''
+            type:
+              description: The JSON-API resource type
+              example: resource-type
               type: string
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_control_files
-          type: string
       type: object
     UseCaseRiskControlLinkResource:
       description: ''
@@ -742,11 +754,11 @@ components:
           example: use_case_risk_control_links
           type: string
       type: object
-    ControlsAssignmentRequest:
-      description: A JSON-API document with a single [ControlsAssignmentResource](#controlsassignmentresource) resource
+    UseCaseControlResponse:
+      description: A JSON-API document with a single [UseCaseControlResource](#usecasecontrolresource) resource
       properties:
         data:
-          $ref: '#/components/schemas/ControlsAssignmentResource'
+          $ref: '#/components/schemas/UseCaseControlResource'
         included:
           description: Included resources
           items:
@@ -762,7 +774,7 @@ components:
       required:
       - data
       type: object
-    ControlFileCreateRequest:
+    UseCaseControlUpdateRequest:
       description: ''
       properties:
         data:
@@ -770,78 +782,92 @@ components:
           properties:
             attributes:
               properties:
-                content:
-                  description: Base 64 encoded file content
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
                   type: string
-                content_type:
-                  description: Content type
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
                   type: string
-                filename:
-                  description: File name
-                  type: string
-                requirement_key:
-                  description: file requirement key
-                  type: string
-                size:
-                  description: File size
-                  type: integer
-              required:
-              - content
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
               type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
-    UseCaseControlsResponse:
-      description: A collection of [UseCaseControlResource](#usecasecontrolresource)
-      properties:
-        data:
-          description: Content with [UseCaseControlResource](#usecasecontrolresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseControlResource'
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseControlResource:
+    EvidenceResource:
       description: ''
       properties:
         attributes:
           properties:
-            compliances:
-              description: ''
-              type: string
             control_key:
-              description: ''
+              description: Control key
+              example: FAIR.C1
               type: string
-            due_date:
-              description: ''
-              type: string
+            creator:
+              description: Creator
+              example:
+                family_name: John
+                given_name: Doe
+                nickname: doe
+              type: object
+            data:
+              description: value data,
+              example:
+                value: value
+              type: object
             entity_id:
               description: ''
               type: string
+            generated_at:
+              description: Evidence generation time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            hash_key:
+              description: ''
+              type: string
             inserted_at:
-              description: ''
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
               type: string
+            label:
+              description: label in the evidence requirement
+              example:
+                key: value
+              type: object
+            metadata:
+              description: metadata
+              example:
+                key: value
+              type: object
             model_id:
+              description: model_id
+              example: 4pEfRTw2RVVrouMbFH9tuH
+              type: string
+            model_version:
               description: ''
               type: string
-            policy_pack_key:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            timezone:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
+            type:
+              description: Evidence type
+              example: text
               type: string
             use_case_id:
-              description: ''
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
               type: string
           type: object
         id:
@@ -850,6 +876,18 @@ components:
           type: string
         relationships:
           properties:
+            asset_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related asset_links resource id
+                      type: string
+                    type:
+                      description: Type of related asset_links resource
+                      type: string
+                  type: object
+              type: object
             model:
               properties:
                 data:
@@ -862,56 +900,89 @@ components:
                       type: string
                   type: object
               type: object
-            reviewer:
+            policy_pack_links:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related reviewer resource id
+                      description: Related policy_pack_links resource id
                       type: string
                     type:
-                      description: Type of related reviewer resource
-                      type: string
-                  type: object
-              type: object
-            task:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related task resource id
-                      type: string
-                    type:
-                      description: Type of related task resource
-                      type: string
-                  type: object
-              type: object
-            use_case:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_case resource id
-                      type: string
-                    type:
-                      description: Type of related use_case resource
+                      description: Type of related policy_pack_links resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: use_case_controls
+          example: evidences
           type: string
       type: object
-    UseCaseRiskControlLinksResponse:
-      description: A collection of [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource)
+    ControlFileResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            content_type:
+              description: ''
+              type: string
+            control_id:
+              description: ''
+              type: string
+            filename:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            requirement_key:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_control_files
+          type: string
+      type: object
+    ControlFilesResponse:
+      description: A page of [ControlFileResponse](#controlfileresponse) results
       properties:
         data:
-          description: Content with [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource) objects
+          description: Content with [ControlFileResponse](#controlfileresponse) objects
           items:
-            $ref: '#/components/schemas/UseCaseRiskControlLinkResource'
+            $ref: '#/components/schemas/ControlFileResponse'
           type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
       required:
       - data
       type: object
@@ -920,46 +991,6 @@ components:
       properties:
         data:
           $ref: '#/components/schemas/EvidenceResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ControlFileResponse:
-      description: A JSON-API document with a single [ControlFileResource](#controlfileresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ControlFileResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseRiskControlLinkResponse:
-      description: A JSON-API document with a single [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseRiskControlLinkResource'
         included:
           description: Included resources
           items:
@@ -1152,115 +1183,6 @@ components:
           example: tasks
           type: string
       type: object
-    ControlsAssignmentResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            control_ids:
-              description: string
-              type: string
-            team_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: control_assignments
-          type: string
-      type: object
-    UseCaseControlCookbookResponse:
-      description: A JSON-API document with a single [UseCaseControlCookbookResource](#usecasecontrolcookbookresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseControlCookbookResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseControlCookbookResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            data:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_control_cookbooks
-          type: string
-      type: object
-    ControlFilesResponse:
-      description: A page of [ControlFileResponse](#controlfileresponse) results
-      properties:
-        data:
-          description: Content with [ControlFileResponse](#controlfileresponse) objects
-          items:
-            $ref: '#/components/schemas/ControlFileResponse'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     TasksResponse:
       description: A collection of [TaskResource](#taskresource)
       properties:
@@ -1268,26 +1190,6 @@ components:
           description: Content with [TaskResource](#taskresource) objects
           items:
             $ref: '#/components/schemas/TaskResource'
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseControlResponse:
-      description: A JSON-API document with a single [UseCaseControlResource](#usecasecontrolresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseControlResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
           type: array
       required:
       - data
@@ -1316,33 +1218,151 @@ components:
               type: string
           type: object
       type: object
-    UseCaseControlEvidenceCreateRequest:
-      description: ''
+    ControlsAssignmentRequest:
+      description: A JSON-API document with a single [ControlsAssignmentResource](#controlsassignmentresource) resource
       properties:
         data:
-          description: ''
+          $ref: '#/components/schemas/ControlsAssignmentResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ControlFileResponse:
+      description: A JSON-API document with a single [ControlFileResource](#controlfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ControlFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseControlCookbookResource:
+      description: ''
+      properties:
+        attributes:
           properties:
-            attributes:
-              properties:
-                data:
-                  description: value data
-                  example:
-                    value: This is text evidence
-                  type: object
-                generated_at:
-                  description: '2022-05-03T11:33:25.582138Z'
-                  type: string
-                requirement_key:
-                  description: evidence requirement key
-                  type: string
-              required:
-              - data
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
+            data:
+              description: ''
               type: string
           type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_control_cookbooks
+          type: string
+      type: object
+    EvidencesResponse:
+      description: A collection of [EvidenceResource](#evidenceresource)
+      properties:
+        data:
+          description: Content with [EvidenceResource](#evidenceresource) objects
+          items:
+            $ref: '#/components/schemas/EvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseRiskControlLinksResponse:
+      description: A collection of [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource)
+      properties:
+        data:
+          description: Content with [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseRiskControlLinkResource'
+          type: array
+      required:
+      - data
+      type: object
+    ControlsAssignmentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_ids:
+              description: string
+              type: string
+            team_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: control_assignments
+          type: string
       type: object
     TaskResponse:
       description: A JSON-API document with a single [TaskResource](#taskresource) resource
@@ -1364,34 +1384,7 @@ components:
       required:
       - data
       type: object
-    UseCaseControlTaskCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    NotFoundError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -1409,65 +1402,43 @@ components:
             type: object
           type: array
       type: object
-    EvidenceResource:
+    UseCaseControlResource:
       description: ''
       properties:
         attributes:
           properties:
-            control_key:
-              description: Control key
-              example: FAIR.C1
+            compliances:
+              description: ''
               type: string
-            creator:
-              description: Creator
-              example:
-                family_name: John
-                given_name: Doe
-                nickname: doe
-              type: object
-            data:
-              description: value data,
-              example:
-                value: value
-              type: object
+            control_key:
+              description: ''
+              type: string
+            due_date:
+              description: ''
+              type: string
             entity_id:
               description: ''
               type: string
-            generated_at:
-              description: Evidence generation time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            hash_key:
-              description: ''
-              type: string
             inserted_at:
-              description: insert time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            label:
-              description: label in the evidence requirement
-              example:
-                key: value
-              type: object
-            metadata:
-              description: metadata
-              example:
-                key: value
-              type: object
-            model_id:
-              description: model_id
-              example: 4pEfRTw2RVVrouMbFH9tuH
-              type: string
-            model_version:
               description: ''
               type: string
-            type:
-              description: Evidence type
-              example: text
+            model_id:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
               type: string
             use_case_id:
-              description: use_case_id
-              example: 64YUaLWSviHgibJaRWr3ZE
+              description: ''
               type: string
           type: object
         id:
@@ -1476,18 +1447,6 @@ components:
           type: string
         relationships:
           properties:
-            asset_links:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related asset_links resource id
-                      type: string
-                    type:
-                      description: Type of related asset_links resource
-                      type: string
-                  type: object
-              type: object
             model:
               properties:
                 data:
@@ -1500,25 +1459,49 @@ components:
                       type: string
                   type: object
               type: object
-            policy_pack_links:
+            reviewer:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related policy_pack_links resource id
+                      description: Related reviewer resource id
                       type: string
                     type:
-                      description: Type of related policy_pack_links resource
+                      description: Type of related reviewer resource
+                      type: string
+                  type: object
+              type: object
+            task:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related task resource id
+                      type: string
+                    type:
+                      description: Type of related task resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: evidences
+          example: use_case_controls
           type: string
       type: object
-    UseCaseControlUpdateRequest:
+    ControlFileCreateRequest:
       description: ''
       properties:
         data:
@@ -1526,32 +1509,49 @@ components:
           properties:
             attributes:
               properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
+                content:
+                  description: Base 64 encoded file content
                   type: string
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
+                content_type:
+                  description: Content type
                   type: string
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
+                filename:
+                  description: File name
+                  type: string
+                requirement_key:
+                  description: file requirement key
+                  type: string
+                size:
+                  description: File size
+                  type: integer
+              required:
+              - content
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
+      type: object
+    UseCaseRiskControlLinkResponse:
+      description: A JSON-API document with a single [UseCaseRiskControlLinkResource](#usecaseriskcontrollinkresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseRiskControlLinkResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
   securitySchemes:
     Bearer:

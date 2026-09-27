@@ -193,7 +193,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UserCreateRequest:
+    UserUpdateRequest:
       description: ''
       properties:
         data:
@@ -201,15 +201,15 @@ components:
           properties:
             attributes:
               properties:
-                email:
-                  description: name@credo.ai
-                  type: string
                 family_name:
                   description: ''
                   type: string
                 given_name:
                   description: ''
                   type: string
+                is_initialized:
+                  description: ''
+                  type: boolean
                 job:
                   description: ''
                   type: string
@@ -223,19 +223,67 @@ components:
                   description: ''
                   type: string
                 role:
-                  description: role
+                  description: ''
                   type: string
-              required:
-              - email
-              - role
+                team:
+                  description: ''
+                  type: string
+                title:
+                  description: ''
+                  type: string
               type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
+    UsersResponse:
+      description: A page of [UserResource](#userresource) results
+      properties:
+        data:
+          description: Content with [UserResource](#userresource) objects
+          items:
+            $ref: '#/components/schemas/UserResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
     AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -343,24 +391,6 @@ components:
           example: users
           type: string
       type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     UserResponse:
       description: A JSON-API document with a single [UserResource](#userresource) resource
       properties:
@@ -399,30 +429,7 @@ components:
             type: object
           type: array
       type: object
-    UsersResponse:
-      description: A page of [UserResource](#userresource) results
-      properties:
-        data:
-          description: Content with [UserResource](#userresource) objects
-          items:
-            $ref: '#/components/schemas/UserResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    UserUpdateRequest:
+    UserCreateRequest:
       description: ''
       properties:
         data:
@@ -430,15 +437,15 @@ components:
           properties:
             attributes:
               properties:
+                email:
+                  description: name@credo.ai
+                  type: string
                 family_name:
                   description: ''
                   type: string
                 given_name:
                   description: ''
                   type: string
-                is_initialized:
-                  description: ''
-                  type: boolean
                 job:
                   description: ''
                   type: string
@@ -452,19 +459,12 @@ components:
                   description: ''
                   type: string
                 role:
-                  description: ''
+                  description: role
                   type: string
-                team:
-                  description: ''
-                  type: string
-                title:
-                  description: ''
-                  type: string
+              required:
+              - email
+              - role
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type

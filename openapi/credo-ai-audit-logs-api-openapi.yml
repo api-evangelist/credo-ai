@@ -379,6 +379,183 @@ paths:
       - Audit Logs
 components:
   schemas:
+    Audit_Log_Filter_Options_Response:
+      description: 'Enumerates the valid values for audit log filters. Use this to populate
+
+        filter dropdowns (event name, resource type) on the client. The values
+
+        mirror what `GET /audit_logs?filter[name]=...` and
+
+        `filter[resource_type]=...` accept.
+
+
+        `resource_types` applies to both the `resource_type` and `sub_object_type`
+
+        filters — they draw from the same enum server-side.
+
+        '
+      properties:
+        events:
+          description: All valid audit log event names (snake_case).
+          items:
+            type: string
+          type: array
+        resource_types:
+          description: All valid resource type names (also valid for sub_object_type).
+          items:
+            type: string
+          type: array
+      required:
+      - events
+      - resource_types
+      title: Audit Log Filter Options Response
+      type: object
+    Audit_Log_Response:
+      description: Response containing a single audit log
+      properties:
+        data:
+          description: An audit log entry in the system
+          example:
+            attributes:
+              action:
+                data: {}
+                id: 22222222-2222-2222-2222-222222222222
+                type: attach
+              action_id: 22222222-2222-2222-2222-222222222222
+              inserted_at: '2024-01-01T12:00:00Z'
+              message: Policy pack GDPR was added to use case
+              metadata:
+                policy_pack_key: gdpr
+                version: '1.0'
+              name: policy_pack_added
+              resource_id: 33333333-3333-3333-3333-333333333333
+              resource_name: Fraud Detection Model
+              resource_type: use_case
+              source: platform
+              sub_object_id: gdpr
+              sub_object_name: GDPR Compliance Pack
+              sub_object_type: policy_pack
+              team_id: null
+              use_case_id: 33333333-3333-3333-3333-333333333333
+              user:
+                email: john@example.com
+                family_name: Doe
+                given_name: John
+                id: 11111111-1111-1111-1111-111111111111
+                role: admin
+              user_id: 11111111-1111-1111-1111-111111111111
+            id: 12345678-1234-5678-9abc-123456789012
+            type: audit_logs
+          properties:
+            attributes:
+              properties:
+                action:
+                  description: Action information
+                  type:
+                  - object
+                  - 'null'
+                action_id:
+                  description: Action ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                inserted_at:
+                  description: Creation timestamp
+                  format: date-time
+                  type: string
+                message:
+                  description: Human-readable audit log message
+                  type:
+                  - string
+                  - 'null'
+                metadata:
+                  description: Additional metadata specific to the event
+                  type:
+                  - object
+                  - 'null'
+                name:
+                  description: Audit log event name
+                  type: string
+                resource_id:
+                  description: ID of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                resource_name:
+                  description: Name of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                resource_type:
+                  description: Type of the primary resource affected
+                  type:
+                  - string
+                  - 'null'
+                source:
+                  description: Originating client source (e.g. 'platform', 'sdk:pycredoai@0.3.1', 'mcp:provide_ai_suggestion', 'api', 'trigger', 'unknown')
+                  type: string
+                sub_object_id:
+                  description: ID of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                sub_object_name:
+                  description: Name of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                sub_object_type:
+                  description: Type of the sub-object affected
+                  type:
+                  - string
+                  - 'null'
+                team_id:
+                  description: Team ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                use_case_id:
+                  description: Use case ID
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+                user:
+                  description: User information (id, email, name, role, etc.)
+                  type:
+                  - object
+                  - 'null'
+                user_id:
+                  description: User ID who performed the action
+                  format: uuid
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - name
+              - inserted_at
+              type: object
+            id:
+              description: Audit log ID
+              format: uuid
+              type: string
+            type:
+              description: Resource type
+              enum:
+              - audit_logs
+              type: string
+          required:
+          - id
+          - type
+          - attributes
+          title: AuditLog
+          type: object
+      required:
+      - data
+      title: Audit Log Response
+      type: object
     Audit_Logs_Response:
       description: Response containing a collection of audit logs
       properties:
@@ -542,183 +719,6 @@ components:
       required:
       - data
       title: Audit Logs Response
-      type: object
-    Audit_Log_Response:
-      description: Response containing a single audit log
-      properties:
-        data:
-          description: An audit log entry in the system
-          example:
-            attributes:
-              action:
-                data: {}
-                id: 22222222-2222-2222-2222-222222222222
-                type: attach
-              action_id: 22222222-2222-2222-2222-222222222222
-              inserted_at: '2024-01-01T12:00:00Z'
-              message: Policy pack GDPR was added to use case
-              metadata:
-                policy_pack_key: gdpr
-                version: '1.0'
-              name: policy_pack_added
-              resource_id: 33333333-3333-3333-3333-333333333333
-              resource_name: Fraud Detection Model
-              resource_type: use_case
-              source: platform
-              sub_object_id: gdpr
-              sub_object_name: GDPR Compliance Pack
-              sub_object_type: policy_pack
-              team_id: null
-              use_case_id: 33333333-3333-3333-3333-333333333333
-              user:
-                email: john@example.com
-                family_name: Doe
-                given_name: John
-                id: 11111111-1111-1111-1111-111111111111
-                role: admin
-              user_id: 11111111-1111-1111-1111-111111111111
-            id: 12345678-1234-5678-9abc-123456789012
-            type: audit_logs
-          properties:
-            attributes:
-              properties:
-                action:
-                  description: Action information
-                  type:
-                  - object
-                  - 'null'
-                action_id:
-                  description: Action ID
-                  format: uuid
-                  type:
-                  - string
-                  - 'null'
-                inserted_at:
-                  description: Creation timestamp
-                  format: date-time
-                  type: string
-                message:
-                  description: Human-readable audit log message
-                  type:
-                  - string
-                  - 'null'
-                metadata:
-                  description: Additional metadata specific to the event
-                  type:
-                  - object
-                  - 'null'
-                name:
-                  description: Audit log event name
-                  type: string
-                resource_id:
-                  description: ID of the primary resource affected
-                  type:
-                  - string
-                  - 'null'
-                resource_name:
-                  description: Name of the primary resource affected
-                  type:
-                  - string
-                  - 'null'
-                resource_type:
-                  description: Type of the primary resource affected
-                  type:
-                  - string
-                  - 'null'
-                source:
-                  description: Originating client source (e.g. 'platform', 'sdk:pycredoai@0.3.1', 'mcp:provide_ai_suggestion', 'api', 'trigger', 'unknown')
-                  type: string
-                sub_object_id:
-                  description: ID of the sub-object affected
-                  type:
-                  - string
-                  - 'null'
-                sub_object_name:
-                  description: Name of the sub-object affected
-                  type:
-                  - string
-                  - 'null'
-                sub_object_type:
-                  description: Type of the sub-object affected
-                  type:
-                  - string
-                  - 'null'
-                team_id:
-                  description: Team ID
-                  format: uuid
-                  type:
-                  - string
-                  - 'null'
-                use_case_id:
-                  description: Use case ID
-                  format: uuid
-                  type:
-                  - string
-                  - 'null'
-                user:
-                  description: User information (id, email, name, role, etc.)
-                  type:
-                  - object
-                  - 'null'
-                user_id:
-                  description: User ID who performed the action
-                  format: uuid
-                  type:
-                  - string
-                  - 'null'
-              required:
-              - name
-              - inserted_at
-              type: object
-            id:
-              description: Audit log ID
-              format: uuid
-              type: string
-            type:
-              description: Resource type
-              enum:
-              - audit_logs
-              type: string
-          required:
-          - id
-          - type
-          - attributes
-          title: AuditLog
-          type: object
-      required:
-      - data
-      title: Audit Log Response
-      type: object
-    Audit_Log_Filter_Options_Response:
-      description: 'Enumerates the valid values for audit log filters. Use this to populate
-
-        filter dropdowns (event name, resource type) on the client. The values
-
-        mirror what `GET /audit_logs?filter[name]=...` and
-
-        `filter[resource_type]=...` accept.
-
-
-        `resource_types` applies to both the `resource_type` and `sub_object_type`
-
-        filters — they draw from the same enum server-side.
-
-        '
-      properties:
-        events:
-          description: All valid audit log event names (snake_case).
-          items:
-            type: string
-          type: array
-        resource_types:
-          description: All valid resource type names (also valid for sub_object_type).
-          items:
-            type: string
-          type: array
-      required:
-      - events
-      - resource_types
-      title: Audit Log Filter Options Response
       type: object
     Error:
       description: Error response schema

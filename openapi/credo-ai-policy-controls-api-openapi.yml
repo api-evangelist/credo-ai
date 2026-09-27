@@ -439,68 +439,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PolicyControlResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            entity_type_ids:
-              description: ''
-              type: string
-            evidence_requirements:
-              description: ''
-              type: string
-            info:
-              description: ''
-              type: string
-            key:
-              description: ''
-              type: string
-            kind:
-              description: ''
-              type: string
-            metadata:
-              description: ''
-              type: string
-            policy_pack_key:
-              description: ''
-              type: string
-            reasoning:
-              description: ''
-              type: string
-            risk_type_ids:
-              description: ''
-              type: string
-            spec:
-              description: ''
-              type: string
-            version:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: policy_controls
-          type: string
-      type: object
-    PolicyControlBasesResponse:
-      description: A collection of [PolicyControlBaseResource](#policycontrolbaseresource)
-      properties:
-        data:
-          description: Content with [PolicyControlBaseResource](#policycontrolbaseresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyControlBaseResource'
-          type: array
-      required:
-      - data
-      type: object
     PolicyControlVersionCreateRequest:
       description: ''
       properties:
@@ -527,23 +465,16 @@ components:
               type: string
           type: object
       type: object
-    AuthError:
+    PolicyControlsCollectionResponse:
+      description: A collection of [PolicyControlResource](#policycontrolresource)
       properties:
-        errors:
-          description: Errors
+        data:
+          description: Content with [PolicyControlResource](#policycontrolresource) objects
           items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
+            $ref: '#/components/schemas/PolicyControlResource'
           type: array
+      required:
+      - data
       type: object
     PolicyControlVersionUpdateRequest:
       description: ''
@@ -578,138 +509,11 @@ components:
               type: string
           type: object
       type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    PolicyControlBaseResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            archived:
-              description: ''
-              type: string
-            deprecated:
-              description: ''
-              type: string
-            entity_type_ids:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            ownership_type:
-              description: ''
-              type: string
-            transferred_at:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            versions:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related versions resource id
-                      type: string
-                    type:
-                      description: Type of related versions resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: policy_control_bases
-          type: string
-      type: object
-    PolicyControlResponse:
-      description: A JSON-API document with a single [PolicyControlResource](#policycontrolresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyControlResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     PolicyControlBaseResponse:
       description: A JSON-API document with a single [PolicyControlBaseResource](#policycontrolbaseresource) resource
       properties:
         data:
           $ref: '#/components/schemas/PolicyControlBaseResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    PolicyControlVersionResponse:
-      description: A JSON-API document with a single [PolicyControlVersionResource](#policycontrolversionresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/PolicyControlVersionResource'
         included:
           description: Included resources
           items:
@@ -749,6 +553,82 @@ components:
               type: string
           type: object
       type: object
+    PolicyControlVersionResponse:
+      description: A JSON-API document with a single [PolicyControlVersionResource](#policycontrolversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    PolicyControlResponse:
+      description: A JSON-API document with a single [PolicyControlResource](#policycontrolresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/PolicyControlResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     PolicyControlVersionsResponse:
       description: A collection of [PolicyControlVersionResource](#policycontrolversionresource)
       properties:
@@ -756,17 +636,6 @@ components:
           description: Content with [PolicyControlVersionResource](#policycontrolversionresource) objects
           items:
             $ref: '#/components/schemas/PolicyControlVersionResource'
-          type: array
-      required:
-      - data
-      type: object
-    PolicyControlsCollectionResponse:
-      description: A collection of [PolicyControlResource](#policycontrolresource)
-      properties:
-        data:
-          description: Content with [PolicyControlResource](#policycontrolresource) objects
-          items:
-            $ref: '#/components/schemas/PolicyControlResource'
           type: array
       required:
       - data
@@ -824,6 +693,137 @@ components:
           description: The JSON-API resource type
           example: policy_control_versions
           type: string
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    PolicyControlResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            entity_type_ids:
+              description: ''
+              type: string
+            evidence_requirements:
+              description: ''
+              type: string
+            info:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            kind:
+              description: ''
+              type: string
+            metadata:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            reasoning:
+              description: ''
+              type: string
+            risk_type_ids:
+              description: ''
+              type: string
+            spec:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_controls
+          type: string
+      type: object
+    PolicyControlBaseResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            archived:
+              description: ''
+              type: string
+            deprecated:
+              description: ''
+              type: string
+            entity_type_ids:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            ownership_type:
+              description: ''
+              type: string
+            transferred_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            versions:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related versions resource id
+                      type: string
+                    type:
+                      description: Type of related versions resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: policy_control_bases
+          type: string
+      type: object
+    PolicyControlBasesResponse:
+      description: A collection of [PolicyControlBaseResource](#policycontrolbaseresource)
+      properties:
+        data:
+          description: Content with [PolicyControlBaseResource](#policycontrolbaseresource) objects
+          items:
+            $ref: '#/components/schemas/PolicyControlBaseResource'
+          type: array
+      required:
+      - data
       type: object
   securitySchemes:
     Bearer:
