@@ -508,6 +508,30 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CommentUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: The content of the comment
+                  type: string
+              required:
+              - content
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: comments
+              type: string
+          type: object
+      type: object
     CommentThreadUpdateRequest:
       description: ''
       properties:
@@ -531,265 +555,6 @@ components:
               example: comment_threads
               type: string
           type: object
-      type: object
-    CommentResponse:
-      description: A JSON-API document with a single [CommentResource](#commentresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/CommentResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    CommentThreadResponse:
-      description: A JSON-API document with a single [CommentThreadResource](#commentthreadresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/CommentThreadResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    CommentThreadsResponse:
-      description: A page of [CommentThreadResource](#commentthreadresource) results
-      properties:
-        data:
-          description: Content with [CommentThreadResource](#commentthreadresource) objects
-          items:
-            $ref: '#/components/schemas/CommentThreadResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    CommentResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            comment_thread_id:
-              description: ''
-              type: string
-            content:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            user:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related user resource id
-                      type: string
-                    type:
-                      description: Type of related user resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: comments
-          type: string
-      type: object
-    CommentThreadCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                content:
-                  description: ''
-                  type: string
-                parent_entity_control_id:
-                  description: parent entity control id
-                  type: string
-                parent_q_section_id:
-                  description: parent question section id
-                  type: string
-                parent_use_case_review_id:
-                  description: parent use case review id
-                  type: string
-                resource_id:
-                  description: resource id
-                  type: string
-                resource_type:
-                  description: resource type
-                  enum:
-                  - review_action
-                  - evidence_requirement
-                  - control
-                  - question
-                  - none
-                  type: string
-              required:
-              - content
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: comment_threads
-              type: string
-          type: object
-      type: object
-    UnprocessableEntityError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    BadRequestError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    CommentCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                content:
-                  description: The content of the comment
-                  type: string
-              required:
-              - content
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: comments
-              type: string
-          type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
     CommentThreadResource:
       description: ''
@@ -874,7 +639,50 @@ components:
           example: comment_threads
           type: string
       type: object
-    CommentUpdateRequest:
+    CommentThreadsResponse:
+      description: A page of [CommentThreadResource](#commentthreadresource) results
+      properties:
+        data:
+          description: Content with [CommentThreadResource](#commentthreadresource) objects
+          items:
+            $ref: '#/components/schemas/CommentThreadResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    CommentThreadResponse:
+      description: A JSON-API document with a single [CommentThreadResource](#commentthreadresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/CommentThreadResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    CommentCreateRequest:
       description: ''
       properties:
         data:
@@ -888,15 +696,207 @@ components:
               required:
               - content
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: comments
               type: string
           type: object
+      type: object
+    CommentResponse:
+      description: A JSON-API document with a single [CommentResource](#commentresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/CommentResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UnprocessableEntityError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    CommentThreadCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: ''
+                  type: string
+                parent_entity_control_id:
+                  description: parent entity control id
+                  type: string
+                parent_q_section_id:
+                  description: parent question section id
+                  type: string
+                parent_use_case_review_id:
+                  description: parent use case review id
+                  type: string
+                resource_id:
+                  description: resource id
+                  type: string
+                resource_type:
+                  description: resource type
+                  enum:
+                  - review_action
+                  - evidence_requirement
+                  - control
+                  - question
+                  - none
+                  type: string
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: comment_threads
+              type: string
+          type: object
+      type: object
+    CommentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comment_thread_id:
+              description: ''
+              type: string
+            content:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: comments
+          type: string
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    BadRequestError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
       type: object
   securitySchemes:
     Bearer:

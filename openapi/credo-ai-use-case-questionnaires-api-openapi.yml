@@ -531,90 +531,56 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UseCaseQuestionnaireSectionEvidenceCreateRequest:
-      description: ''
+    SectionFileResponse:
+      description: A JSON-API document with a single [SectionFileResource](#sectionfileresource) resource
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                data:
-                  description: value data
-                  example:
-                    value: This is text evidence
-                  type: object
-                generated_at:
-                  description: evidence generated time
-                  example: '2022-05-03T11:33:25.582138Z'
-                  type: string
-                question_id:
-                  description: question id
-                  type: string
-              required:
-              - question_id
-              - data
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
+          $ref: '#/components/schemas/SectionFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
-    UseCaseControlTaskCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UseCaseQuestionnaireResource:
+    SectionFileResource:
       description: ''
       properties:
         attributes:
           properties:
-            due_date:
+            content_type:
               description: ''
               type: string
-            entity_id:
+            filename:
+              description: ''
+              type: string
+            id:
               description: ''
               type: string
             inserted_at:
               description: ''
               type: string
-            key:
+            question_id:
               description: ''
               type: string
-            timezone:
+            section_id:
+              description: ''
+              type: string
+            size:
               description: ''
               type: string
             updated_at:
               description: ''
               type: string
-            use_case_id:
-              description: ''
-              type: string
-            version:
+            url:
               description: ''
               type: string
           type: object
@@ -623,169 +589,12 @@ components:
           example: 64YUaLWSviHgibJaRWr3ZE
           type: string
         relationships:
-          properties:
-            use_case:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_case resource id
-                      type: string
-                    type:
-                      description: Type of related use_case resource
-                      type: string
-                  type: object
-              type: object
+          properties: {}
           type: object
         type:
           description: The JSON-API resource type
-          example: use_case_questionnaires
+          example: use_case_questionnaire_section_files
           type: string
-      type: object
-    UseCaseQuestionnairesResponse:
-      description: A collection of [UseCaseQuestionnaireResource](#usecasequestionnaireresource)
-      properties:
-        data:
-          description: Content with [UseCaseQuestionnaireResource](#usecasequestionnaireresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseQuestionnaireResource'
-          type: array
-      required:
-      - data
-      type: object
-    EvidenceResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            control_key:
-              description: Control key
-              example: FAIR.C1
-              type: string
-            creator:
-              description: Creator
-              example:
-                family_name: John
-                given_name: Doe
-                nickname: doe
-              type: object
-            data:
-              description: value data,
-              example:
-                value: value
-              type: object
-            entity_id:
-              description: ''
-              type: string
-            generated_at:
-              description: Evidence generation time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            hash_key:
-              description: ''
-              type: string
-            inserted_at:
-              description: insert time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            label:
-              description: label in the evidence requirement
-              example:
-                key: value
-              type: object
-            metadata:
-              description: metadata
-              example:
-                key: value
-              type: object
-            model_id:
-              description: model_id
-              example: 4pEfRTw2RVVrouMbFH9tuH
-              type: string
-            model_version:
-              description: ''
-              type: string
-            type:
-              description: Evidence type
-              example: text
-              type: string
-            use_case_id:
-              description: use_case_id
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            asset_links:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related asset_links resource id
-                      type: string
-                    type:
-                      description: Type of related asset_links resource
-                      type: string
-                  type: object
-              type: object
-            model:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related model resource id
-                      type: string
-                    type:
-                      description: Type of related model resource
-                      type: string
-                  type: object
-              type: object
-            policy_pack_links:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related policy_pack_links resource id
-                      type: string
-                    type:
-                      description: Type of related policy_pack_links resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: evidences
-          type: string
-      type: object
-    UseCaseQuestionnaireCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                key:
-                  description: questionnaire key
-                  example: QUES
-                  type: string
-                version:
-                  description: quetionnaire version
-                  type: integer
-              required:
-              - key
-              - version
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     EvidenceResponse:
       description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
@@ -984,51 +793,6 @@ components:
           example: tasks
           type: string
       type: object
-    SectionFileResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            content_type:
-              description: ''
-              type: string
-            filename:
-              description: ''
-              type: string
-            id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            question_id:
-              description: ''
-              type: string
-            section_id:
-              description: ''
-              type: string
-            size:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            url:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_questionnaire_section_files
-          type: string
-      type: object
     SectionFileCreateRequest:
       description: ''
       properties:
@@ -1061,85 +825,6 @@ components:
               type: string
           type: object
       type: object
-    UseCaseQuestionnaireUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                timezone:
-                  description: timezone
-                  example: Asia/Seoul
-                  type: string
-                version:
-                  description: quetionnaire version
-                  type: integer
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    SectionFileResponse:
-      description: A JSON-API document with a single [SectionFileResource](#sectionfileresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/SectionFileResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseQuestionnaireSectionsResponse:
-      description: A collection of [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource)
-      properties:
-        data:
-          description: Content with [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseQuestionnaireSectionResource'
-          type: array
-      required:
-      - data
-      type: object
     EvidencesResponse:
       description: A collection of [EvidenceResource](#evidenceresource)
       properties:
@@ -1151,66 +836,30 @@ components:
       required:
       - data
       type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    SectionFilesResponse:
-      description: A page of [SectionFileResponse](#sectionfileresponse) results
+    UseCaseQuestionnaireCreateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [SectionFileResponse](#sectionfileresponse) objects
-          items:
-            $ref: '#/components/schemas/SectionFileResponse'
-          type: array
-        meta:
+          description: ''
           properties:
-            after:
-              description: after cursor for the next page resources
+            attributes:
+              properties:
+                key:
+                  description: questionnaire key
+                  example: QUES
+                  type: string
+                version:
+                  description: quetionnaire version
+                  type: integer
+              required:
+              - key
+              - version
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
               type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
           type: object
-      required:
-      - data
-      type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
       type: object
     AuthError:
       properties:
@@ -1230,11 +879,174 @@ components:
             type: object
           type: array
       type: object
-    UseCaseQuestionnaireSectionResponse:
-      description: A JSON-API document with a single [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource) resource
+    EvidenceResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_key:
+              description: Control key
+              example: FAIR.C1
+              type: string
+            creator:
+              description: Creator
+              example:
+                family_name: John
+                given_name: Doe
+                nickname: doe
+              type: object
+            data:
+              description: value data,
+              example:
+                value: value
+              type: object
+            entity_id:
+              description: ''
+              type: string
+            generated_at:
+              description: Evidence generation time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            hash_key:
+              description: ''
+              type: string
+            inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            label:
+              description: label in the evidence requirement
+              example:
+                key: value
+              type: object
+            metadata:
+              description: metadata
+              example:
+                key: value
+              type: object
+            model_id:
+              description: model_id
+              example: 4pEfRTw2RVVrouMbFH9tuH
+              type: string
+            model_version:
+              description: ''
+              type: string
+            type:
+              description: Evidence type
+              example: text
+              type: string
+            use_case_id:
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            asset_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related asset_links resource id
+                      type: string
+                    type:
+                      description: Type of related asset_links resource
+                      type: string
+                  type: object
+              type: object
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            policy_pack_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related policy_pack_links resource id
+                      type: string
+                    type:
+                      description: Type of related policy_pack_links resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: evidences
+          type: string
+      type: object
+    UseCaseQuestionnaireResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            due_date:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            key:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_questionnaires
+          type: string
+      type: object
+    UseCaseQuestionnaireResponse:
+      description: A JSON-API document with a single [UseCaseQuestionnaireResource](#usecasequestionnaireresource) resource
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseQuestionnaireSectionResource'
+          $ref: '#/components/schemas/UseCaseQuestionnaireResource'
         included:
           description: Included resources
           items:
@@ -1304,11 +1116,52 @@ components:
           example: use_case_questionnaire_sections
           type: string
       type: object
-    UseCaseQuestionnaireResponse:
-      description: A JSON-API document with a single [UseCaseQuestionnaireResource](#usecasequestionnaireresource) resource
+    UseCaseQuestionnairesResponse:
+      description: A collection of [UseCaseQuestionnaireResource](#usecasequestionnaireresource)
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseQuestionnaireResource'
+          description: Content with [UseCaseQuestionnaireResource](#usecasequestionnaireresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseQuestionnaireResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseQuestionnaireUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                timezone:
+                  description: timezone
+                  example: Asia/Seoul
+                  type: string
+                version:
+                  description: quetionnaire version
+                  type: integer
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseQuestionnaireSectionResponse:
+      description: A JSON-API document with a single [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseQuestionnaireSectionResource'
         included:
           description: Included resources
           items:
@@ -1323,6 +1176,153 @@ components:
           type: array
       required:
       - data
+      type: object
+    SectionFilesResponse:
+      description: A page of [SectionFileResponse](#sectionfileresponse) results
+      properties:
+        data:
+          description: Content with [SectionFileResponse](#sectionfileresponse) objects
+          items:
+            $ref: '#/components/schemas/SectionFileResponse'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    UseCaseQuestionnaireSectionEvidenceCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: evidence generated time
+                  example: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                question_id:
+                  description: question id
+                  type: string
+              required:
+              - question_id
+              - data
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseQuestionnaireSectionsResponse:
+      description: A collection of [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource)
+      properties:
+        data:
+          description: Content with [UseCaseQuestionnaireSectionResource](#usecasequestionnairesectionresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseQuestionnaireSectionResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
       type: object
   securitySchemes:
     Bearer:

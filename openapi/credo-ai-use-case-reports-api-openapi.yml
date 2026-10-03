@@ -384,11 +384,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ReportAttestationRequestResponse:
-      description: A JSON-API document with a single [ReportAttestationRequestResource](#reportattestationrequestresource) resource
+    ReportsResponse:
+      description: A collection of [ReportResource](#reportresource)
       properties:
         data:
-          $ref: '#/components/schemas/ReportAttestationRequestResource'
+          description: Content with [ReportResource](#reportresource) objects
+          items:
+            $ref: '#/components/schemas/ReportResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseSnapshotResponse:
+      description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseSnapshotResource'
         included:
           description: Included resources
           items:
@@ -424,6 +435,172 @@ components:
               example: resource-type
               type: string
           type: object
+      type: object
+    ReportResponse:
+      description: A JSON-API document with a single [ReportResource](#reportresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ReportResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ReportCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+                policy_pack_key:
+                  description: ''
+                  type: string
+                policy_pack_version:
+                  description: ''
+                  type: integer
+                report_type:
+                  description: ''
+                  type: string
+                template_id:
+                  description: ''
+                  type: string
+                template_key:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseSnapshotResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            comments:
+              description: comments
+              example: []
+              type: array
+            controls:
+              description: controls
+              example: []
+              type: array
+            custom_fields:
+              description: custom_fields
+              example: []
+              type: array
+            evidences:
+              description: evidences
+              example: []
+              type: array
+            files:
+              description: files
+              example: []
+              type: array
+            inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            model_links:
+              description: model_links
+              example: []
+              type: array
+            models:
+              description: models
+              example: []
+              type: array
+            policy_packs:
+              description: policy_packs
+              example: []
+              type: array
+            questionnaire_sections:
+              description: questionnaire_sections
+              example: []
+              type: array
+            risk_scenarios:
+              description: risk_scenarios
+              example: []
+              type: array
+            schema_version:
+              description: ''
+              type: string
+            stakeholders:
+              description: stakeholders
+              example: []
+              type: array
+            trigger_actions:
+              description: triggered_actions
+              example: []
+              type: array
+            triggered_actions:
+              description: ''
+              type: string
+            use_case:
+              description: ''
+              type: object
+            use_case_id:
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            vendors:
+              description: vendors
+              example: []
+              type: array
+            workflow_stage:
+              description: ''
+              type: object
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_snapshots
+          type: string
+      type: object
+    ReportAttestationRequestResponse:
+      description: A JSON-API document with a single [ReportAttestationRequestResource](#reportattestationrequestresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ReportAttestationRequestResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
     ReportAttestationRequestResource:
       description: ''
@@ -523,258 +700,6 @@ components:
           description: The JSON-API resource type
           example: report_attestation_requests
           type: string
-      type: object
-    ReportCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: ''
-                  type: string
-                name:
-                  description: ''
-                  type: string
-                policy_pack_key:
-                  description: ''
-                  type: string
-                policy_pack_version:
-                  description: ''
-                  type: integer
-                report_type:
-                  description: ''
-                  type: string
-                template_id:
-                  description: ''
-                  type: string
-                template_key:
-                  description: ''
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ReportResponse:
-      description: A JSON-API document with a single [ReportResource](#reportresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ReportResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ReportsResponse:
-      description: A collection of [ReportResource](#reportresource)
-      properties:
-        data:
-          description: Content with [ReportResource](#reportresource) objects
-          items:
-            $ref: '#/components/schemas/ReportResource'
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseSnapshotResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            comments:
-              description: comments
-              example: []
-              type: array
-            controls:
-              description: controls
-              example: []
-              type: array
-            custom_fields:
-              description: custom_fields
-              example: []
-              type: array
-            evidences:
-              description: evidences
-              example: []
-              type: array
-            files:
-              description: files
-              example: []
-              type: array
-            inserted_at:
-              description: insert time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            model_links:
-              description: model_links
-              example: []
-              type: array
-            models:
-              description: models
-              example: []
-              type: array
-            policy_packs:
-              description: policy_packs
-              example: []
-              type: array
-            questionnaire_sections:
-              description: questionnaire_sections
-              example: []
-              type: array
-            risk_scenarios:
-              description: risk_scenarios
-              example: []
-              type: array
-            schema_version:
-              description: ''
-              type: string
-            stakeholders:
-              description: stakeholders
-              example: []
-              type: array
-            trigger_actions:
-              description: triggered_actions
-              example: []
-              type: array
-            triggered_actions:
-              description: ''
-              type: string
-            use_case:
-              description: ''
-              type: object
-            use_case_id:
-              description: use_case_id
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            vendors:
-              description: vendors
-              example: []
-              type: array
-            workflow_stage:
-              description: ''
-              type: object
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_snapshots
-          type: string
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseSnapshotResponse:
-      description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseSnapshotResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ReportAttestationRequestCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_id:
-                  description: ''
-                  type: string
-                user_id:
-                  description: ''
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     ReportResource:
       description: ''
@@ -889,6 +814,81 @@ components:
           description: The JSON-API resource type
           example: use_case_reports
           type: string
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ReportAttestationRequestCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_id:
+                  description: ''
+                  type: string
+                user_id:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
   securitySchemes:
     Bearer:

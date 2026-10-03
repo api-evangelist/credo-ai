@@ -90,6 +90,57 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    TenantInfoUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                display_name:
+                  description: Display Name
+                  example: Credo AI
+                  type: string
+                help_url:
+                  description: Help URL
+                  example: https://help.acme.com/help/me
+                  type: string
+                logo_url:
+                  description: Logo URL
+                  example: https://assets.credo.ai/foo.png
+                  type: string
+                scim_token_enabled:
+                  description: SCIM Token Enabled
+                  example: true
+                  type: boolean
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EvidenceTypeResponse:
+      description: A JSON-API document with a single [EvidenceTypeResource](#evidencetyperesource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceTypeResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     TenantInfoResource:
       description: ''
       properties:
@@ -136,26 +187,6 @@ components:
           example: tenant_infos
           type: string
       type: object
-    EvidenceTypeResponse:
-      description: A JSON-API document with a single [EvidenceTypeResource](#evidencetyperesource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EvidenceTypeResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
     AuthError:
       properties:
         errors:
@@ -174,6 +205,26 @@ components:
             type: object
           type: array
       type: object
+    TenantInfoResponse:
+      description: A JSON-API document with a single [TenantInfoResource](#tenantinforesource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TenantInfoResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     ForbiddenError:
       properties:
         errors:
@@ -191,37 +242,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    TenantInfoUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                display_name:
-                  description: Display Name
-                  example: Credo AI
-                  type: string
-                help_url:
-                  description: Help URL
-                  example: https://help.acme.com/help/me
-                  type: string
-                logo_url:
-                  description: Logo URL
-                  example: https://assets.credo.ai/foo.png
-                  type: string
-                scim_token_enabled:
-                  description: SCIM Token Enabled
-                  example: true
-                  type: boolean
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
       type: object
     EvidenceTypeResource:
       description: ''
@@ -259,26 +279,6 @@ components:
           description: The JSON-API resource type
           example: evidence_types
           type: string
-      type: object
-    TenantInfoResponse:
-      description: A JSON-API document with a single [TenantInfoResource](#tenantinforesource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TenantInfoResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

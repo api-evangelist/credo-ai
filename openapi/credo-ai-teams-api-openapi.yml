@@ -293,55 +293,56 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    TeamResource:
-      description: ''
+    TeamMembersRemoveRequest:
+      description: team mebers to delete
       properties:
-        attributes:
+        data:
+          items:
+            $ref: '#/components/schemas/TeamMembersRemoveResource'
+          type: array
+      type: object
+    TeamResponse:
+      description: A JSON-API document with a single [TeamResource](#teamresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TeamResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TeamsResponse:
+      description: A page of [TeamResource](#teamresource) results
+      properties:
+        data:
+          description: Content with [TeamResource](#teamresource) objects
+          items:
+            $ref: '#/components/schemas/TeamResource'
+          type: array
+        meta:
           properties:
-            description:
-              description: ''
+            after:
+              description: after cursor for the next page resources
               type: string
-            name:
-              description: ''
+            before:
+              description: before cursor for the previous page resources
               type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            members:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related members resource id
-                      type: string
-                    type:
-                      description: Type of related members resource
-                      type: string
-                  type: object
-              type: object
-            memberships:
-              properties:
-                data:
-                  items:
-                    properties:
-                      id:
-                        description: Related memberships resource id
-                        type: string
-                      type:
-                        description: Type of related memberships resource
-                        type: string
-                    type: object
-                  type: array
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: teams
-          type: string
+      required:
+      - data
       type: object
     TeamCreateRequest:
       description: ''
@@ -399,7 +400,96 @@ components:
             $ref: '#/components/schemas/TeamMembersUpsertResource'
           type: array
       type: object
-    ForbiddenError:
+    TeamMembersRemoveResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
+      type: object
+    TeamResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            members:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related members resource id
+                      type: string
+                    type:
+                      description: Type of related members resource
+                      type: string
+                  type: object
+              type: object
+            memberships:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related memberships resource id
+                        type: string
+                      type:
+                        description: Type of related memberships resource
+                        type: string
+                    type: object
+                  type: array
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: teams
+          type: string
+      type: object
+    TeamMembersUpsertResource:
+      description: Upsert TeamMembership
+      example:
+        id: user_id
+        role: owner
+        type: users
+      properties:
+        id:
+          description: member id
+          type: string
+        role:
+          description: member type
+          enum:
+          - owner
+          - member
+          type: string
+        type:
+          description: users
+          type: string
+      required:
+      - id
+      title: Upsert TeamMembership
+      type: object
+    NotFoundError:
       properties:
         errors:
           description: Errors
@@ -435,46 +525,7 @@ components:
             type: object
           type: array
       type: object
-    TeamsResponse:
-      description: A page of [TeamResource](#teamresource) results
-      properties:
-        data:
-          description: Content with [TeamResource](#teamresource) objects
-          items:
-            $ref: '#/components/schemas/TeamResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    TeamMembersRemoveResource:
-      description: Upsert TeamMembership
-      example:
-        id: user_id
-        type: users
-      properties:
-        id:
-          description: member id
-          type: string
-        type:
-          description: users
-          type: string
-      required:
-      - id
-      title: Upsert TeamMembership
-      type: object
-    NotFoundError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -490,57 +541,6 @@ components:
                 description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
                 type: string
             type: object
-          type: array
-      type: object
-    TeamMembersUpsertResource:
-      description: Upsert TeamMembership
-      example:
-        id: user_id
-        role: owner
-        type: users
-      properties:
-        id:
-          description: member id
-          type: string
-        role:
-          description: member type
-          enum:
-          - owner
-          - member
-          type: string
-        type:
-          description: users
-          type: string
-      required:
-      - id
-      title: Upsert TeamMembership
-      type: object
-    TeamResponse:
-      description: A JSON-API document with a single [TeamResource](#teamresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TeamResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    TeamMembersRemoveRequest:
-      description: team mebers to delete
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/TeamMembersRemoveResource'
           type: array
       type: object
   securitySchemes:

@@ -405,6 +405,81 @@ paths:
       - Shadow AI
 components:
   schemas:
+    AIEventCreateRequest:
+      description: Request schema for creating an AI event
+      properties:
+        data:
+          description: AI event data
+          properties:
+            attributes:
+              description: AI event attributes
+              properties:
+                action:
+                  description: Action that was performed
+                  type:
+                  - string
+                  - 'null'
+                app_name:
+                  description: Name of the application where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                category:
+                  description: Category classification of the event
+                  type:
+                  - string
+                  - 'null'
+                department:
+                  description: Department of the user
+                  type:
+                  - string
+                  - 'null'
+                device_hostname:
+                  description: Hostname of the device where the event occurred
+                  type:
+                  - string
+                  - 'null'
+                referrer_url:
+                  description: Referrer URL for the event
+                  type:
+                  - string
+                  - 'null'
+                risk_score:
+                  description: Risk score for the event (0-100)
+                  maximum: 100
+                  minimum: 0
+                  type:
+                  - integer
+                  - 'null'
+                timestamp:
+                  description: Timestamp of the AI event in ISO-8601 format
+                  format: date-time
+                  type: string
+                url:
+                  description: URL associated with the event
+                  type:
+                  - string
+                  - 'null'
+                user_email:
+                  description: Email address of the user associated with the event
+                  type:
+                  - string
+                  - 'null'
+              required:
+              - timestamp
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: ai_event
+              type: string
+          required:
+          - type
+          - attributes
+          type: object
+      required:
+      - data
+      title: AIEventCreateRequest
+      type: object
     AIEventResponse:
       description: Response containing a single AI event
       properties:
@@ -690,181 +765,6 @@ components:
       - data
       title: AIToolResponse
       type: object
-    AIToolsResponse:
-      description: Response containing a collection of AI tools
-      properties:
-        data:
-          description: Array of AI tool resources
-          items:
-            description: An AI tool in the system
-            properties:
-              attributes:
-                description: AI tool attributes
-                properties:
-                  inserted_at:
-                    description: Creation timestamp
-                    format: date-time
-                    type: string
-                  name:
-                    description: Name of the AI tool
-                    type: string
-                  updated_at:
-                    description: Last update timestamp
-                    format: date-time
-                    type: string
-                  use_case_id:
-                    description: ID of the associated use case
-                    type:
-                    - string
-                    - 'null'
-                required:
-                - name
-                - inserted_at
-                - updated_at
-                type: object
-              id:
-                description: Unique identifier for the AI tool
-                type: string
-              type:
-                description: Resource type identifier
-                example: ai_tool
-                type: string
-            required:
-            - id
-            - type
-            - attributes
-            title: AITool
-            type: object
-          type: array
-        included:
-          description: Included related resources when the 'include' parameter is used
-          items:
-            properties:
-              attributes:
-                description: The JSON-API resource attributes
-                type: object
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type:
-          - array
-          - 'null'
-      required:
-      - data
-      title: AIToolsResponse
-      type: object
-    Error:
-      description: Error response schema
-      example:
-        errors:
-        - code: 2217
-          detail: This model cannot be deleted because it is part of an Use Case.
-          title: Model in use
-      properties:
-        errors:
-          items:
-            properties:
-              code:
-                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
-                example: 2217
-                type: integer
-              detail:
-                description: Detailed error message
-                example: This model cannot be deleted because it is part of an Use Case.
-                type: string
-              title:
-                description: Short error title
-                example: Model in use
-                type: string
-            required:
-            - code
-            - title
-            - detail
-            type: object
-          type: array
-      required:
-      - errors
-      title: Error
-      type: object
-    AIEventCreateRequest:
-      description: Request schema for creating an AI event
-      properties:
-        data:
-          description: AI event data
-          properties:
-            attributes:
-              description: AI event attributes
-              properties:
-                action:
-                  description: Action that was performed
-                  type:
-                  - string
-                  - 'null'
-                app_name:
-                  description: Name of the application where the event occurred
-                  type:
-                  - string
-                  - 'null'
-                category:
-                  description: Category classification of the event
-                  type:
-                  - string
-                  - 'null'
-                department:
-                  description: Department of the user
-                  type:
-                  - string
-                  - 'null'
-                device_hostname:
-                  description: Hostname of the device where the event occurred
-                  type:
-                  - string
-                  - 'null'
-                referrer_url:
-                  description: Referrer URL for the event
-                  type:
-                  - string
-                  - 'null'
-                risk_score:
-                  description: Risk score for the event (0-100)
-                  maximum: 100
-                  minimum: 0
-                  type:
-                  - integer
-                  - 'null'
-                timestamp:
-                  description: Timestamp of the AI event in ISO-8601 format
-                  format: date-time
-                  type: string
-                url:
-                  description: URL associated with the event
-                  type:
-                  - string
-                  - 'null'
-                user_email:
-                  description: Email address of the user associated with the event
-                  type:
-                  - string
-                  - 'null'
-              required:
-              - timestamp
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: ai_event
-              type: string
-          required:
-          - type
-          - attributes
-          type: object
-      required:
-      - data
-      title: AIEventCreateRequest
-      type: object
     AIEventsResponse:
       description: Response containing a collection of AI events
       properties:
@@ -974,6 +874,106 @@ components:
       required:
       - data
       title: AIEventsResponse
+      type: object
+    Error:
+      description: Error response schema
+      example:
+        errors:
+        - code: 2217
+          detail: This model cannot be deleted because it is part of an Use Case.
+          title: Model in use
+      properties:
+        errors:
+          items:
+            properties:
+              code:
+                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
+                example: 2217
+                type: integer
+              detail:
+                description: Detailed error message
+                example: This model cannot be deleted because it is part of an Use Case.
+                type: string
+              title:
+                description: Short error title
+                example: Model in use
+                type: string
+            required:
+            - code
+            - title
+            - detail
+            type: object
+          type: array
+      required:
+      - errors
+      title: Error
+      type: object
+    AIToolsResponse:
+      description: Response containing a collection of AI tools
+      properties:
+        data:
+          description: Array of AI tool resources
+          items:
+            description: An AI tool in the system
+            properties:
+              attributes:
+                description: AI tool attributes
+                properties:
+                  inserted_at:
+                    description: Creation timestamp
+                    format: date-time
+                    type: string
+                  name:
+                    description: Name of the AI tool
+                    type: string
+                  updated_at:
+                    description: Last update timestamp
+                    format: date-time
+                    type: string
+                  use_case_id:
+                    description: ID of the associated use case
+                    type:
+                    - string
+                    - 'null'
+                required:
+                - name
+                - inserted_at
+                - updated_at
+                type: object
+              id:
+                description: Unique identifier for the AI tool
+                type: string
+              type:
+                description: Resource type identifier
+                example: ai_tool
+                type: string
+            required:
+            - id
+            - type
+            - attributes
+            title: AITool
+            type: object
+          type: array
+        included:
+          description: Included related resources when the 'include' parameter is used
+          items:
+            properties:
+              attributes:
+                description: The JSON-API resource attributes
+                type: object
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type:
+          - array
+          - 'null'
+      required:
+      - data
+      title: AIToolsResponse
       type: object
   securitySchemes:
     BearerAuth:

@@ -234,44 +234,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EntityRiskScenarioCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                description:
-                  description: risk scenario description
-                  type: string
-                inherent_risk_impact:
-                  description: inherent risk impact(1-5)
-                  example: 1
-                  type: integer
-                inherent_risk_likelihood:
-                  description: inherent risk likelihood(1-5)
-                  example: 1
-                  type: integer
-                name:
-                  description: risk scenario name
-                  type: string
-                risk_scenario_id:
-                  description: risk scenario id
-                  example: 8zA2nPjVSenyvcc429LPDT
-                  type: string
-                risk_type_ids:
-                  description: risk type ids
-                  example:
-                  - NkBkDB9i64w53eVR6ssfzj
-                  type: array
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     EntityRiskScenarioResource:
       description: ''
       properties:
@@ -353,7 +315,27 @@ components:
           example: entity_risk_scenarios
           type: string
       type: object
-    AuthError:
+    EntityRiskScenarioResponse:
+      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityRiskScenarioResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    NotFoundError:
       properties:
         errors:
           description: Errors
@@ -382,7 +364,45 @@ components:
       required:
       - data
       type: object
-    ForbiddenError:
+    EntityRiskScenarioCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: risk scenario description
+                  type: string
+                inherent_risk_impact:
+                  description: inherent risk impact(1-5)
+                  example: 1
+                  type: integer
+                inherent_risk_likelihood:
+                  description: inherent risk likelihood(1-5)
+                  example: 1
+                  type: integer
+                name:
+                  description: risk scenario name
+                  type: string
+                risk_scenario_id:
+                  description: risk scenario id
+                  example: 8zA2nPjVSenyvcc429LPDT
+                  type: string
+                risk_type_ids:
+                  description: risk type ids
+                  example:
+                  - NkBkDB9i64w53eVR6ssfzj
+                  type: array
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -446,27 +466,7 @@ components:
               type: string
           type: object
       type: object
-    EntityRiskScenarioResponse:
-      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityRiskScenarioResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
