@@ -53,7 +53,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -71,7 +71,7 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    AuthError:
       properties:
         errors:
           description: Errors

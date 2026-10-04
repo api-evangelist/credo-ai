@@ -51,53 +51,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EntityControlsAssignmentResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            control_ids:
-              description: string
-              type: string
-            team_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: control_assignments
-          type: string
-      type: object
-    EntityControlsAssignmentRequest:
-      description: A JSON-API document with a single [EntityControlsAssignmentResource](#entitycontrolsassignmentresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityControlsAssignmentResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
     TasksResponse:
       description: A collection of [TaskResource](#taskresource)
       properties:
@@ -286,7 +239,7 @@ components:
           example: tasks
           type: string
       type: object
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -304,7 +257,54 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    EntityControlsAssignmentRequest:
+      description: A JSON-API document with a single [EntityControlsAssignmentResource](#entitycontrolsassignmentresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlsAssignmentResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlsAssignmentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_ids:
+              description: string
+              type: string
+            team_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: control_assignments
+          type: string
+      type: object
+    AuthError:
       properties:
         errors:
           description: Errors

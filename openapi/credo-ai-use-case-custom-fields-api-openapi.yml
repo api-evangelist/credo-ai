@@ -240,6 +240,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     UseCaseCustomFieldResponse:
       description: A JSON-API document with a single [UseCaseCustomFieldResource](#usecasecustomfieldresource) resource
       properties:
@@ -259,6 +277,29 @@ components:
           type: array
       required:
       - data
+      type: object
+    UseCaseCustomFieldUpdateOneRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                custom_field_id:
+                  description: custom_field_id
+                  type: string
+                value:
+                  description: value
+                  type: any
+              required:
+              - custom_field_id
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     UseCaseCustomFieldCreateRequest:
       description: ''
@@ -284,6 +325,35 @@ components:
               type: string
           type: object
       type: object
+    UseCaseCustomFieldsResponse:
+      description: A collection of [UseCaseCustomFieldResource](#usecasecustomfieldresource)
+      properties:
+        data:
+          description: Content with [UseCaseCustomFieldResource](#usecasecustomfieldresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseCustomFieldResource'
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     UseCaseCustomFieldUpdateRequest:
       description: ''
       properties:
@@ -304,66 +374,7 @@ components:
               type: string
           type: object
       type: object
-    UseCaseCustomFieldUpdateOneRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                custom_field_id:
-                  description: custom_field_id
-                  type: string
-                value:
-                  description: value
-                  type: any
-              required:
-              - custom_field_id
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
     AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -425,17 +436,6 @@ components:
           description: The JSON-API resource type
           example: use_case_custom_fields
           type: string
-      type: object
-    UseCaseCustomFieldsResponse:
-      description: A collection of [UseCaseCustomFieldResource](#usecasecustomfieldresource)
-      properties:
-        data:
-          description: Content with [UseCaseCustomFieldResource](#usecasecustomfieldresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseCustomFieldResource'
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

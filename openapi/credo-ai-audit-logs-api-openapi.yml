@@ -379,6 +379,70 @@ paths:
       - Audit Logs
 components:
   schemas:
+    Audit_Log_Filter_Options_Response:
+      description: 'Enumerates the valid values for audit log filters. Use this to populate
+
+        filter dropdowns (event name, resource type) on the client. The values
+
+        mirror what `GET /audit_logs?filter[name]=...` and
+
+        `filter[resource_type]=...` accept.
+
+
+        `resource_types` applies to both the `resource_type` and `sub_object_type`
+
+        filters — they draw from the same enum server-side.
+
+        '
+      properties:
+        events:
+          description: All valid audit log event names (snake_case).
+          items:
+            type: string
+          type: array
+        resource_types:
+          description: All valid resource type names (also valid for sub_object_type).
+          items:
+            type: string
+          type: array
+      required:
+      - events
+      - resource_types
+      title: Audit Log Filter Options Response
+      type: object
+    Error:
+      description: Error response schema
+      example:
+        errors:
+        - code: 2217
+          detail: This model cannot be deleted because it is part of an Use Case.
+          title: Model in use
+      properties:
+        errors:
+          items:
+            properties:
+              code:
+                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
+                example: 2217
+                type: integer
+              detail:
+                description: Detailed error message
+                example: This model cannot be deleted because it is part of an Use Case.
+                type: string
+              title:
+                description: Short error title
+                example: Model in use
+                type: string
+            required:
+            - code
+            - title
+            - detail
+            type: object
+          type: array
+      required:
+      - errors
+      title: Error
+      type: object
     Audit_Logs_Response:
       description: Response containing a collection of audit logs
       properties:
@@ -688,70 +752,6 @@ components:
       required:
       - data
       title: Audit Log Response
-      type: object
-    Error:
-      description: Error response schema
-      example:
-        errors:
-        - code: 2217
-          detail: This model cannot be deleted because it is part of an Use Case.
-          title: Model in use
-      properties:
-        errors:
-          items:
-            properties:
-              code:
-                description: 'Domain-specific error code. Ranges: 404 (not found), 1000-1999 (auth), 2000-2999 (validation), 9000-9999 (internal)'
-                example: 2217
-                type: integer
-              detail:
-                description: Detailed error message
-                example: This model cannot be deleted because it is part of an Use Case.
-                type: string
-              title:
-                description: Short error title
-                example: Model in use
-                type: string
-            required:
-            - code
-            - title
-            - detail
-            type: object
-          type: array
-      required:
-      - errors
-      title: Error
-      type: object
-    Audit_Log_Filter_Options_Response:
-      description: 'Enumerates the valid values for audit log filters. Use this to populate
-
-        filter dropdowns (event name, resource type) on the client. The values
-
-        mirror what `GET /audit_logs?filter[name]=...` and
-
-        `filter[resource_type]=...` accept.
-
-
-        `resource_types` applies to both the `resource_type` and `sub_object_type`
-
-        filters — they draw from the same enum server-side.
-
-        '
-      properties:
-        events:
-          description: All valid audit log event names (snake_case).
-          items:
-            type: string
-          type: array
-        resource_types:
-          description: All valid resource type names (also valid for sub_object_type).
-          items:
-            type: string
-          type: array
-      required:
-      - events
-      - resource_types
-      title: Audit Log Filter Options Response
       type: object
   securitySchemes:
     BearerAuth:

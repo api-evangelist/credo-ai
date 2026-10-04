@@ -400,6 +400,150 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    TriggerResponse:
+      description: A JSON-API document with a single [TriggerResource](#triggerresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TriggerResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ActionResponse:
+      description: A JSON-API document with a single [ActionResource](#actionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/ActionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TriggersResponse:
+      description: A page of [TriggerResource](#triggerresource) results
+      properties:
+        data:
+          description: Content with [TriggerResource](#triggerresource) objects
+          items:
+            $ref: '#/components/schemas/TriggerResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TriggerCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: ''
+                  type: object
+                description:
+                  description: ''
+                  type: string
+                type:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    ActionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            data:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
+            rank:
+              description: ''
+              type: string
+            show_visual_alert:
+              description: ''
+              type: string
+            target_group_key:
+              description: ''
+              type: string
+            trigger_id:
+              description: ''
+              type: string
+            type:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: action
+          type: string
+      type: object
     ActionsResponse:
       description: A page of [ActionResource](#actionresource) results
       properties:
@@ -451,55 +595,32 @@ components:
               type: string
           type: object
       type: object
-    ActionResponse:
-      description: A JSON-API document with a single [ActionResource](#actionresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ActionResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    ActionCreateRequest:
+    TriggerResource:
       description: ''
       properties:
-        data:
-          description: ''
+        attributes:
           properties:
-            attributes:
-              properties:
-                data:
-                  description: ''
-                  type: object
-                description:
-                  description: ''
-                  type: string
-                show_visual_alert:
-                  description: ''
-                  type: boolean
-                trigger_id:
-                  description: ''
-                  type: string
-                type:
-                  description: ''
-                  type: string
-              type: object
+            data:
+              description: ''
+              type: string
+            description:
+              description: ''
+              type: string
             type:
-              description: The JSON-API resource type
-              example: resource-type
+              description: ''
               type: string
           type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: trigger
+          type: string
       type: object
     ActionUpdateRequest:
       description: ''
@@ -535,133 +656,6 @@ components:
               type: string
           type: object
       type: object
-    TriggersResponse:
-      description: A page of [TriggerResource](#triggerresource) results
-      properties:
-        data:
-          description: Content with [TriggerResource](#triggerresource) objects
-          items:
-            $ref: '#/components/schemas/TriggerResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    TriggerResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            data:
-              description: ''
-              type: string
-            description:
-              description: ''
-              type: string
-            type:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: trigger
-          type: string
-      type: object
-    TriggerResponse:
-      description: A JSON-API document with a single [TriggerResource](#triggerresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/TriggerResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ActionResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            data:
-              description: ''
-              type: string
-            description:
-              description: ''
-              type: string
-            rank:
-              description: ''
-              type: string
-            show_visual_alert:
-              description: ''
-              type: string
-            target_group_key:
-              description: ''
-              type: string
-            trigger_id:
-              description: ''
-              type: string
-            type:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: action
-          type: string
-      type: object
     AuthError:
       properties:
         errors:
@@ -680,7 +674,7 @@ components:
             type: object
           type: array
       type: object
-    TriggerCreateRequest:
+    ActionCreateRequest:
       description: ''
       properties:
         data:
@@ -692,6 +686,12 @@ components:
                   description: ''
                   type: object
                 description:
+                  description: ''
+                  type: string
+                show_visual_alert:
+                  description: ''
+                  type: boolean
+                trigger_id:
                   description: ''
                   type: string
                 type:

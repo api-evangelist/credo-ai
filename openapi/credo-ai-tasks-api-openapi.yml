@@ -297,6 +297,24 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     UseCaseControlTaskCreateRequest:
       description: ''
       properties:
@@ -324,72 +342,23 @@ components:
               type: string
           type: object
       type: object
-    TaskUpdateRequest:
-      description: ''
+    NotFoundError:
       properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                status:
-                  description: status
-                  enum:
-                  - todo
-                  - in_progress
-                  - done
-                  type: string
-                sub_status:
-                  description: sub status
-                  enum:
-                  - none
-                  - change_request
-                  - approve
-                  - reject
-                  - cancel
-                  - ready_for_validation
-                  type: string
-                team_ids:
-                  description: team ids
-                  example:
-                  - 1
-                  - 2
-                  type: array
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
-                  type: string
-                user_ids:
-                  description: user ids
-                  example:
-                  - 1
-                  - 2
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    TasksResponse:
-      description: A collection of [TaskResource](#taskresource)
-      properties:
-        data:
-          description: Content with [TaskResource](#taskresource) objects
+        errors:
+          description: Errors
           items:
-            $ref: '#/components/schemas/TaskResource'
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
           type: array
-      required:
-      - data
       type: object
     TaskResource:
       description: ''
@@ -568,68 +537,13 @@ components:
           example: tasks
           type: string
       type: object
-    TaskBulkDeleteRequest:
-      type: object
-      required:
-      - ids
-      properties:
-        ids:
-          type: array
-          description: Array of task IDs to delete
-          items:
-            type: string
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+    TasksResponse:
+      description: A collection of [TaskResource](#taskresource)
       properties:
         data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
+          description: Content with [TaskResource](#taskresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/TaskResource'
           type: array
       required:
       - data
@@ -651,6 +565,92 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    TaskBulkDeleteRequest:
+      type: object
+      required:
+      - ids
+      properties:
+        ids:
+          type: array
+          description: Array of task IDs to delete
+          items:
+            type: string
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    TaskUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                status:
+                  description: status
+                  enum:
+                  - todo
+                  - in_progress
+                  - done
+                  type: string
+                sub_status:
+                  description: sub status
+                  enum:
+                  - none
+                  - change_request
+                  - approve
+                  - reject
+                  - cancel
+                  - ready_for_validation
+                  type: string
+                team_ids:
+                  description: team ids
+                  example:
+                  - 1
+                  - 2
+                  type: array
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+                user_ids:
+                  description: user ids
+                  example:
+                  - 1
+                  - 2
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
   securitySchemes:
     Bearer:
