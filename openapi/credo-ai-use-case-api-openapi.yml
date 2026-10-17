@@ -59,7 +59,29 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ForbiddenError:
+    ModelLinkUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                model_version:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
       properties:
         errors:
           description: Errors
@@ -95,29 +117,7 @@ components:
             type: object
           type: array
       type: object
-    ModelLinkUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                model_version:
-                  description: ''
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    NotFoundError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
