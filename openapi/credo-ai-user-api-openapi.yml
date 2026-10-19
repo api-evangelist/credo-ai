@@ -330,25 +330,27 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MeResponse:
-      description: A JSON-API document with a single [MeResource](#meresource) resource
+    ApiTokenCreateRequest:
+      description: ''
       properties:
         data:
-          $ref: '#/components/schemas/MeResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
+          description: ''
+          properties:
+            attributes:
+              properties:
+                name:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     ProfileUpdateRequest:
       description: ''
@@ -399,6 +401,26 @@ components:
               type: string
           type: object
       type: object
+    UserResponse:
+      description: A JSON-API document with a single [UserResource](#userresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UserResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     NotificationPreferencesRequest:
       description: ''
       properties:
@@ -423,6 +445,18 @@ components:
               example: resource-type
               type: string
           type: object
+      type: object
+    RelationshipResource:
+      description: Represents a relationship between resources
+      properties:
+        id:
+          description: Unique identifier for the resource
+          type: string
+        type:
+          description: Type of the resource
+          type: string
+      required:
+      - id
       type: object
     ApiTokenCreatedResource:
       description: ''
@@ -454,13 +488,203 @@ components:
           example: api_tokens
           type: string
       type: object
-    UseCasesResponse:
-      description: A page of [UseCaseResource](#usecaseresource) results
+    TeamResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            members:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related members resource id
+                      type: string
+                    type:
+                      description: Type of related members resource
+                      type: string
+                  type: object
+              type: object
+            memberships:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related memberships resource id
+                        type: string
+                      type:
+                        description: Type of related memberships resource
+                        type: string
+                    type: object
+                  type: array
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: teams
+          type: string
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UserResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            auth_methods_available:
+              description: ''
+              type: string
+            configurable_notification_types:
+              description: List of configurable notification types
+              type: array
+            deleted_at:
+              description: ''
+              type: string
+            email:
+              description: ''
+              type: string
+            family_name:
+              description: ''
+              type: string
+            given_name:
+              description: ''
+              type: string
+            invitation_accepted_at:
+              description: ''
+              type: string
+            invitation_sent_at:
+              description: ''
+              type: string
+            is_initialized:
+              description: ''
+              type: boolean
+            is_invitation_expired:
+              description: ''
+              type: string
+            is_local:
+              description: ''
+              type: boolean
+            job:
+              description: ''
+              type: string
+            locale:
+              description: ''
+              type: string
+            nickname:
+              description: ''
+              type: string
+            picture:
+              description: ''
+              type: string
+            role:
+              description: ''
+              type: string
+            sub:
+              description: ''
+              type: string
+            team:
+              description: ''
+              type: string
+            title:
+              description: ''
+              type: string
+            ux_config:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            setting:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related setting resource id
+                      type: string
+                    type:
+                      description: Type of related setting resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: users
+          type: string
+      type: object
+    ApiTokensResponse:
+      description: A collection of [ApiTokenResource](#apitokenresource)
       properties:
         data:
-          description: Content with [UseCaseResource](#usecaseresource) objects
+          description: Content with [ApiTokenResource](#apitokenresource) objects
           items:
-            $ref: '#/components/schemas/UseCaseResource'
+            $ref: '#/components/schemas/ApiTokenResource'
+          type: array
+      required:
+      - data
+      type: object
+    UserSettingResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            notification_preferences:
+              description: ''
+              type: object
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: user_settings
+          type: string
+      type: object
+    TeamsResponse:
+      description: A page of [TeamResource](#teamresource) results
+      properties:
+        data:
+          description: Content with [TeamResource](#teamresource) objects
+          items:
+            $ref: '#/components/schemas/TeamResource'
           type: array
         meta:
           properties:
@@ -495,32 +719,39 @@ components:
             type: object
           type: array
       type: object
-    ApiTokenResource:
-      description: ''
+    TasksResponse:
+      description: A collection of [TaskResource](#taskresource)
       properties:
-        attributes:
+        data:
+          description: Content with [TaskResource](#taskresource) objects
+          items:
+            $ref: '#/components/schemas/TaskResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCasesResponse:
+      description: A page of [UseCaseResource](#usecaseresource) results
+      properties:
+        data:
+          description: Content with [UseCaseResource](#usecaseresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseResource'
+          type: array
+        meta:
           properties:
-            inserted_at:
-              description: ''
+            after:
+              description: after cursor for the next page resources
               type: string
-            last_used_at:
-              description: ''
+            before:
+              description: before cursor for the previous page resources
               type: string
-            name:
-              description: ''
-              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: api_tokens
-          type: string
+      required:
+      - data
       type: object
     TaskResource:
       description: ''
@@ -536,7 +767,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:
@@ -699,348 +936,6 @@ components:
           example: tasks
           type: string
       type: object
-    MeUpdateFavoriteUseCasesRequest:
-      description: Request payload for updating favorite use cases
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/RelationshipResource'
-          type: array
-      type: object
-    MeResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            email:
-              description: ''
-              type: string
-            family_name:
-              description: ''
-              type: string
-            given_name:
-              description: ''
-              type: string
-            is_initialized:
-              description: ''
-              type: boolean
-            is_local:
-              description: ''
-              type: boolean
-            job:
-              description: ''
-              type: string
-            locale:
-              description: ''
-              type: string
-            nickname:
-              description: ''
-              type: string
-            picture:
-              description: ''
-              type: string
-            role:
-              description: ''
-              type: string
-            sub:
-              description: ''
-              type: array
-            team:
-              description: ''
-              type: string
-            title:
-              description: ''
-              type: string
-            ux_config:
-              description: ''
-              type: map
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            favorite_use_cases:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related favorite_use_cases resource id
-                      type: string
-                    type:
-                      description: Type of related favorite_use_cases resource
-                      type: string
-                  type: object
-              type: object
-            recently_visited_use_cases:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related recently_visited_use_cases resource id
-                      type: string
-                    type:
-                      description: Type of related recently_visited_use_cases resource
-                      type: string
-                  type: object
-              type: object
-            setting:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related setting resource id
-                      type: string
-                    type:
-                      description: Type of related setting resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: me
-          type: string
-      type: object
-    UserSettingResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            notification_preferences:
-              description: ''
-              type: object
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: user_settings
-          type: string
-      type: object
-    RelationshipResource:
-      description: Represents a relationship between resources
-      properties:
-        id:
-          description: Unique identifier for the resource
-          type: string
-        type:
-          description: Type of the resource
-          type: string
-      required:
-      - id
-      type: object
-    ApiTokensResponse:
-      description: A collection of [ApiTokenResource](#apitokenresource)
-      properties:
-        data:
-          description: Content with [ApiTokenResource](#apitokenresource) objects
-          items:
-            $ref: '#/components/schemas/ApiTokenResource'
-          type: array
-      required:
-      - data
-      type: object
-    TasksResponse:
-      description: A collection of [TaskResource](#taskresource)
-      properties:
-        data:
-          description: Content with [TaskResource](#taskresource) objects
-          items:
-            $ref: '#/components/schemas/TaskResource'
-          type: array
-      required:
-      - data
-      type: object
-    TeamResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            description:
-              description: ''
-              type: string
-            name:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            members:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related members resource id
-                      type: string
-                    type:
-                      description: Type of related members resource
-                      type: string
-                  type: object
-              type: object
-            memberships:
-              properties:
-                data:
-                  items:
-                    properties:
-                      id:
-                        description: Related memberships resource id
-                        type: string
-                      type:
-                        description: Type of related memberships resource
-                        type: string
-                    type: object
-                  type: array
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: teams
-          type: string
-      type: object
-    UserResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            auth_methods_available:
-              description: ''
-              type: string
-            configurable_notification_types:
-              description: List of configurable notification types
-              type: array
-            deleted_at:
-              description: ''
-              type: string
-            email:
-              description: ''
-              type: string
-            family_name:
-              description: ''
-              type: string
-            given_name:
-              description: ''
-              type: string
-            invitation_accepted_at:
-              description: ''
-              type: string
-            invitation_sent_at:
-              description: ''
-              type: string
-            is_initialized:
-              description: ''
-              type: boolean
-            is_invitation_expired:
-              description: ''
-              type: string
-            is_local:
-              description: ''
-              type: boolean
-            job:
-              description: ''
-              type: string
-            locale:
-              description: ''
-              type: string
-            nickname:
-              description: ''
-              type: string
-            picture:
-              description: ''
-              type: string
-            role:
-              description: ''
-              type: string
-            sub:
-              description: ''
-              type: string
-            team:
-              description: ''
-              type: string
-            title:
-              description: ''
-              type: string
-            ux_config:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            setting:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related setting resource id
-                      type: string
-                    type:
-                      description: Type of related setting resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: users
-          type: string
-      type: object
-    ApiTokenCreatedResponse:
-      description: A JSON-API document with a single [ApiTokenCreatedResource](#apitokencreatedresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/ApiTokenCreatedResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    TeamsResponse:
-      description: A page of [TeamResource](#teamresource) results
-      properties:
-        data:
-          description: Content with [TeamResource](#teamresource) objects
-          items:
-            $ref: '#/components/schemas/TeamResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
     UserSettingResponse:
       description: A JSON-API document with a single [UserSettingResource](#usersettingresource) resource
       properties:
@@ -1061,22 +956,12 @@ components:
       required:
       - data
       type: object
-    NotFoundError:
+    MeUpdateFavoriteUseCasesRequest:
+      description: Request payload for updating favorite use cases
       properties:
-        errors:
-          description: Errors
+        data:
           items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
+            $ref: '#/components/schemas/RelationshipResource'
           type: array
       type: object
     UseCaseResource:
@@ -1138,6 +1023,9 @@ components:
             source:
               description: ''
               type: string
+            in_scheduled_review_at:
+              description: ''
+              type: string
             control_refs:
               description: ''
               type: string
@@ -1189,6 +1077,9 @@ components:
             icon:
               description: ''
               type: string
+            trigger_mode:
+              description: ''
+              type: string
             ai_type:
               description: ''
               type: string
@@ -1213,6 +1104,20 @@ components:
                       description: Type of related alerts resource
                       type: string
                   type: object
+              type: object
+            associations:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related associations resource id
+                        type: string
+                      type:
+                        description: Type of related associations resource
+                        type: string
+                    type: object
+                  type: array
               type: object
             creator:
               properties:
@@ -1454,33 +1359,11 @@ components:
           example: use_cases
           type: string
       type: object
-    ApiTokenCreateRequest:
-      description: ''
+    ApiTokenCreatedResponse:
+      description: A JSON-API document with a single [ApiTokenCreatedResource](#apitokencreatedresource) resource
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                name:
-                  description: ''
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UserResponse:
-      description: A JSON-API document with a single [UserResource](#userresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UserResource'
+          $ref: '#/components/schemas/ApiTokenCreatedResource'
         included:
           description: Included resources
           items:
@@ -1495,6 +1378,149 @@ components:
           type: array
       required:
       - data
+      type: object
+    MeResponse:
+      description: A JSON-API document with a single [MeResource](#meresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/MeResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    MeResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            email:
+              description: ''
+              type: string
+            family_name:
+              description: ''
+              type: string
+            given_name:
+              description: ''
+              type: string
+            is_initialized:
+              description: ''
+              type: boolean
+            is_local:
+              description: ''
+              type: boolean
+            job:
+              description: ''
+              type: string
+            locale:
+              description: ''
+              type: string
+            nickname:
+              description: ''
+              type: string
+            picture:
+              description: ''
+              type: string
+            role:
+              description: ''
+              type: string
+            sub:
+              description: ''
+              type: array
+            team:
+              description: ''
+              type: string
+            title:
+              description: ''
+              type: string
+            ux_config:
+              description: ''
+              type: map
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            favorite_use_cases:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related favorite_use_cases resource id
+                      type: string
+                    type:
+                      description: Type of related favorite_use_cases resource
+                      type: string
+                  type: object
+              type: object
+            recently_visited_use_cases:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related recently_visited_use_cases resource id
+                      type: string
+                    type:
+                      description: Type of related recently_visited_use_cases resource
+                      type: string
+                  type: object
+              type: object
+            setting:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related setting resource id
+                      type: string
+                    type:
+                      description: Type of related setting resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: me
+          type: string
+      type: object
+    ApiTokenResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            inserted_at:
+              description: ''
+              type: string
+            last_used_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: api_tokens
+          type: string
       type: object
   securitySchemes:
     Bearer:

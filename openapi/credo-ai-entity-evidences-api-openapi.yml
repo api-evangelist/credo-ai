@@ -7,6 +7,61 @@ servers:
 tags:
 - name: entity_evidences
 paths:
+  /entities/{entity_id}/evidences:
+    get:
+      description: Retrieve a paginated list of the active evidences on the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.EvidenceController.index
+      parameters:
+      - description: type match filter
+        in: query
+        name: filter[type]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      - description: The unique ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EvidencesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity evidence controller index
+      tags:
+      - entity_evidences
+      x-summary-source: derived
   /entities/{entity_id}/evidences/{id}:
     delete:
       description: Deactivate a specific evidence item associated with an entity.
@@ -51,9 +106,176 @@ paths:
       tags:
       - entity_evidences
       x-summary-source: derived
+    get:
+      description: Retrieve detailed information about a specific evidence item on the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.EvidenceController.show
+      parameters:
+      - description: The unique ID of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique ID of the evidence.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EvidenceResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity evidence controller show
+      tags:
+      - entity_evidences
+      x-summary-source: derived
 components:
   schemas:
-    NotFoundError:
+    EvidenceResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            control_key:
+              description: Control key
+              example: FAIR.C1
+              type: string
+            creator:
+              description: Creator
+              example:
+                family_name: John
+                given_name: Doe
+                nickname: doe
+              type: object
+            data:
+              description: value data,
+              example:
+                value: value
+              type: object
+            entity_id:
+              description: ''
+              type: string
+            generated_at:
+              description: Evidence generation time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            hash_key:
+              description: ''
+              type: string
+            inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            label:
+              description: label in the evidence requirement
+              example:
+                key: value
+              type: object
+            metadata:
+              description: metadata
+              example:
+                key: value
+              type: object
+            model_id:
+              description: model_id
+              example: 4pEfRTw2RVVrouMbFH9tuH
+              type: string
+            model_version:
+              description: ''
+              type: string
+            type:
+              description: Evidence type
+              example: text
+              type: string
+            use_case_id:
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            asset_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related asset_links resource id
+                      type: string
+                    type:
+                      description: Type of related asset_links resource
+                      type: string
+                  type: object
+              type: object
+            model:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related model resource id
+                      type: string
+                    type:
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            policy_pack_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related policy_pack_links resource id
+                      type: string
+                    type:
+                      description: Type of related policy_pack_links resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: evidences
+          type: string
+      type: object
+    EvidencesResponse:
+      description: A collection of [EvidenceResource](#evidenceresource)
+      properties:
+        data:
+          description: Content with [EvidenceResource](#evidenceresource) objects
+          items:
+            $ref: '#/components/schemas/EvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -89,7 +311,7 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    NotFoundError:
       properties:
         errors:
           description: Errors
@@ -106,6 +328,26 @@ components:
                 type: string
             type: object
           type: array
+      type: object
+    EvidenceResponse:
+      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
   securitySchemes:
     Bearer:

@@ -13,9 +13,9 @@ paths:
       description: 'Retrieve a list of all review actions associated with a specific use case review.
 
 
-        NOTE: Using this endpoint with review actions of type ''comment'' is DEPRECATED.
+        NOTE: Review actions of type ''comment'' are read-only. Historical comment actions are still
 
-        Please use the comment_threads API endpoints instead for comment functionality:
+        returned here, but new comment functionality lives in the comment_threads API:
 
         GET /use_cases/{use_case_id}/comment_threads'
       operationId: CredoAIWeb.API.V2.UseCase.Review.ActionController.index
@@ -101,9 +101,9 @@ paths:
       description: 'Create a new review action for the specified use case review.
 
 
-        NOTE: Creating review actions of type ''comment'' is DEPRECATED.
+        NOTE: Creating review actions of type ''comment'' is REJECTED with a 422.
 
-        Please use the comment_threads API endpoints instead for comment functionality:
+        Use the comment_threads API endpoints instead for comment functionality:
 
         POST /use_cases/{use_case_id}/comment_threads
 
@@ -481,9 +481,9 @@ paths:
       description: 'Delete a specific review action.
 
 
-        NOTE: Deleting review actions of type ''comment'' is DEPRECATED.
+        NOTE: Deleting review actions of type ''comment'' is REJECTED with a 422.
 
-        Please use the comment_threads API endpoints instead for comment functionality:
+        Use the comment_threads API endpoints instead for comment functionality:
 
         DELETE /use_cases/{use_case_id}/comment_threads/{thread_id}
 
@@ -529,9 +529,9 @@ paths:
       description: 'Update an existing review action.
 
 
-        NOTE: Updating review actions of type ''comment'' is DEPRECATED.
+        NOTE: Updating review actions of type ''comment'' is REJECTED with a 422.
 
-        Please use the comment_threads API endpoints instead for comment functionality:
+        Use the comment_threads API endpoints instead for comment functionality:
 
         PATCH /use_cases/{use_case_id}/comment_threads/{thread_id}
 
@@ -585,89 +585,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UseCaseReviewActionCreateRequest:
-      description: ''
+    UseCaseReviewActionResponse:
+      description: A JSON-API document with a single [UseCaseReviewActionResource](#usecasereviewactionresource) resource
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                comment:
-                  description: comment
-                  example: This is a comment
-                  type: string
-                tags:
-                  description: Tags
-                  example:
-                    controlKey: FAIR.C1
-                  type: object
-                task_id:
-                  description: task id
-                  example: y4AsgRJnHGPn6MZXp4uRYe
-                  type: string
-                type:
-                  description: type
-                  enum:
-                  - change_request
-                  - approve
-                  - reject
-                  - close_review
-                  - comment
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UseCaseReviewsResponse:
-      description: A collection of [UseCaseReviewResource](#usecasereviewresource)
-      properties:
-        data:
-          description: Content with [UseCaseReviewResource](#usecasereviewresource) objects
+          $ref: '#/components/schemas/UseCaseReviewActionResource'
+        included:
+          description: Included resources
           items:
-            $ref: '#/components/schemas/UseCaseReviewResource'
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
           type: array
       required:
       - data
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
       type: object
     UseCaseSnapshotResource:
       description: ''
@@ -759,29 +695,6 @@ components:
           example: use_case_snapshots
           type: string
       type: object
-    UseCaseReviewCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     UseCaseSnapshotResponse:
       description: A JSON-API document with a single [UseCaseSnapshotResource](#usecasesnapshotresource) resource
       properties:
@@ -802,43 +715,136 @@ components:
       required:
       - data
       type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseReviewActionResponse:
-      description: A JSON-API document with a single [UseCaseReviewActionResource](#usecasereviewactionresource) resource
+    UseCaseReviewActionsResponse:
+      description: A page of [UseCaseReviewActionResource](#usecasereviewactionresource) results
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseReviewActionResource'
-        included:
-          description: Included resources
+          description: Content with [UseCaseReviewActionResource](#usecasereviewactionresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/UseCaseReviewActionResource'
           type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
       required:
       - data
+      type: object
+    UseCaseReviewResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            due_date:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            review_date:
+              description: ''
+              type: string
+            snapshot_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            timezone:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+            workflow_step_type:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            actions:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related actions resource id
+                      type: string
+                    type:
+                      description: Type of related actions resource
+                      type: string
+                  type: object
+              type: object
+            snapshot:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related snapshot resource id
+                      type: string
+                    type:
+                      description: Type of related snapshot resource
+                      type: string
+                  type: object
+              type: object
+            tasks:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related tasks resource id
+                      type: string
+                    type:
+                      description: Type of related tasks resource
+                      type: string
+                  type: object
+              type: object
+            use_case:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related use_case resource id
+                      type: string
+                    type:
+                      description: Type of related use_case resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_reviews
+          type: string
       type: object
     UseCaseReviewActionResource:
       description: ''
@@ -954,6 +960,193 @@ components:
           example: use_case_review_actions
           type: string
       type: object
+    UseCaseReviewResponse:
+      description: A JSON-API document with a single [UseCaseReviewResource](#usecasereviewresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseReviewResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    TaskResponse:
+      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/TaskResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseReviewCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                generate_ai_suggestions:
+                  description: 'Whether AI Assist generates risk scenario suggestions for this review (default: false)'
+                  example: true
+                  type: boolean
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseReviewUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                review_date:
+                  description: review date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                status:
+                  description: status
+                  enum:
+                  - in_progress
+                  - closed
+                  - approved
+                  - rejected
+                  type: string
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
     TaskResource:
       description: ''
       properties:
@@ -968,7 +1161,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:
@@ -1131,27 +1330,18 @@ components:
           example: tasks
           type: string
       type: object
-    TaskResponse:
-      description: A JSON-API document with a single [TaskResource](#taskresource) resource
+    UseCaseReviewsResponse:
+      description: A collection of [UseCaseReviewResource](#usecasereviewresource)
       properties:
         data:
-          $ref: '#/components/schemas/TaskResource'
-        included:
-          description: Included resources
+          description: Content with [UseCaseReviewResource](#usecasereviewresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/UseCaseReviewResource'
           type: array
       required:
       - data
       type: object
-    UseCaseReviewUpdateRequest:
+    UseCaseReviewActionCreateRequest:
       description: ''
       properties:
         data:
@@ -1159,194 +1349,34 @@ components:
           properties:
             attributes:
               properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
+                comment:
+                  description: comment
+                  example: This is a comment
                   type: string
-                review_date:
-                  description: review date
-                  example: '2024-01-30T17:00:00.000Z'
+                tags:
+                  description: Tags
+                  example:
+                    controlKey: FAIR.C1
+                  type: object
+                task_id:
+                  description: task id
+                  example: y4AsgRJnHGPn6MZXp4uRYe
                   type: string
-                status:
-                  description: status
+                type:
+                  description: type
                   enum:
-                  - in_progress
-                  - closed
-                  - approved
-                  - rejected
-                  type: string
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
+                  - change_request
+                  - approve
+                  - reject
+                  - close_review
+                  - comment
                   type: string
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
-      type: object
-    UseCaseControlTaskCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UseCaseReviewActionsResponse:
-      description: A page of [UseCaseReviewActionResource](#usecasereviewactionresource) results
-      properties:
-        data:
-          description: Content with [UseCaseReviewActionResource](#usecasereviewactionresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseReviewActionResource'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
-    UseCaseReviewResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            due_date:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            review_date:
-              description: ''
-              type: string
-            snapshot_id:
-              description: ''
-              type: string
-            status:
-              description: ''
-              type: string
-            timezone:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            use_case_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-            workflow_step_type:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            actions:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related actions resource id
-                      type: string
-                    type:
-                      description: Type of related actions resource
-                      type: string
-                  type: object
-              type: object
-            snapshot:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related snapshot resource id
-                      type: string
-                    type:
-                      description: Type of related snapshot resource
-                      type: string
-                  type: object
-              type: object
-            tasks:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related tasks resource id
-                      type: string
-                    type:
-                      description: Type of related tasks resource
-                      type: string
-                  type: object
-              type: object
-            use_case:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related use_case resource id
-                      type: string
-                    type:
-                      description: Type of related use_case resource
-                      type: string
-                  type: object
-              type: object
-            user:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related user resource id
-                      type: string
-                    type:
-                      description: Type of related user resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_reviews
-          type: string
       type: object
     UseCaseReviewActionUpdateRequest:
       description: ''
@@ -1372,26 +1402,6 @@ components:
               example: resource-type
               type: string
           type: object
-      type: object
-    UseCaseReviewResponse:
-      description: A JSON-API document with a single [UseCaseReviewResource](#usecasereviewresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseReviewResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

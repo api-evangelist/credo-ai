@@ -7,6 +7,109 @@ servers:
 tags:
 - name: Entities
 paths:
+  /entities/{entity_id}/reports/{report_id}/attestation_requests/{id}:
+    delete:
+      description: Cancel a specific attestation request associated with a report and entity.
+      operationId: CredoAIWeb.API.V2.Entity.Report.AttestationRequestController.delete
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the attestation request to be canceled.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report attestation request controller delete
+      tags:
+      - Entities
+      x-summary-source: derived
+    patch:
+      description: Update the status and/or comment of a specific attestation request.
+      operationId: CredoAIWeb.API.V2.Entity.Report.AttestationRequestController.update
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the attestation request.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportAttestationRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report attestation request controller update
+      tags:
+      - Entities
+      x-summary-source: derived
   /entities/{entity_id}/risk_classification:
     patch:
       description: Update the risk classification level of a specific entity.
@@ -55,13 +158,905 @@ paths:
               $ref: '#/components/schemas/EntityRiskClassificationUpdateRequest'
         description: Risk classification update attributes.
       x-summary-source: derived
+  /entities/{entity_id}/reports/{id}:
+    delete:
+      description: Delete a report and its associated widgets.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.delete
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller delete
+      tags:
+      - Entities
+      x-summary-source: derived
+    get:
+      description: Fetch detailed information about a specific report with widget data.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.show
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller show
+      tags:
+      - Entities
+      x-summary-source: derived
+    patch:
+      description: Update report metadata (name, description). Structure cannot be changed after creation.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.update
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller update
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityReportUpdateRequest'
+        description: The attributes to update.
+      x-summary-source: derived
+  /entities/{entity_id}/reports/{report_id}/attestation_requests:
+    post:
+      description: Create a new attestation request for a specific report associated with an entity.
+      operationId: CredoAIWeb.API.V2.Entity.Report.AttestationRequestController.create
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportAttestationRequestResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report attestation request controller create
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityReportAttestationRequestCreateRequest'
+        description: The attributes for the new attestation request.
+      x-summary-source: derived
+  /entities/{entity_id}/reports:
+    get:
+      description: Retrieve a list of reports associated with a specific entity.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.index
+      parameters:
+      - description: policy_pack_key match filter
+        in: query
+        name: filter[policy_pack_key]
+        required: false
+        schema:
+          type: string
+      - description: template_id match filter
+        in: query
+        name: filter[template_id]
+        required: false
+        schema:
+          type: string
+      - description: report_type match filter
+        in: query
+        name: filter[report_type]
+        required: false
+        schema:
+          type: string
+      - description: sort options
+        in: query
+        name: sort
+        required: false
+        x-example: -inserted_at
+        schema:
+          type: string
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller index
+      tags:
+      - Entities
+      x-summary-source: derived
+    post:
+      description: Create a new report. Use template_id for template-based reports or policy_pack_key for legacy reports.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.create
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityReportResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller create
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityReportCreateRequest'
+        description: The attributes for the new report.
+      x-summary-source: derived
+  /entities/{entity_id}/reports/{report_id}/snapshot:
+    get:
+      description: Retrieve the snapshot data for a specific report associated with an entity.
+      operationId: CredoAIWeb.API.V2.Entity.ReportController.show_snapshot
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the report.
+        in: path
+        name: report_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntitySnapshotResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity report controller show snapshot
+      tags:
+      - Entities
+      x-summary-source: derived
+  /entities/{entity_id}/files:
+    get:
+      description: Retrieve a paginated list of the files on the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.FileController.index
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityFilesResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity file controller index
+      tags:
+      - Entities
+      x-summary-source: derived
+    post:
+      description: Upload a new file for the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.FileController.create
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityFileResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity file controller create
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityFileCreateRequest'
+        description: Attributes for the new file.
+      x-summary-source: derived
+  /entities/{entity_id}/versions/{id}:
+    delete:
+      description: Delete a specific entity version identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.Entity.VersionController.delete
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the entity version.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity version controller delete
+      tags:
+      - Entities
+      x-summary-source: derived
+    get:
+      description: Retrieve details of a specific entity version identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.Entity.VersionController.show
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the entity version.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity version controller show
+      tags:
+      - Entities
+      x-summary-source: derived
+    patch:
+      description: Update the description of a specific entity version.
+      operationId: CredoAIWeb.API.V2.Entity.VersionController.update
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the entity version.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity version controller update
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityVersionUpdateRequest'
+        description: Updated attributes for the entity version.
+      x-summary-source: derived
+  /entities/{entity_id}/versions:
+    get:
+      description: Retrieve a paginated list of the named versions on the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.VersionController.index
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityVersionsResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity version controller index
+      tags:
+      - Entities
+      x-summary-source: derived
+    post:
+      description: Create a new named version on the specified entity.
+      operationId: CredoAIWeb.API.V2.Entity.VersionController.create
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/EntityVersionResponse'
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity version controller create
+      tags:
+      - Entities
+      requestBody:
+        content:
+          application/vnd.api+json:
+            schema:
+              $ref: '#/components/schemas/EntityVersionCreateRequest'
+        description: Attributes for the new entity version.
+      x-summary-source: derived
+  /entities/{entity_id}/files/{id}:
+    delete:
+      description: Delete a specific entity file identified by its unique ID.
+      operationId: CredoAIWeb.API.V2.Entity.FileController.delete
+      parameters:
+      - description: The unique identifier of the entity.
+        in: path
+        name: entity_id
+        required: true
+        schema:
+          type: string
+      - description: The unique identifier of the file.
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/AuthError'
+        '403':
+          description: Forbidden
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/ForbiddenError'
+        '404':
+          description: Not Found
+          content:
+            application/vnd.api+json:
+              schema:
+                $ref: '#/components/schemas/NotFoundError'
+      security:
+      - Bearer: []
+      summary: Credo AI web API V2 entity file controller delete
+      tags:
+      - Entities
+      x-summary-source: derived
 components:
   schemas:
-    EntityRiskClassificationResponse:
-      description: A JSON-API document with a single [EntityRiskClassificationResource](#entityriskclassificationresource) resource
+    EntityVersionUpdateRequest:
+      description: ''
       properties:
         data:
-          $ref: '#/components/schemas/EntityRiskClassificationResource'
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityReportResponse:
+      description: A JSON-API document with a single [EntityReportResource](#entityreportresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityReportResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityFileResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            content_type:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            filename:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: files
+          type: string
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityReportCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+                policy_pack_key:
+                  description: ''
+                  type: string
+                policy_pack_version:
+                  description: ''
+                  type: integer
+                report_type:
+                  description: ''
+                  type: string
+                template_id:
+                  description: ''
+                  type: string
+                template_key:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityRiskClassificationUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                risk_classification_level:
+                  description: Risk classification level
+                  example: 1
+                  type: integer
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityVersionResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            version:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_versions
+          type: string
+      type: object
+    EntityVersionCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                version:
+                  description: v1
+                  type: string
+              required:
+              - version
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityFileResponse:
+      description: A JSON-API document with a single [EntityFileResource](#entityfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityFileResource'
         included:
           description: Included resources
           items:
@@ -95,23 +1090,120 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    EntityVersionsResponse:
+      description: A page of [EntityVersionResource](#entityversionresource) results
       properties:
-        errors:
-          description: Errors
+        data:
+          description: Content with [EntityVersionResource](#entityversionresource) objects
+          items:
+            $ref: '#/components/schemas/EntityVersionResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    EntityRiskClassificationResponse:
+      description: A JSON-API document with a single [EntityRiskClassificationResource](#entityriskclassificationresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityRiskClassificationResource'
+        included:
+          description: Included resources
           items:
             properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+              id:
+                description: The JSON-API resource ID
                 type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+              type:
+                description: The JSON-API resource type
                 type: string
             type: object
           type: array
+      required:
+      - data
+      type: object
+    EntityReportAttestationRequestResponse:
+      description: A JSON-API document with a single [EntityReportAttestationRequestResource](#entityreportattestationrequestresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityReportAttestationRequestResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityVersionResponse:
+      description: A JSON-API document with a single [EntityVersionResource](#entityversionresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityVersionResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityReportAttestationRequestCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_id:
+                  description: ''
+                  type: string
+                user_id:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EntityReportsResponse:
+      description: A collection of [EntityReportResource](#entityreportresource)
+      properties:
+        data:
+          description: Content with [EntityReportResource](#entityreportresource) objects
+          items:
+            $ref: '#/components/schemas/EntityReportResource'
+          type: array
+      required:
+      - data
       type: object
     EntityRiskClassificationResource:
       description: ''
@@ -158,7 +1250,246 @@ components:
           example: entities
           type: string
       type: object
-    EntityRiskClassificationUpdateRequest:
+    EntityFilesResponse:
+      description: A page of [EntityFileResource](#entityfileresource) results
+      properties:
+        data:
+          description: Content with [EntityFileResource](#entityfileresource) objects
+          items:
+            $ref: '#/components/schemas/EntityFileResource'
+          type: array
+        meta:
+          properties:
+            after:
+              description: after cursor for the next page resources
+              type: string
+            before:
+              description: before cursor for the previous page resources
+              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
+          type: object
+      required:
+      - data
+      type: object
+    EntityReportResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            description:
+              description: ''
+              type: string
+            entity_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            name:
+              description: ''
+              type: string
+            orientation:
+              description: ''
+              type: string
+            policy_pack_key:
+              description: ''
+              type: string
+            policy_pack_version:
+              description: ''
+              type: string
+            report_type:
+              description: ''
+              type: string
+            snapshot_id:
+              description: ''
+              type: string
+            template_id:
+              description: ''
+              type: string
+            template_key:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            attestation_requests:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related attestation_requests resource id
+                      type: string
+                    type:
+                      description: Type of related attestation_requests resource
+                      type: string
+                  type: object
+              type: object
+            snapshot:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related snapshot resource id
+                      type: string
+                    type:
+                      description: Type of related snapshot resource
+                      type: string
+                  type: object
+              type: object
+            template:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related template resource id
+                      type: string
+                    type:
+                      description: Type of related template resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+            widgets:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related widgets resource id
+                      type: string
+                    type:
+                      description: Type of related widgets resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_reports
+          type: string
+      type: object
+    EntityReportAttestationRequestResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            attestation_comment:
+              description: ''
+              type: string
+            attested_at:
+              description: ''
+              type: string
+            attester_id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            report_id:
+              description: ''
+              type: string
+            requested_team_id:
+              description: ''
+              type: string
+            requested_user_id:
+              description: ''
+              type: string
+            requester_id:
+              description: ''
+              type: string
+            status:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            attester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related attester resource id
+                      type: string
+                    type:
+                      description: Type of related attester resource
+                      type: string
+                  type: object
+              type: object
+            requested_team:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_team resource id
+                      type: string
+                    type:
+                      description: Type of related requested_team resource
+                      type: string
+                  type: object
+              type: object
+            requested_user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requested_user resource id
+                      type: string
+                    type:
+                      description: Type of related requested_user resource
+                      type: string
+                  type: object
+              type: object
+            requester:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related requester resource id
+                      type: string
+                    type:
+                      description: Type of related requester resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: report_attestation_requests
+          type: string
+      type: object
+    EntityFileCreateRequest:
       description: ''
       properties:
         data:
@@ -166,38 +1497,47 @@ components:
           properties:
             attributes:
               properties:
-                risk_classification_level:
-                  description: Risk classification level
-                  example: 1
+                content:
+                  description: Base 64 encoded file content
+                  type: string
+                content_type:
+                  description: content type
+                  type: string
+                filename:
+                  description: File name
+                  type: string
+                size:
+                  description: File size
                   type: integer
+              required:
+              - content
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
             type:
               description: The JSON-API resource type
               example: resource-type
               type: string
           type: object
       type: object
-    NotFoundError:
+    EntityReportUpdateRequest:
+      description: ''
       properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                description:
+                  description: ''
+                  type: string
+                name:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
   securitySchemes:
     Bearer:

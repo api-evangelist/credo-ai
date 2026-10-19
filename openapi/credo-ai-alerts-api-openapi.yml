@@ -256,22 +256,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    AlertResponse:
-      description: A JSON-API document with a single [AlertResource](#alertresource) resource
+    AlertsResponse:
+      description: A collection of [AlertResource](#alertresource)
       properties:
         data:
-          $ref: '#/components/schemas/AlertResource'
-        included:
-          description: Included resources
+          description: Content with [AlertResource](#alertresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/AlertResource'
           type: array
       required:
       - data
@@ -360,7 +351,27 @@ components:
           example: alerts
           type: string
       type: object
-    AuthError:
+    AlertResponse:
+      description: A JSON-API document with a single [AlertResource](#alertresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/AlertResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -378,7 +389,7 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -413,17 +424,6 @@ components:
                 type: string
             type: object
           type: array
-      type: object
-    AlertsResponse:
-      description: A collection of [AlertResource](#alertresource)
-      properties:
-        data:
-          description: Content with [AlertResource](#alertresource) objects
-          items:
-            $ref: '#/components/schemas/AlertResource'
-          type: array
-      required:
-      - data
       type: object
   securitySchemes:
     Bearer:

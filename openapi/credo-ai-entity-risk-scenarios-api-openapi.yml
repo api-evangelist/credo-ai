@@ -234,27 +234,7 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EntityRiskScenarioResponse:
-      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityRiskScenarioResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -272,18 +252,7 @@ components:
             type: object
           type: array
       type: object
-    EntityRiskScenariosResponse:
-      description: A collection of [EntityRiskScenarioResource](#entityriskscenarioresource)
-      properties:
-        data:
-          description: Content with [EntityRiskScenarioResource](#entityriskscenarioresource) objects
-          items:
-            $ref: '#/components/schemas/EntityRiskScenarioResource'
-          type: array
-      required:
-      - data
-      type: object
-    ForbiddenError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -365,6 +334,26 @@ components:
               type: string
           type: object
       type: object
+    EntityRiskScenarioResponse:
+      description: A JSON-API document with a single [EntityRiskScenarioResource](#entityriskscenarioresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityRiskScenarioResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
     EntityRiskScenarioCreateRequest:
       description: ''
       properties:
@@ -402,6 +391,17 @@ components:
               example: resource-type
               type: string
           type: object
+      type: object
+    EntityRiskScenariosResponse:
+      description: A collection of [EntityRiskScenarioResource](#entityriskscenarioresource)
+      properties:
+        data:
+          description: Content with [EntityRiskScenarioResource](#entityriskscenarioresource) objects
+          items:
+            $ref: '#/components/schemas/EntityRiskScenarioResource'
+          type: array
+      required:
+      - data
       type: object
     EntityRiskScenarioResource:
       description: ''

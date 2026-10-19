@@ -459,37 +459,34 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    EntityControlFileCreateRequest:
-      description: ''
+    EvidencesResponse:
+      description: A collection of [EvidenceResource](#evidenceresource)
       properties:
         data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                content:
-                  description: Base 64 encoded file content
-                  type: string
-                content_type:
-                  description: Content type
-                  type: string
-                filename:
-                  description: File name
-                  type: string
-                requirement_key:
-                  description: file requirement key
-                  type: string
-                size:
-                  description: File size
-                  type: integer
-              required:
-              - content
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
+          description: Content with [EvidenceResource](#evidenceresource) objects
+          items:
+            $ref: '#/components/schemas/EvidenceResource'
+          type: array
+      required:
+      - data
+      type: object
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
       type: object
     TaskResponse:
       description: A JSON-API document with a single [TaskResource](#taskresource) resource
@@ -510,6 +507,71 @@ components:
           type: array
       required:
       - data
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EvidenceResponse:
+      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                due_date:
+                  description: due date
+                  example: '2024-01-30T17:00:00.000Z'
+                  type: string
+                timezone:
+                  description: due date timezone
+                  example: America/New_York
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
     EntityControlResource:
       description: ''
@@ -574,6 +636,115 @@ components:
           example: entity_controls
           type: string
       type: object
+    EntityControlsResponse:
+      description: A collection of [EntityControlResource](#entitycontrolresource)
+      properties:
+        data:
+          description: Content with [EntityControlResource](#entitycontrolresource) objects
+          items:
+            $ref: '#/components/schemas/EntityControlResource'
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlFileCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                content:
+                  description: Base 64 encoded file content
+                  type: string
+                content_type:
+                  description: Content type
+                  type: string
+                filename:
+                  description: File name
+                  type: string
+                requirement_key:
+                  description: file requirement key
+                  type: string
+                size:
+                  description: File size
+                  type: integer
+              required:
+              - content
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    AuthError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    EntityControlResponse:
+      description: A JSON-API document with a single [EntityControlResource](#entitycontrolresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlEvidenceCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                data:
+                  description: value data
+                  example:
+                    value: This is text evidence
+                  type: object
+                generated_at:
+                  description: '2022-05-03T11:33:25.582138Z'
+                  type: string
+                requirement_key:
+                  description: evidence requirement key
+                  type: string
+              required:
+              - data
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
     EntityControlCookbookResource:
       description: ''
       properties:
@@ -595,117 +766,28 @@ components:
           example: use_case_control_cookbooks
           type: string
       type: object
-    EvidencesResponse:
-      description: A collection of [EvidenceResource](#evidenceresource)
+    EntityControlFilesResponse:
+      description: A page of [EntityControlFileResponse](#entitycontrolfileresponse) results
       properties:
         data:
-          description: Content with [EvidenceResource](#evidenceresource) objects
+          description: Content with [EntityControlFileResponse](#entitycontrolfileresponse) objects
           items:
-            $ref: '#/components/schemas/EvidenceResource'
+            $ref: '#/components/schemas/EntityControlFileResponse'
           type: array
-      required:
-      - data
-      type: object
-    EntityControlFileResponse:
-      description: A JSON-API document with a single [EntityControlFileResource](#entitycontrolfileresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityControlFileResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    EntityControlFileResource:
-      description: ''
-      properties:
-        attributes:
+        meta:
           properties:
-            content_type:
-              description: ''
+            after:
+              description: after cursor for the next page resources
               type: string
-            control_id:
-              description: ''
+            before:
+              description: before cursor for the previous page resources
               type: string
-            filename:
-              description: ''
-              type: string
-            id:
-              description: ''
-              type: string
-            inserted_at:
-              description: ''
-              type: string
-            requirement_key:
-              description: ''
-              type: string
-            size:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
-              type: string
-            url:
-              description: ''
-              type: string
+            limit:
+              description: number of resources limit applied to this request
+              type: integer
           type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: entity_control_files
-          type: string
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
+      required:
+      - data
       type: object
     TaskResource:
       description: ''
@@ -721,7 +803,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:
@@ -884,200 +972,6 @@ components:
           example: tasks
           type: string
       type: object
-    EntityControlUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                due_date:
-                  description: due date
-                  example: '2024-01-30T17:00:00.000Z'
-                  type: string
-                timezone:
-                  description: due date timezone
-                  example: America/New_York
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    EntityControlTaskCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                team_ids:
-                  description: team ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-                user_ids:
-                  description: user ids
-                  example: '[8zA2nPjVSenyvcc429LPDT]'
-                  type: array
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    EntityControlResponse:
-      description: A JSON-API document with a single [EntityControlResource](#entitycontrolresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityControlResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    EntityControlsResponse:
-      description: A collection of [EntityControlResource](#entitycontrolresource)
-      properties:
-        data:
-          description: Content with [EntityControlResource](#entitycontrolresource) objects
-          items:
-            $ref: '#/components/schemas/EntityControlResource'
-          type: array
-      required:
-      - data
-      type: object
-    EntityControlEvidenceCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                data:
-                  description: value data
-                  example:
-                    value: This is text evidence
-                  type: object
-                generated_at:
-                  description: '2022-05-03T11:33:25.582138Z'
-                  type: string
-                requirement_key:
-                  description: evidence requirement key
-                  type: string
-              required:
-              - data
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    EvidenceResponse:
-      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EvidenceResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    EntityControlCookbookResponse:
-      description: A JSON-API document with a single [EntityControlCookbookResource](#entitycontrolcookbookresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EntityControlCookbookResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    EntityControlFilesResponse:
-      description: A page of [EntityControlFileResponse](#entitycontrolfileresponse) results
-      properties:
-        data:
-          description: Content with [EntityControlFileResponse](#entitycontrolfileresponse) objects
-          items:
-            $ref: '#/components/schemas/EntityControlFileResponse'
-          type: array
-        meta:
-          properties:
-            after:
-              description: after cursor for the next page resources
-              type: string
-            before:
-              description: before cursor for the previous page resources
-              type: string
-            limit:
-              description: number of resources limit applied to this request
-              type: integer
-          type: object
-      required:
-      - data
-      type: object
     EvidenceResource:
       description: ''
       properties:
@@ -1186,6 +1080,118 @@ components:
           description: The JSON-API resource type
           example: evidences
           type: string
+      type: object
+    EntityControlCookbookResponse:
+      description: A JSON-API document with a single [EntityControlCookbookResource](#entitycontrolcookbookresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlCookbookResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlFileResponse:
+      description: A JSON-API document with a single [EntityControlFileResource](#entitycontrolfileresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EntityControlFileResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    EntityControlFileResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            content_type:
+              description: ''
+              type: string
+            control_id:
+              description: ''
+              type: string
+            filename:
+              description: ''
+              type: string
+            id:
+              description: ''
+              type: string
+            inserted_at:
+              description: ''
+              type: string
+            requirement_key:
+              description: ''
+              type: string
+            size:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            url:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: entity_control_files
+          type: string
+      type: object
+    EntityControlTaskCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                team_ids:
+                  description: team ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+                user_ids:
+                  description: user ids
+                  example: '[8zA2nPjVSenyvcc429LPDT]'
+                  type: array
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
       type: object
   securitySchemes:
     Bearer:

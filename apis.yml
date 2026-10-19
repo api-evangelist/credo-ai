@@ -1265,6 +1265,16 @@ apis:
     url: data-model/credo-ai-data-model.yml
   - type: Documentation
     url: https://api.credo.ai/openapi
+- aid: credo-ai:credo-ai-relationship-types-api
+  name: Credo AI Relationship Types API
+  description: The relationship_types API from Credo AI — 2 operation(s) for relationship_types.
+  humanURL: https://github.com/credo-ai/credoai-plugins
+  baseURL: npx -y @credoai/governance-hub-mcp
+  tags:
+  - relationship_types
+  properties:
+  - type: OpenAPI
+    url: openapi/credo-ai-relationship-types-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com

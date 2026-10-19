@@ -89,7 +89,7 @@ components:
       required:
       - data
       type: object
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -107,7 +107,7 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -159,7 +159,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:

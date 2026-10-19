@@ -51,6 +51,33 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    EntitySectionsAssignmentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            section_ids:
+              description: string
+              type: string
+            team_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: section_assignments
+          type: string
+      type: object
     TasksResponse:
       description: A collection of [TaskResource](#taskresource)
       properties:
@@ -62,7 +89,7 @@ components:
       required:
       - data
       type: object
-    AuthError:
+    ForbiddenError:
       properties:
         errors:
           description: Errors
@@ -80,7 +107,7 @@ components:
             type: object
           type: array
       type: object
-    ForbiddenError:
+    AuthError:
       properties:
         errors:
           description: Errors
@@ -112,7 +139,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:
@@ -294,33 +327,6 @@ components:
           type: array
       required:
       - data
-      type: object
-    EntitySectionsAssignmentResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            section_ids:
-              description: string
-              type: string
-            team_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: section_assignments
-          type: string
       type: object
   securitySchemes:
     Bearer:

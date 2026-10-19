@@ -1192,107 +1192,76 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    UseCaseVendorLinkResponse:
-      description: A JSON-API document with a single [UseCaseVendorLinkResource](#usecasevendorlinkresource) resource
+    UseCaseStakeholderResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            inserted_at:
+              description: ''
+              type: string
+            role:
+              description: ''
+              type: string
+            team_id:
+              description: ''
+              type: string
+            updated_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties:
+            team:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related team resource id
+                      type: string
+                    type:
+                      description: Type of related team resource
+                      type: string
+                  type: object
+              type: object
+            user:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related user resource id
+                      type: string
+                    type:
+                      description: Type of related user resource
+                      type: string
+                  type: object
+              type: object
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: use_case_stakeholders
+          type: string
+      type: object
+    EvidencesResponse:
+      description: A collection of [EvidenceResource](#evidenceresource)
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseVendorLinkResource'
-        included:
-          description: Included resources
+          description: Content with [EvidenceResource](#evidenceresource) objects
           items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
+            $ref: '#/components/schemas/EvidenceResource'
           type: array
       required:
       - data
-      type: object
-    DatabaseError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseImportResponse:
-      description: Import use cases response
-      properties:
-        data:
-          description: Import use cases data
-          properties:
-            details:
-              description: List of details
-              items:
-                properties:
-                  error:
-                    description: Error details
-                    example: 'code: "MISSING_ENTITY_NAME", details: "Missing use case name"'
-                    properties:
-                      code:
-                        description: Error code
-                        type: string
-                      details:
-                        description: Error details
-                        type: string
-                    type: object
-                  id:
-                    description: Use case unique identifier
-                    type: string
-                  index:
-                    description: Index of the use case in the import list
-                    example: 0
-                    type: integer
-                  name:
-                    description: Name of the use case
-                    type: string
-                  status:
-                    description: Status of the use case
-                    enum:
-                    - success
-                    - failure
-                    example: success
-                    type: string
-                type: object
-              type: array
-            status:
-              description: Status of the import
-              enum:
-              - success
-              - failure
-              - partial_success
-              example: success
-              type: string
-            summary:
-              description: Import summary
-              example: '%{total: 2, successful: 1, failed: 1}'
-              properties:
-                failed:
-                  description: Number of failed use cases
-                  type: integer
-                successful:
-                  description: Number of successfully imported use cases
-                  type: integer
-                total:
-                  description: Total number of attempted use cases to import
-                  type: integer
-              type: object
-          type: object
       type: object
     UseCaseVendorLinkCreateRequest:
       description: ''
@@ -1314,11 +1283,38 @@ components:
               type: string
           type: object
       type: object
-    UseCaseResponse:
-      description: A JSON-API document with a single [UseCaseResource](#usecaseresource) resource
+    SectionAssignmentResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            section_ids:
+              description: string
+              type: string
+            team_id:
+              description: ''
+              type: string
+            user_id:
+              description: ''
+              type: string
+          type: object
+        id:
+          description: The JSON-API resource ID
+          example: 64YUaLWSviHgibJaRWr3ZE
+          type: string
+        relationships:
+          properties: {}
+          type: object
+        type:
+          description: The JSON-API resource type
+          example: section_assignments
+          type: string
+      type: object
+    UseCaseVendorLinkResponse:
+      description: A JSON-API document with a single [UseCaseVendorLinkResource](#usecasevendorlinkresource) resource
       properties:
         data:
-          $ref: '#/components/schemas/UseCaseResource'
+          $ref: '#/components/schemas/UseCaseVendorLinkResource'
         included:
           description: Included resources
           items:
@@ -1334,13 +1330,215 @@ components:
       required:
       - data
       type: object
-    UseCasesResponse:
-      description: A page of [UseCaseResource](#usecaseresource) results
+    ForbiddenError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    NotFoundError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseStakeholderCreateRequest:
+      description: ''
       properties:
         data:
-          description: Content with [UseCaseResource](#usecaseresource) objects
+          description: ''
+          properties:
+            attributes:
+              properties:
+                role:
+                  description: ''
+                  type: string
+                team_id:
+                  description: ''
+                  type: string
+                user_id:
+                  description: ''
+                  type: string
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseCreateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                ai_type:
+                  description: ''
+                  type: string
+                description:
+                  description: ''
+                  type: string
+                generate_ai_suggestions:
+                  description: 'Whether AI Assist generates suggestions for this use case after creation (default: false)'
+                  type: boolean
+                icon:
+                  description: ''
+                  type: string
+                industries:
+                  description: Industries
+                  example:
+                  - Fishing, Hunting, & Trapping
+                  type: array
+                is_vendor:
+                  description: ''
+                  type: boolean
+                monetary_value:
+                  description: ''
+                  type: integer
+                name:
+                  description: ''
+                  type: string
+                owner:
+                  description: Owner Details
+                  example:
+                    owner_id: user_id
+                    owner_type: user
+                  type: object
+                questionnaire_ids:
+                  description: Questionnaire Version IDs To Include
+                  example:
+                  - SEQR+1
+                  - PRIV+2
+                  type: array
+                regions:
+                  description: Regions
+                  example:
+                  - CA
+                  - US
+                  type: array
+                risk_classification_level:
+                  description: Risk Classification Level
+                  example: 1
+                  type: integer
+                session_id:
+                  description: Session ID - Transfer contexts from this session to the use case
+                  type: string
+                source:
+                  description: ''
+                  type: string
+                system_type:
+                  description: ''
+                  type: string
+                workflow_stage_id:
+                  description: ''
+                  type: string
+              required:
+              - name
+              type: object
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UpdateWorkflowStepRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                workflow_stage_step:
+                  description: workflow step.
+                  example:
+                  - assessment
+                  - evidence_collection
+                  - clear
+                  - rejected
+                  type: string
+              required:
+              - workflow_stage_step
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    EvidenceResponse:
+      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/EvidenceResource'
+        included:
+          description: Included resources
           items:
-            $ref: '#/components/schemas/UseCaseResource'
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseModelDeleteRelationships:
+      properties:
+        data:
+          items:
+            properties:
+              id:
+                description: Model ID
+                example: 39cbqQk7gjmAJ55amVoNxm
+                type: string
+              type:
+                description: type
+                example: use_case_model_links
+                type: string
+            type: object
+          type: array
+      type: object
+    UseCaseVendorLinksResponse:
+      description: A page of [UseCaseVendorLinkResource](#usecasevendorlinkresource) results
+      properties:
+        data:
+          description: Content with [UseCaseVendorLinkResource](#usecasevendorlinkresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseVendorLinkResource'
           type: array
         meta:
           properties:
@@ -1357,55 +1555,71 @@ components:
       required:
       - data
       type: object
-    EvidencesResponse:
-      description: A collection of [EvidenceResource](#evidenceresource)
+    UseCaseStakeholderAlreadyExistError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    ModifyPolicyPackRequest:
+      description: modify policy pack
       properties:
         data:
-          description: Content with [EvidenceResource](#evidenceresource) objects
           items:
-            $ref: '#/components/schemas/EvidenceResource'
+            $ref: '#/components/schemas/ModifyPolicyPackResource'
+          type: array
+      type: object
+    SectionAssignmentRequest:
+      description: A JSON-API document with a single [SectionAssignmentResource](#sectionassignmentresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/SectionAssignmentResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
           type: array
       required:
       - data
       type: object
-    UseCaseVendorLinkResource:
-      description: ''
+    UseCaseStakeholderResponse:
+      description: A JSON-API document with a single [UseCaseStakeholderResource](#usecasestakeholderresource) resource
       properties:
-        attributes:
-          properties:
-            inserted_at:
-              description: ''
-              type: string
-            use_case_id:
-              description: ''
-              type: string
-            vendor_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties:
-            vendor:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related vendor resource id
-                      type: string
-                    type:
-                      description: Type of related vendor resource
-                      type: string
-                  type: object
-              type: object
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: use_case_vendor_links
-          type: string
+        data:
+          $ref: '#/components/schemas/UseCaseStakeholderResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
       type: object
     UseCaseExportResponse:
       description: ''
@@ -1466,6 +1680,9 @@ components:
             source:
               description: ''
               type: string
+            in_scheduled_review_at:
+              description: ''
+              type: string
             control_refs:
               description: ''
               type: string
@@ -1517,6 +1734,9 @@ components:
             icon:
               description: ''
               type: string
+            trigger_mode:
+              description: ''
+              type: string
             ai_type:
               description: ''
               type: string
@@ -1541,6 +1761,20 @@ components:
                       description: Type of related alerts resource
                       type: string
                   type: object
+              type: object
+            associations:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related associations resource id
+                        type: string
+                      type:
+                        description: Type of related associations resource
+                        type: string
+                    type: object
+                  type: array
               type: object
             creator:
               properties:
@@ -1782,18 +2016,38 @@ components:
           example: use_cases
           type: string
       type: object
-    UseCaseModelDeleteRelationships:
+    AuthError:
       properties:
-        data:
+        errors:
+          description: Errors
           items:
             properties:
-              id:
-                description: Model ID
-                example: 39cbqQk7gjmAJ55amVoNxm
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
                 type: string
-              type:
-                description: type
-                example: use_case_model_links
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
+                type: string
+            type: object
+          type: array
+      type: object
+    DatabaseError:
+      properties:
+        errors:
+          description: Errors
+          items:
+            properties:
+              code:
+                description: an application-specific error code, expressed as a string value.
+                type: integer
+              detail:
+                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
+                type: string
+              title:
+                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
                 type: string
             type: object
           type: array
@@ -1822,13 +2076,78 @@ components:
               type: string
           type: object
       type: object
-    UseCaseVendorLinksResponse:
-      description: A page of [UseCaseVendorLinkResource](#usecasevendorlinkresource) results
+    UseCaseModelCreateRelationships:
       properties:
         data:
-          description: Content with [UseCaseVendorLinkResource](#usecasevendorlinkresource) objects
           items:
-            $ref: '#/components/schemas/UseCaseVendorLinkResource'
+            properties:
+              attributes:
+                properties:
+                  model_id:
+                    description: Model ID
+                    example: 39cbqQk7gjmAJ55amVoNxm
+                    type: string
+                  model_version:
+                    description: Model version
+                    example: v0.7
+                    type: string
+                type: object
+              type:
+                description: type
+                example: use_case_model_links
+                type: string
+            type: object
+          type: array
+      type: object
+    TasksResponse:
+      description: A collection of [TaskResource](#taskresource)
+      properties:
+        data:
+          description: Content with [TaskResource](#taskresource) objects
+          items:
+            $ref: '#/components/schemas/TaskResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCasesStakeholdersResponse:
+      description: A collection of [UseCaseStakeholderResource](#usecasestakeholderresource)
+      properties:
+        data:
+          description: Content with [UseCaseStakeholderResource](#usecasestakeholderresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseStakeholderResource'
+          type: array
+      required:
+      - data
+      type: object
+    UseCaseResponse:
+      description: A JSON-API document with a single [UseCaseResource](#usecaseresource) resource
+      properties:
+        data:
+          $ref: '#/components/schemas/UseCaseResource'
+        included:
+          description: Included resources
+          items:
+            properties:
+              id:
+                description: The JSON-API resource ID
+                type: string
+              type:
+                description: The JSON-API resource type
+                type: string
+            type: object
+          type: array
+      required:
+      - data
+      type: object
+    UseCasesResponse:
+      description: A page of [UseCaseResource](#usecaseresource) results
+      properties:
+        data:
+          description: Content with [UseCaseResource](#usecaseresource) objects
+          items:
+            $ref: '#/components/schemas/UseCaseResource'
           type: array
         meta:
           properties:
@@ -1845,196 +2164,6 @@ components:
       required:
       - data
       type: object
-    UpdateWorkflowStepRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                workflow_stage_step:
-                  description: workflow step.
-                  example:
-                  - assessment
-                  - evidence_collection
-                  - clear
-                  - rejected
-                  type: string
-              required:
-              - workflow_stage_step
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    ForbiddenError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    AuthError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    SectionAssignmentRequest:
-      description: A JSON-API document with a single [SectionAssignmentResource](#sectionassignmentresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/SectionAssignmentResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseStakeholderResponse:
-      description: A JSON-API document with a single [UseCaseStakeholderResource](#usecasestakeholderresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/UseCaseStakeholderResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCasesStakeholdersResponse:
-      description: A collection of [UseCaseStakeholderResource](#usecasestakeholderresource)
-      properties:
-        data:
-          description: Content with [UseCaseStakeholderResource](#usecasestakeholderresource) objects
-          items:
-            $ref: '#/components/schemas/UseCaseStakeholderResource'
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                ai_type:
-                  description: ''
-                  type: string
-                description:
-                  description: ''
-                  type: string
-                icon:
-                  description: ''
-                  type: string
-                industries:
-                  description: Industries
-                  example:
-                  - Fishing, Hunting, & Trapping
-                  type: array
-                is_vendor:
-                  description: ''
-                  type: boolean
-                monetary_value:
-                  description: ''
-                  type: integer
-                name:
-                  description: ''
-                  type: string
-                owner:
-                  description: Owner Details
-                  example:
-                    owner_id: user_id
-                    owner_type: user
-                  type: object
-                questionnaire_ids:
-                  description: Questionnaire Version IDs To Include
-                  example:
-                  - SEQR+1
-                  - PRIV+2
-                  type: array
-                regions:
-                  description: Regions
-                  example:
-                  - CA
-                  - US
-                  type: array
-                risk_classification_level:
-                  description: Risk Classification Level
-                  example: 1
-                  type: integer
-                session_id:
-                  description: Session ID - Transfer contexts from this session to the use case
-                  type: string
-                source:
-                  description: ''
-                  type: string
-                system_type:
-                  description: ''
-                  type: string
-                workflow_stage_id:
-                  description: ''
-                  type: string
-              required:
-              - name
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
     TaskResource:
       description: ''
       properties:
@@ -2049,7 +2178,13 @@ components:
             due_date:
               description: ''
               type: string
+            entity_id:
+              description: ''
+              type: string
             entity_questionnaire_section_id:
+              description: ''
+              type: string
+            entity_review_id:
               description: ''
               type: string
             inserted_at:
@@ -2212,73 +2347,65 @@ components:
           example: tasks
           type: string
       type: object
-    ModifyPolicyPackRequest:
-      description: modify policy pack
-      properties:
-        data:
-          items:
-            $ref: '#/components/schemas/ModifyPolicyPackResource'
-          type: array
-      type: object
-    UseCaseStakeholderUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                role:
-                  description: role
-                  enum:
-                  - owner
-                  - contributor
-                  - observer
-                  type: string
-              type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
-              type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    TasksResponse:
-      description: A collection of [TaskResource](#taskresource)
-      properties:
-        data:
-          description: Content with [TaskResource](#taskresource) objects
-          items:
-            $ref: '#/components/schemas/TaskResource'
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseStakeholderResource:
+    EvidenceResource:
       description: ''
       properties:
         attributes:
           properties:
+            control_key:
+              description: Control key
+              example: FAIR.C1
+              type: string
+            creator:
+              description: Creator
+              example:
+                family_name: John
+                given_name: Doe
+                nickname: doe
+              type: object
+            data:
+              description: value data,
+              example:
+                value: value
+              type: object
+            entity_id:
+              description: ''
+              type: string
+            generated_at:
+              description: Evidence generation time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            hash_key:
+              description: ''
+              type: string
             inserted_at:
+              description: insert time
+              example: '2015-05-22T14:56:29.000Z'
+              type: string
+            label:
+              description: label in the evidence requirement
+              example:
+                key: value
+              type: object
+            metadata:
+              description: metadata
+              example:
+                key: value
+              type: object
+            model_id:
+              description: model_id
+              example: 4pEfRTw2RVVrouMbFH9tuH
+              type: string
+            model_version:
               description: ''
               type: string
-            role:
-              description: ''
-              type: string
-            team_id:
-              description: ''
-              type: string
-            updated_at:
-              description: ''
+            type:
+              description: Evidence type
+              example: text
               type: string
             use_case_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
+              description: use_case_id
+              example: 64YUaLWSviHgibJaRWr3ZE
               type: string
           type: object
         id:
@@ -2287,202 +2414,135 @@ components:
           type: string
         relationships:
           properties:
-            team:
+            asset_links:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related team resource id
+                      description: Related asset_links resource id
                       type: string
                     type:
-                      description: Type of related team resource
+                      description: Type of related asset_links resource
                       type: string
                   type: object
               type: object
-            user:
+            model:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related user resource id
+                      description: Related model resource id
                       type: string
                     type:
-                      description: Type of related user resource
+                      description: Type of related model resource
+                      type: string
+                  type: object
+              type: object
+            policy_pack_links:
+              properties:
+                data:
+                  properties:
+                    id:
+                      description: Related policy_pack_links resource id
+                      type: string
+                    type:
+                      description: Type of related policy_pack_links resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: use_case_stakeholders
+          example: evidences
           type: string
       type: object
-    UseCaseModelCreateRelationships:
-      properties:
-        data:
-          items:
-            properties:
-              attributes:
-                properties:
-                  model_id:
-                    description: Model ID
-                    example: 39cbqQk7gjmAJ55amVoNxm
-                    type: string
-                  model_version:
-                    description: Model version
-                    example: v0.7
-                    type: string
-                type: object
-              type:
-                description: type
-                example: use_case_model_links
-                type: string
-            type: object
-          type: array
-      type: object
-    UseCaseStakeholderAlreadyExistError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
-    EvidenceResponse:
-      description: A JSON-API document with a single [EvidenceResource](#evidenceresource) resource
-      properties:
-        data:
-          $ref: '#/components/schemas/EvidenceResource'
-        included:
-          description: Included resources
-          items:
-            properties:
-              id:
-                description: The JSON-API resource ID
-                type: string
-              type:
-                description: The JSON-API resource type
-                type: string
-            type: object
-          type: array
-      required:
-      - data
-      type: object
-    UseCaseUpdateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
+    UseCasesImportRequest:
+      description: List of use cases to import
+      items:
+        properties:
+          ai_type:
+            description: AI Type of the use case
+            type: string
+          description:
+            description: Description of the use case
+            type: string
+          domains:
+            description: Domains
+            items:
+              type: string
+            type: array
+          icon:
+            description: Icon of the use case
+            type: string
+          industries:
+            description: Industries
+            items:
+              type: string
+            type: array
+          monetary_value:
+            description: The monetary value of a use case
+            type: integer
+          name:
+            description: Name of the use case
+            type: string
+          questionnaires:
+            description: List of questionnaires
+            items:
               properties:
-                ai_type:
-                  description: ''
+                key:
+                  description: Questionnaire unique key
+                  example: SEQR
                   type: string
-                description:
-                  description: ''
-                  type: string
-                icon:
-                  description: ''
-                  type: string
-                industries:
-                  description: industries
-                  example:
-                  - Fishing, Hunting, & Trapping
+                sections:
+                  description: List of sections
+                  items:
+                    properties:
+                      id:
+                        description: Section unique identifier
+                        example: 64YUaLWSviHgibJaRWr3ZE
+                        type: string
+                      questions:
+                        description: List of questions
+                        items:
+                          properties:
+                            id:
+                              description: Question unique identifier
+                              example: 64YUaLWSviHgibJaRWr3ZE
+                              type: string
+                            value:
+                              description: Question value
+                              example: This is text evidence
+                              type: string
+                          required:
+                          - id
+                          - value
+                          type: object
+                        type: array
+                    required:
+                    - id
+                    - questions
+                    type: object
                   type: array
-                is_vendor:
-                  description: ''
-                  type: boolean
-                monetary_value:
-                  description: ''
-                  type: integer
-                name:
-                  description: ''
-                  type: string
-                regions:
-                  description: regions
-                  example:
-                  - CA
-                  - US
-                  type: array
-                risk_classification_level:
-                  description: Risk classification level
+                version:
+                  description: Questionnaire verstion
                   example: 1
-                  type: integer
-                settings:
-                  description: use case settings
-                  example:
-                    use_risk_evaluations: false
-                  type: object
-                source:
-                  description: ''
-                  type: string
-                system_type:
-                  description: ''
-                  type: string
+                  type: number
+              required:
+              - key
               type: object
-            id:
-              description: The JSON-API resource ID
-              example: 64YUaLWSviHgibJaRWr3ZE
+            type: array
+          regions:
+            description: Regions
+            items:
               type: string
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    UseCaseStakeholderCreateRequest:
-      description: ''
-      properties:
-        data:
-          description: ''
-          properties:
-            attributes:
-              properties:
-                role:
-                  description: ''
-                  type: string
-                team_id:
-                  description: ''
-                  type: string
-                user_id:
-                  description: ''
-                  type: string
-              type: object
-            type:
-              description: The JSON-API resource type
-              example: resource-type
-              type: string
-          type: object
-      type: object
-    NotFoundError:
-      properties:
-        errors:
-          description: Errors
-          items:
-            properties:
-              code:
-                description: an application-specific error code, expressed as a string value.
-                type: integer
-              detail:
-                description: a human-readable explanation specific to this occurrence of the problem. Like title, this field’s value can be localized.
-                type: string
-              title:
-                description: a short, human-readable summary of the problem that SHOULD NOT change from occurrence to occurrence of the problem, except for purposes of localization.
-                type: string
-            type: object
-          type: array
-      type: object
+            type: array
+          risk_classification_level:
+            description: Risk Classification Level of the use case
+            type: integer
+        required:
+        - name
+        type: object
+      type: array
     UseCaseResource:
       description: ''
       properties:
@@ -2542,6 +2602,9 @@ components:
             source:
               description: ''
               type: string
+            in_scheduled_review_at:
+              description: ''
+              type: string
             control_refs:
               description: ''
               type: string
@@ -2593,6 +2656,9 @@ components:
             icon:
               description: ''
               type: string
+            trigger_mode:
+              description: ''
+              type: string
             ai_type:
               description: ''
               type: string
@@ -2617,6 +2683,20 @@ components:
                       description: Type of related alerts resource
                       type: string
                   type: object
+              type: object
+            associations:
+              properties:
+                data:
+                  items:
+                    properties:
+                      id:
+                        description: Related associations resource id
+                        type: string
+                      type:
+                        description: Type of related associations resource
+                        type: string
+                    type: object
+                  type: array
               type: object
             creator:
               properties:
@@ -2858,6 +2938,16 @@ components:
           example: use_cases
           type: string
       type: object
+    ModifyPolicyPackResource:
+      description: A PolicyPackRel
+      properties:
+        id:
+          description: policy pack id
+          type: string
+      required:
+      - id
+      title: PolicyPackRel
+      type: object
     UpdateRiskClassificationRequest:
       description: ''
       properties:
@@ -2881,180 +2971,173 @@ components:
               type: string
           type: object
       type: object
-    SectionAssignmentResource:
+    UseCaseUpdateRequest:
       description: ''
       properties:
-        attributes:
+        data:
+          description: ''
           properties:
-            section_ids:
-              description: string
-              type: string
-            team_id:
-              description: ''
-              type: string
-            user_id:
-              description: ''
-              type: string
-          type: object
-        id:
-          description: The JSON-API resource ID
-          example: 64YUaLWSviHgibJaRWr3ZE
-          type: string
-        relationships:
-          properties: {}
-          type: object
-        type:
-          description: The JSON-API resource type
-          example: section_assignments
-          type: string
-      type: object
-    UseCasesImportRequest:
-      description: List of use cases to import
-      items:
-        properties:
-          ai_type:
-            description: AI Type of the use case
-            type: string
-          description:
-            description: Description of the use case
-            type: string
-          domains:
-            description: Domains
-            items:
-              type: string
-            type: array
-          icon:
-            description: Icon of the use case
-            type: string
-          industries:
-            description: Industries
-            items:
-              type: string
-            type: array
-          monetary_value:
-            description: The monetary value of a use case
-            type: integer
-          name:
-            description: Name of the use case
-            type: string
-          questionnaires:
-            description: List of questionnaires
-            items:
+            attributes:
               properties:
-                key:
-                  description: Questionnaire unique key
-                  example: SEQR
+                ai_type:
+                  description: ''
                   type: string
-                sections:
-                  description: List of sections
-                  items:
-                    properties:
-                      id:
-                        description: Section unique identifier
-                        example: 64YUaLWSviHgibJaRWr3ZE
-                        type: string
-                      questions:
-                        description: List of questions
-                        items:
-                          properties:
-                            id:
-                              description: Question unique identifier
-                              example: 64YUaLWSviHgibJaRWr3ZE
-                              type: string
-                            value:
-                              description: Question value
-                              example: This is text evidence
-                              type: string
-                          required:
-                          - id
-                          - value
-                          type: object
-                        type: array
-                    required:
-                    - id
-                    - questions
-                    type: object
+                description:
+                  description: ''
+                  type: string
+                icon:
+                  description: ''
+                  type: string
+                industries:
+                  description: industries
+                  example:
+                  - Fishing, Hunting, & Trapping
                   type: array
-                version:
-                  description: Questionnaire verstion
+                is_vendor:
+                  description: ''
+                  type: boolean
+                monetary_value:
+                  description: ''
+                  type: integer
+                name:
+                  description: ''
+                  type: string
+                regions:
+                  description: regions
+                  example:
+                  - CA
+                  - US
+                  type: array
+                risk_classification_level:
+                  description: Risk classification level
                   example: 1
-                  type: number
-              required:
-              - key
+                  type: integer
+                settings:
+                  description: use case settings
+                  example:
+                    use_risk_evaluations: false
+                  type: object
+                source:
+                  description: ''
+                  type: string
+                system_type:
+                  description: ''
+                  type: string
               type: object
-            type: array
-          regions:
-            description: Regions
-            items:
-              type: string
-            type: array
-          risk_classification_level:
-            description: Risk Classification Level of the use case
-            type: integer
-        required:
-        - name
-        type: object
-      type: array
-    EvidenceResource:
-      description: ''
-      properties:
-        attributes:
-          properties:
-            control_key:
-              description: Control key
-              example: FAIR.C1
-              type: string
-            creator:
-              description: Creator
-              example:
-                family_name: John
-                given_name: Doe
-                nickname: doe
-              type: object
-            data:
-              description: value data,
-              example:
-                value: value
-              type: object
-            entity_id:
-              description: ''
-              type: string
-            generated_at:
-              description: Evidence generation time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            hash_key:
-              description: ''
-              type: string
-            inserted_at:
-              description: insert time
-              example: '2015-05-22T14:56:29.000Z'
-              type: string
-            label:
-              description: label in the evidence requirement
-              example:
-                key: value
-              type: object
-            metadata:
-              description: metadata
-              example:
-                key: value
-              type: object
-            model_id:
-              description: model_id
-              example: 4pEfRTw2RVVrouMbFH9tuH
-              type: string
-            model_version:
-              description: ''
-              type: string
-            type:
-              description: Evidence type
-              example: text
-              type: string
-            use_case_id:
-              description: use_case_id
+            id:
+              description: The JSON-API resource ID
               example: 64YUaLWSviHgibJaRWr3ZE
               type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseStakeholderUpdateRequest:
+      description: ''
+      properties:
+        data:
+          description: ''
+          properties:
+            attributes:
+              properties:
+                role:
+                  description: role
+                  enum:
+                  - owner
+                  - contributor
+                  - observer
+                  type: string
+              type: object
+            id:
+              description: The JSON-API resource ID
+              example: 64YUaLWSviHgibJaRWr3ZE
+              type: string
+            type:
+              description: The JSON-API resource type
+              example: resource-type
+              type: string
+          type: object
+      type: object
+    UseCaseImportResponse:
+      description: Import use cases response
+      properties:
+        data:
+          description: Import use cases data
+          properties:
+            details:
+              description: List of details
+              items:
+                properties:
+                  error:
+                    description: Error details
+                    example: 'code: "MISSING_ENTITY_NAME", details: "Missing use case name"'
+                    properties:
+                      code:
+                        description: Error code
+                        type: string
+                      details:
+                        description: Error details
+                        type: string
+                    type: object
+                  id:
+                    description: Use case unique identifier
+                    type: string
+                  index:
+                    description: Index of the use case in the import list
+                    example: 0
+                    type: integer
+                  name:
+                    description: Name of the use case
+                    type: string
+                  status:
+                    description: Status of the use case
+                    enum:
+                    - success
+                    - failure
+                    example: success
+                    type: string
+                type: object
+              type: array
+            status:
+              description: Status of the import
+              enum:
+              - success
+              - failure
+              - partial_success
+              example: success
+              type: string
+            summary:
+              description: Import summary
+              example: '%{total: 2, successful: 1, failed: 1}'
+              properties:
+                failed:
+                  description: Number of failed use cases
+                  type: integer
+                successful:
+                  description: Number of successfully imported use cases
+                  type: integer
+                total:
+                  description: Total number of attempted use cases to import
+                  type: integer
+              type: object
+          type: object
+      type: object
+    UseCaseVendorLinkResource:
+      description: ''
+      properties:
+        attributes:
+          properties:
+            inserted_at:
+              description: ''
+              type: string
+            use_case_id:
+              description: ''
+              type: string
+            vendor_id:
+              description: ''
+              type: string
           type: object
         id:
           description: The JSON-API resource ID
@@ -3062,57 +3145,23 @@ components:
           type: string
         relationships:
           properties:
-            asset_links:
+            vendor:
               properties:
                 data:
                   properties:
                     id:
-                      description: Related asset_links resource id
+                      description: Related vendor resource id
                       type: string
                     type:
-                      description: Type of related asset_links resource
-                      type: string
-                  type: object
-              type: object
-            model:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related model resource id
-                      type: string
-                    type:
-                      description: Type of related model resource
-                      type: string
-                  type: object
-              type: object
-            policy_pack_links:
-              properties:
-                data:
-                  properties:
-                    id:
-                      description: Related policy_pack_links resource id
-                      type: string
-                    type:
-                      description: Type of related policy_pack_links resource
+                      description: Type of related vendor resource
                       type: string
                   type: object
               type: object
           type: object
         type:
           description: The JSON-API resource type
-          example: evidences
+          example: use_case_vendor_links
           type: string
-      type: object
-    ModifyPolicyPackResource:
-      description: A PolicyPackRel
-      properties:
-        id:
-          description: policy pack id
-          type: string
-      required:
-      - id
-      title: PolicyPackRel
       type: object
   securitySchemes:
     Bearer:
