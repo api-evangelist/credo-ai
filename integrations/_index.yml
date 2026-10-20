@@ -27,3 +27,72 @@
   relationship: distribution-channel
   status: not-a-workflow
   arazzo: null
+- slug: credo-ai-pypi
+  label: PyPI
+  partner: pypi
+  partner_name: PyPI
+  category: official SDK (Python)
+  type: register
+  channel: package-registry
+  evidence: https://pypi.org/project/credoai-connect/
+  source: edge
+  relationship: distribution-channel
+  contract_reference:
+    register: PyPI (public registry JSON)
+    spec_file: null
+    language: Python
+    packages:
+    - name: credoai-connect
+      version: 0.1.3
+      released: '2023-07-10'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/credoai-connect/
+      repo_leg: github-org:credo-ai
+      publisher_leg: email:credo.ai
+      matched_by: domain
+    - name: credoai-lens
+      version: 1.1.8
+      released: '2023-05-03'
+      released_field: upload_time
+      lapsed: true
+      page: https://pypi.org/project/credoai-lens/
+      repo_leg: github-org:credo-ai
+      publisher_leg: email:credo.ai
+      matched_by: domain
+    - name: pycredoai
+      version: 1.3.0
+      released: '2026-09-30'
+      released_field: upload_time
+      lapsed: false
+      page: https://pypi.org/project/pycredoai/
+      repo_leg: domain:credo.ai
+      publisher_leg: email:credo.ai
+      matched_by: domain
+    current: true
+    signal_note: 'an official package on the registry: distribution, not an integration; lapsed = no release in
+      24 months'
+    detected_by: sweep-official-sdks.py
+    detected: '2026-10-18'
+  status: not-a-workflow
+  arazzo: null
+- slug: credo-ai-agent-skills-own-github-org
+  label: Agent Skills (own GitHub org)
+  partner_name: Agent Skills (own GitHub org)
+  category: Agent Skills package
+  type: register
+  channel: provider-built
+  evidence: https://github.com/credo-ai/credoai-plugins
+  source: edge
+  relationship: compatible
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: credo-ai
+    matched_by: org-profile-domain:credo.ai
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  status: not-a-workflow
+  arazzo: null
