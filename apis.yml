@@ -1271,6 +1271,8 @@ apis:
   humanURL: https://github.com/credo-ai/credoai-plugins
   baseURL: npx -y @credoai/governance-hub-mcp
   tags:
+  - Relationshiptypes
+  tags_raw:
   - relationship_types
   properties:
   - type: OpenAPI
