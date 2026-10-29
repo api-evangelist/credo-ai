@@ -64,5 +64,176 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Credo AI is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://forgeglobal.com/credo-ai_stock/
+Credo AI is an enterprise AI governance, risk, and compliance platform used to discover, register, risk-classify, and continuously govern every AI model, application, agent, and third-party AI vendor an organization runs. The platform pairs an AI Registry (use cases, models, vendors, agents, shadow-AI discovery) with a policy engine that turns regulatory frameworks — the EU AI Act, NIST AI RMF, ISO/IEC 42001, NYC Local Law 144, Colorado SB21-169, OMB M-25 — into machine-enforced policy packs, controls, questionnaires, risk scenarios, and audit-ready evidence artifacts. Programmatic access is delivered through a multi-tenant JSON:API REST surface at api.credo.ai (300 operations across use cases, models, vendors, questionnaires, policy packs, policy controls, risks, tasks, teams, users, triggers, and Shadow AI), a first-party Python SDK (pycredoai) and TypeScript SDK (@credo-ai/sdk), and a published Claude Code plugin marketplace of eleven AI-governance Agent Skills backed by a gated Governance Intelligence Pro MCP server.
+
+**Areas:** Company · AI Governance · ai-risk-management · Responsible AI · Compliance · RegTech · Model Registry · Vendor Risk · EU AI Act · NIST AI RMF · ISO 42001 · Shadow AI
+
+## Credo AI on APIs.io
+
+Everything profiled for Credo AI is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/credo-ai/](https://apis.io/providers/credo-ai/)** — or go straight to one of the APIs or properties below.
+
+### APIs (41)
+
+- [Credo AI Governance Intelligence Pro MCP Server](https://apis.io/apis/credo-ai/credo-ai-governance-intelligence-pro-mcp-server/) — Provider-published Model Context Protocol server ("governance-hub") distributed as the npm package @credoai/governance-hub-mcp and run over stdio via npx.…
+- [Credo AI Alerts API](https://apis.io/apis/credo-ai/credo-ai-alerts-api/) — The alerts API from Credo AI — 4 operation(s) for alerts.
+- [Credo AI Audit Logs API](https://apis.io/apis/credo-ai/credo-ai-audit-logs-api/) — The Audit Logs API from Credo AI — 4 operation(s) for audit logs.
+- [Credo AI Comment Threads API](https://apis.io/apis/credo-ai/credo-ai-comment-threads-api/) — The comment_threads API from Credo AI — 4 operation(s) for comment_threads.
+- [Credo AI Entities API](https://apis.io/apis/credo-ai/credo-ai-entities-api/) — The entities API from Credo AI — 1 operation(s) for entities.
+- [Credo AI Entity Control Assignments API](https://apis.io/apis/credo-ai/credo-ai-entity-control-assignments-api/) — The entity_control_assignments API from Credo AI — 1 operation(s) for entity_control_assignments.
+- [Credo AI Entity Controls API](https://apis.io/apis/credo-ai/credo-ai-entity-controls-api/) — The entity_controls API from Credo AI — 7 operation(s) for entity_controls.
+- [Credo AI Entity Evidences API](https://apis.io/apis/credo-ai/credo-ai-entity-evidences-api/) — The entity_evidences API from Credo AI — 1 operation(s) for entity_evidences.
+- [Credo AI Entity Policy Packs API](https://apis.io/apis/credo-ai/credo-ai-entity-policy-packs-api/) — The entity_policy_packs API from Credo AI — 2 operation(s) for entity_policy_packs.
+- [Credo AI Entity Risk Scenario Controls API](https://apis.io/apis/credo-ai/credo-ai-entity-risk-scenario-controls-api/) — The entity_risk_scenario_controls API from Credo AI — 3 operation(s) for entity_risk_scenario_controls.
+- [Credo AI Entity Risk Scenarios API](https://apis.io/apis/credo-ai/credo-ai-entity-risk-scenarios-api/) — The entity_risk_scenarios API from Credo AI — 2 operation(s) for entity_risk_scenarios.
+- [Credo AI Entity Section Assignments API](https://apis.io/apis/credo-ai/credo-ai-entity-section-assignments-api/) — The entity_section_assignments API from Credo AI — 1 operation(s) for entity_section_assignments.
+- [Credo AI Entity Types API](https://apis.io/apis/credo-ai/credo-ai-entity-types-api/) — The entity_types API from Credo AI — 1 operation(s) for entity_types.
+- [Credo AI Fields API](https://apis.io/apis/credo-ai/credo-ai-fields-api/) — Operations related to custom fields management
+- [Credo AI Integrations API](https://apis.io/apis/credo-ai/credo-ai-integrations-api/) — The integrations API from Credo AI — 4 operation(s) for integrations.
+- [Credo AI Models API](https://apis.io/apis/credo-ai/credo-ai-models-api/) — Operations related to models and model versions
+- [Credo AI Other API](https://apis.io/apis/credo-ai/credo-ai-other-api/) — Utility endpoints including tenant information and evidence types
+- [Credo AI Policy Controls API](https://apis.io/apis/credo-ai/credo-ai-policy-controls-api/) — Endpoints for policy controls management
+- [Credo AI Policy Packs API](https://apis.io/apis/credo-ai/credo-ai-policy-packs-api/) — Endpoints for policy packs management
+- [Credo AI Questionnaires API](https://apis.io/apis/credo-ai/credo-ai-questionnaires-api/) — Operations related to questionnaires and their versions
+- [Credo AI Risks API](https://apis.io/apis/credo-ai/credo-ai-risks-api/) — Endpoints for management of risk classifications, risk types, and risk scenarios
+- [Credo AI Shadow AI API](https://apis.io/apis/credo-ai/credo-ai-shadow-ai-api/) — The Shadow AI API from Credo AI — 6 operation(s) for shadow ai.
+- [Credo AI Sources API](https://apis.io/apis/credo-ai/credo-ai-sources-api/) — The sources API from Credo AI — 3 operation(s) for sources.
+- [Credo AI Tasks API](https://apis.io/apis/credo-ai/credo-ai-tasks-api/) — Operations related to task management
+- [Credo AI Teams API](https://apis.io/apis/credo-ai/credo-ai-teams-api/) — Operations related to team management and memberships
+- [Credo AI Triggers And Actions API](https://apis.io/apis/credo-ai/credo-ai-triggers-and-actions-api/) — Endpoints for managing triggers and actions
+- [Credo AI Use Case API](https://apis.io/apis/credo-ai/credo-ai-use-case-api/) — The use_case API from Credo AI — 1 operation(s) for use_case.
+- [Credo AI Use Case Controls API](https://apis.io/apis/credo-ai/credo-ai-use-case-controls-api/) — Operations related to controls for a specific use case
+- [Credo AI Use Case Custom Fields API](https://apis.io/apis/credo-ai/credo-ai-use-case-custom-fields-api/) — Operations related to use case custom fields
+- [Credo AI Use Case Policy Packs API](https://apis.io/apis/credo-ai/credo-ai-use-case-policy-packs-api/) — Operations related to policy packs for a specific use case
+- [Credo AI Use Case Questionnaires API](https://apis.io/apis/credo-ai/credo-ai-use-case-questionnaires-api/) — Operations related to questionnaires, questionnaire sections, and questionnaire evidence for a specific use case
+- [Credo AI Use Case Reports API](https://apis.io/apis/credo-ai/credo-ai-use-case-reports-api/) — Operations related to reports for a specific use case, including creation, retrieval, and management of attestation requests
+- [Credo AI Use Case Reviews API](https://apis.io/apis/credo-ai/credo-ai-use-case-reviews-api/) — Operations related to use case reviews, review actions, tasks and attestations
+- [Credo AI Use Case Risk Scenarios API](https://apis.io/apis/credo-ai/credo-ai-use-case-risk-scenarios-api/) — Operations related to risk scenarios for a specific use case
+- [Credo AI Use Case Scheduled Reviews API](https://apis.io/apis/credo-ai/credo-ai-use-case-scheduled-reviews-api/) — The use_case_scheduled_reviews API from Credo AI — 2 operation(s) for use_case_scheduled_reviews.
+- [Credo AI Use Cases API](https://apis.io/apis/credo-ai/credo-ai-use-cases-api/) — Operations related to use cases
+- [Credo AI User API](https://apis.io/apis/credo-ai/credo-ai-user-api/) — Endpoints related to user preferences and settings
+- [Credo AI Users API](https://apis.io/apis/credo-ai/credo-ai-users-api/) — Endpoints for user management, roles, and profiles
+- [Credo AI Vendors API](https://apis.io/apis/credo-ai/credo-ai-vendors-api/) — Operations related to vendors and their questionnaires
+- [Credo AI Workflow Stages API](https://apis.io/apis/credo-ai/credo-ai-workflow-stages-api/) — The workflow_stages API from Credo AI — 2 operation(s) for workflow_stages.
+- [Credo AI Relationship Types API](https://apis.io/apis/credo-ai/credo-ai-relationship-types-api/) — The relationship_types API from Credo AI — 2 operation(s) for relationship_types.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [governance-hub](https://apis.io/servers/credo-ai/governance-hub/)
+
+#### Collections (2)
+
+Postman and Open Collection request collections.
+
+- [Credo AI API](https://apis.io/collections/credo-ai/open-credo-ai-audit-logs-shadow-ai/)
+- [Credo AI server API](https://apis.io/collections/credo-ai/open-credo-ai-governance-platform-swagger/)
+
+#### Overlays (2)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Credo Ai Audit Logs Shadow Ai Overlay](https://apis.io/overlays/credo-ai/credo-ai-audit-logs-shadow-ai-overlay/)
+- [Credo Ai Governance Platform Overlay](https://apis.io/overlays/credo-ai/credo-ai-governance-platform-overlay/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Credo Ai Authentication](https://apis.io/security/credo-ai/credo-ai-authentication/)
+- [Credo Ai Domain Security](https://apis.io/security/credo-ai/credo-ai-domain-security/)
+- [Credo Ai Trust Center](https://apis.io/security/credo-ai/credo-ai-trust-center/)
+- [Credo Ai Vulnerability Disclosure](https://apis.io/security/credo-ai/credo-ai-vulnerability-disclosure/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Credo Ai Plans Pricing](https://apis.io/plans/credo-ai/credo-ai-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Credo Ai Rate Limits](https://apis.io/rate-limits/credo-ai/credo-ai-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Credo Ai Finops](https://apis.io/finops/credo-ai/credo-ai-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.credo.ai/)
+- [Documentation](https://docs.sdk.credo.ai/docs/intro/)
+- [Getting started](https://docs.sdk.credo.ai/docs/getting-started)
+- [API reference](https://docs.sdk.credo.ai/docs/api-reference)
+- [Sign up](https://www.credo.ai/get-started)
+- [Support](https://www.credo.ai/contact)
+- [Blog](https://www.credo.ai/resources)
+- [Security](https://www.credo.ai/legal/vulnerability-disclosure-policy)
+- [Terms of service](https://www.credo.ai/legal/terms-conditions)
+- [Privacy policy](https://www.credo.ai/legal/privacy-policy)
+- [GitHub](https://github.com/credo-ai)
+
+## API Evangelist rating
+
+**Kin Score 54.8** — strong · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 71.7 |
+| Contract quality | 51.1 |
+| Contract governance | 18.2 |
+| Operational transparency | 13.2 |
+| Developer ergonomics | 71.4 |
+| Access clarity | 60.5 |
+
+**Agent readiness 31.2** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | documented (partial credit) |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 35.3** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/credo-ai/](https://apis.io/providers/credo-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Credo AI: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/credo-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
